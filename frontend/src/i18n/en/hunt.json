@@ -1,0 +1,139 @@
+{
+  "nav": "Hunt",
+  "title": "Hunt for movers",
+  "subtitle": "Look at real SPHEREx images of one field at a time and say what changes between epochs.",
+  "privacy": "Votes are anonymous. Destello stores a random code in this browser, never a name or an account. A salted hash of the network address is kept with each vote, only to limit duplicate votes.",
+  "loading": "Loading a field",
+  "field": {
+    "heading": "Field {{n}}",
+    "reviewed": "{{n}} reviewed by you",
+    "remaining": "{{n}} left",
+    "epochs": "{{n}} epochs"
+  },
+  "empty": {
+    "title": "No fields available yet",
+    "body": "The Hunt field bank has not been built on this server. Come back later, or explore the presets in the main view."
+  },
+  "done": {
+    "title": "You have seen every field",
+    "body": "Thank you. New fields appear when the bank grows."
+  },
+  "error": {
+    "title": "Hunt is not available",
+    "body": "The server did not answer. Your votes so far are kept.",
+    "retry": "Try again"
+  },
+  "rate": {
+    "title": "Slow down for a moment",
+    "body": "Too many votes in a short time. Wait {{seconds}} seconds and try again."
+  },
+  "turnstile": {
+    "needed": "A quick check is required before more votes are accepted. Complete it and vote again."
+  },
+  "classify": {
+    "label": "Your classification",
+    "keys": "Press 1 to 5 to vote",
+    "pending": "Sending",
+    "recorded": "Vote recorded.",
+    "next": "Next field"
+  },
+  "labels": {
+    "mover": {
+      "name": "Mover",
+      "hint": "A source changes position between epochs."
+    },
+    "brightness_change": {
+      "name": "Brightness change",
+      "hint": "A source stays in place but gets brighter or fainter."
+    },
+    "artifact": {
+      "name": "Artifact",
+      "hint": "Streaks, diffraction spikes, edges, defects, or anything that is not a real source."
+    },
+    "nothing": {
+      "name": "Nothing",
+      "hint": "Stars stay put; small brightness changes shared by all stars do not count."
+    },
+    "not_sure": {
+      "name": "Not sure",
+      "hint": "You cannot tell."
+    }
+  },
+  "streak": {
+    "title": "Streaks and satellites",
+    "body": "Some pixels of this field carry the STREAK flag: a satellite or another bright track crossed the image. A straight line that appears in one epoch only is an artifact, not a mover. Real movers are compact and shift a little between epochs. An asteroid crosses the field in hours and may appear as faint dots in one epoch only."
+  },
+  "mark": {
+    "hint": "Optional: click the image to mark where the change is. Press X to remove the mark.",
+    "set": "Mark at RA {{ra}}, Dec {{dec}}",
+    "clear": "Remove mark"
+  },
+  "tools": {
+    "label": "View",
+    "blink": "Blink",
+    "diff": "Difference",
+    "diffNeedsTwo": "Difference needs at least two epochs.",
+    "contrast": "Contrast",
+    "zoom": "Zoom",
+    "zoomValue": "{{z}}x",
+    "reset": "Reset view",
+    "keys": "Left and right arrows step the epochs. Space plays or pauses. B blink, D difference, Z zoom, plus and minus change speed."
+  },
+  "gold": {
+    "title": "Check field",
+    "right": "Correct. Your answer matches the known answer.",
+    "wrong": "The known answer for this field was: {{answer}}.",
+    "answer": "Known answer: {{answer}}",
+    "why": "Check fields have a known answer and help weigh votes. They are mixed in without notice.",
+    "continue": "Continue"
+  },
+  "counters": {
+    "title": "Community so far",
+    "fieldsReviewed": "Fields reviewed",
+    "classifications": "Classifications",
+    "goldAccuracy": "Accuracy on check fields",
+    "countries": "Countries",
+    "none": "none yet",
+    "open": "Open Hunt",
+    "note": "Counts are totals only. They never identify a person."
+  },
+  "tutorial": {
+    "title": "How Hunt works",
+    "count": "Step {{n}} of {{total}}",
+    "next": "Next",
+    "back": "Back",
+    "skip": "Skip",
+    "finish": "Start",
+    "replay": "Tutorial",
+    "steps": {
+      "look": {
+        "title": "Look at one field",
+        "body": "Each field shows the same patch of sky as imaged by SPHEREx at different times. The player blinks between epochs. Most stars stay in place. A nearby star can shift by about one pixel; in Difference it shows as a light and dark pair."
+      },
+      "controls": {
+        "title": "Use the keyboard",
+        "body": "Step through the epochs with the arrow keys, or press Space to play. Switch to Difference to see only what changed. Zoom and contrast apply to every epoch equally."
+      },
+      "classify": {
+        "title": "Classify what you see",
+        "body": "Choose one of five answers, or press 1 to 5. Artifact includes satellite streaks and other defects. Nothing and Not sure are valid answers. Optionally click the image to mark the position."
+      },
+      "trust": {
+        "title": "What your vote means",
+        "body": "Some fields have a known answer and are shown to you after you vote. Agreement among volunteers is only a candidate for review. It is never a discovery."
+      }
+    }
+  },
+  "consensus": "volunteer consensus, unconfirmed",
+  "candidates": {
+    "title": "Candidates from volunteers",
+    "note": "A candidate is an agreement between volunteers, not a confirmed detection. Each one is a field to review. It means agreement among weighted volunteers, not a statistical detection. A volunteer counts only after answering at least 2 check fields. At most 2 volunteers from the same network address count for each field.",
+    "empty": "No candidates yet.",
+    "field": "Field",
+    "label": "Top answer",
+    "votes": "Votes",
+    "share": "Share",
+    "open": "Open in the explorer",
+    "openField": "Open in the explorer: field {{n}}"
+  }
+}

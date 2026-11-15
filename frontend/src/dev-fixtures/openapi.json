@@ -1,0 +1,3627 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Destello API",
+    "version": "0.3.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "tags": ["meta"],
+        "summary": "Health",
+        "description": "Liveness plus the IRSA availability (cached for 60 seconds).",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/releases": {
+      "get": {
+        "tags": ["meta"],
+        "summary": "Releases",
+        "description": "SPHEREx collections with DOI and the latest data date known to IRSA.\n\nReads the release metadata that the check_releases cron job keeps in Redis; on a miss it asks\nIRSA (waiting at most 3 s, the query keeps filling the cache in the background).",
+        "operationId": "releases_api_v1_releases_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReleasesOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/targets": {
+      "get": {
+        "tags": ["meta"],
+        "summary": "Targets",
+        "description": "The five presets. `sequence_id` is set only when the sequence is already built, and\n`result` only when a measured value exists in validation.json.",
+        "operationId": "targets_api_v1_targets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/TargetOut"
+                  },
+                  "type": "array",
+                  "title": "Response Targets Api V1 Targets Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/validation": {
+      "get": {
+        "tags": ["meta"],
+        "summary": "Validation",
+        "description": "The published validation report (data/validation.json); 404 until a run is published.",
+        "operationId": "validation_api_v1_validation_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Validation Api V1 Validation Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/resolve": {
+      "get": {
+        "tags": ["meta"],
+        "summary": "Resolve",
+        "description": "Resolve an object name: preset names and aliases first, then SIMBAD (cached 7 days),\nthen the Sesame mirror, then the IRSA resolver when SIMBAD fails.",
+        "operationId": "resolve_api_v1_resolve_get",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResolveOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences": {
+      "post": {
+        "tags": ["sequences"],
+        "summary": "Create Sequence",
+        "description": "Return the ready manifest (200) or enqueue a build, deduplicated by sequence id (202).",
+        "operationId": "create_sequence_api_v1_sequences_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SequenceCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SequenceReady",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/SequenceReady"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SequenceQueued"
+                    }
+                  ],
+                  "title": "Response Create Sequence Api V1 Sequences Post"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SequenceQueued"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences/estimate": {
+      "get": {
+        "tags": ["sequences"],
+        "summary": "Estimate",
+        "description": "Estimated images, download size and build time for a position (not a quote).",
+        "operationId": "estimate_api_v1_sequences_estimate_get",
+        "parameters": [
+          {
+            "name": "ra_deg",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMaximum": 360,
+              "title": "Ra Deg"
+            }
+          },
+          {
+            "name": "dec_deg",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 90,
+              "minimum": -90,
+              "title": "Dec Deg"
+            }
+          },
+          {
+            "name": "fov_arcmin",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 30,
+              "minimum": 2,
+              "title": "Fov Arcmin"
+            }
+          },
+          {
+            "name": "release",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 32
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Release"
+            }
+          },
+          {
+            "name": "include_partial",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Partial"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstimateOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences/{sid}": {
+      "get": {
+        "tags": ["sequences"],
+        "summary": "Get Sequence",
+        "operationId": "get_sequence_api_v1_sequences__sid__get",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 16,
+              "title": "Sid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SequenceStatusOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences/{sid}/manifest": {
+      "get": {
+        "tags": ["sequences"],
+        "summary": "Get Manifest",
+        "description": "The final manifest, or while the build runs the partial manifest of the detectors that are\nalready viewable. Both carry a `build` block; the partial one is never cached.",
+        "operationId": "get_manifest_api_v1_sequences__sid__manifest_get",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 16,
+              "title": "Sid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences/{sid}/events": {
+      "get": {
+        "tags": ["sequences"],
+        "summary": "Events",
+        "description": "Server-Sent Events relayed from Redis pub/sub, with a 15 second heartbeat, at most three\nopen streams per client and a server side timeout.",
+        "operationId": "events_api_v1_sequences__sid__events_get",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 16,
+              "title": "Sid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences/{sid}/notebook": {
+      "get": {
+        "tags": ["sequences"],
+        "summary": "Get Notebook",
+        "description": "A Jupyter notebook (nbformat 4) that reproduces the sequence from its manifest with\nastroquery and astropy. It is generated from the stored manifest only; the notebook, not this\nserver, downloads the data when it is run.",
+        "operationId": "get_notebook_api_v1_sequences__sid__notebook_get",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 16,
+              "title": "Sid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Jupyter notebook",
+            "content": {
+              "application/x-ipynb+json": {}
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences/{sid}/overlays/{catalog}": {
+      "get": {
+        "tags": ["derived"],
+        "summary": "Overlays",
+        "description": "Catalog sources propagated to the mid time of each epoch, in frame pixel EDGE coordinates\n(pixel center at i + 0.5, y down from the top edge of the north up image).",
+        "operationId": "overlays_api_v1_sequences__sid__overlays__catalog__get",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 16,
+              "title": "Sid"
+            }
+          },
+          {
+            "name": "catalog",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": ["gaia_dr3", "catwise2020"],
+              "type": "string",
+              "title": "Catalog"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OverlayOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences/{sid}/difference": {
+      "get": {
+        "tags": ["derived"],
+        "summary": "Difference Image",
+        "description": "D = A - s B with a robust field-star scale s, as a diverging RGBA WebP (detector 0 is the\nbroadband coadd). `a` and `b` are 0-based epoch indices. Computed once, then cached.",
+        "operationId": "difference_image_api_v1_sequences__sid__difference_get",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 16,
+              "title": "Sid"
+            }
+          },
+          {
+            "name": "a",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 64,
+              "minimum": 0,
+              "title": "A"
+            }
+          },
+          {
+            "name": "b",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 64,
+              "minimum": 0,
+              "title": "B"
+            }
+          },
+          {
+            "name": "detector",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 6,
+              "minimum": 0,
+              "default": 0,
+              "title": "Detector"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DifferenceOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences/{sid}/candidates": {
+      "get": {
+        "tags": ["derived"],
+        "summary": "Candidates",
+        "description": "F-29: places where epochs `a` and `b` (0-based) differ by 5 sigma or more in the detector\ncoadds: dipoles, and unpaired changes seen by two or more detectors, each compared with\nGaia DR3 and CatWISE2020 propagated to the epoch. Positions also in frame pixel EDGE\ncoordinates. A listed entry is a candidate to review, not a detection of a new object.",
+        "operationId": "candidates_api_v1_sequences__sid__candidates_get",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 16,
+              "title": "Sid"
+            }
+          },
+          {
+            "name": "a",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 64,
+              "minimum": 0,
+              "title": "A"
+            }
+          },
+          {
+            "name": "b",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 64,
+              "minimum": 0,
+              "title": "B"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CandidatesOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences/{sid}/motion-search": {
+      "get": {
+        "tags": ["derived"],
+        "summary": "Motion Search",
+        "description": "F-32: shift-and-stack search over a grid of proper motions on the detector coadds of the\nfull coverage epochs (three or more). Motions are measured from per-epoch centroids; a source\nis listed when two or more detectors agree, and is compared with Gaia DR3 and CatWISE2020\npropagated to the mean epoch. A listed source is a candidate to review, not a discovery.",
+        "operationId": "motion_search_api_v1_sequences__sid__motion_search_get",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 16,
+              "title": "Sid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MotionSearchOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences/{sid}/path": {
+      "get": {
+        "tags": ["derived"],
+        "summary": "Predicted Path",
+        "description": "F-27: apparent path of a source (catalog position at `ref_epoch`, proper motion with\nmu_alpha* = mu_alpha cos(dec), parallax) between the first and the last observation of the\nsequence, the position at each epoch mid time and the yearly parallax ellipse, in frame pixel\nEDGE coordinates. Geocentric observer (docs/03 section 4.4). Pure computation, no network.",
+        "operationId": "predicted_path_api_v1_sequences__sid__path_get",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 16,
+              "title": "Sid"
+            }
+          },
+          {
+            "name": "ra_deg",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0.0,
+              "exclusiveMaximum": 360.0,
+              "title": "Ra Deg"
+            }
+          },
+          {
+            "name": "dec_deg",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 90.0,
+              "minimum": -90.0,
+              "title": "Dec Deg"
+            }
+          },
+          {
+            "name": "pmra_masyr",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 20000.0,
+              "minimum": -20000.0,
+              "title": "Pmra Masyr"
+            }
+          },
+          {
+            "name": "pmdec_masyr",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 20000.0,
+              "minimum": -20000.0,
+              "title": "Pmdec Masyr"
+            }
+          },
+          {
+            "name": "ref_epoch",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 5,
+              "maxLength": 32,
+              "title": "Ref Epoch"
+            }
+          },
+          {
+            "name": "parallax_mas",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 1000.0,
+              "minimum": 0.0,
+              "default": 0.0,
+              "title": "Parallax Mas"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PathOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences/{sid}/spectrum": {
+      "get": {
+        "tags": ["science"],
+        "summary": "Spectrum",
+        "description": "Forced photometry on every single exposure at the position propagated to its mid time.",
+        "operationId": "spectrum_api_v1_sequences__sid__spectrum_get",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 16,
+              "title": "Sid"
+            }
+          },
+          {
+            "name": "ra_deg",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0.0,
+              "exclusiveMaximum": 360.0,
+              "title": "Ra Deg"
+            }
+          },
+          {
+            "name": "dec_deg",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 90.0,
+              "minimum": -90.0,
+              "title": "Dec Deg"
+            }
+          },
+          {
+            "name": "pmra_masyr",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "maximum": 20000.0,
+                  "minimum": -20000.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Pmra Masyr"
+            }
+          },
+          {
+            "name": "pmdec_masyr",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "maximum": 20000.0,
+                  "minimum": -20000.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Pmdec Masyr"
+            }
+          },
+          {
+            "name": "ref_epoch",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 32
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ref Epoch"
+            }
+          },
+          {
+            "name": "aperture_arcsec",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 30.0,
+              "minimum": 4.0,
+              "default": 12.0,
+              "title": "Aperture Arcsec"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Spectrum Api V1 Sequences  Sid  Spectrum Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sequences/{sid}/astrometry": {
+      "post": {
+        "tags": ["science"],
+        "summary": "Astrometry",
+        "description": "Centroids per epoch on per-detector coadds, local Gaia recalibration, motion fit.",
+        "operationId": "astrometry_api_v1_sequences__sid__astrometry_post",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 16,
+              "title": "Sid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AstrometryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Astrometry Api V1 Sequences  Sid  Astrometry Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reports/check": {
+      "post": {
+        "tags": ["reports"],
+        "summary": "Check Report",
+        "operationId": "check_report_api_v1_reports_check_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Check Report Api V1 Reports Check Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reports": {
+      "post": {
+        "tags": ["reports"],
+        "summary": "Create Report",
+        "operationId": "create_report_api_v1_reports_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reports/{name}": {
+      "get": {
+        "tags": ["reports"],
+        "summary": "Get Report",
+        "operationId": "get_report_api_v1_reports__name__get",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 15,
+              "title": "Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hunt/next": {
+      "post": {
+        "tags": ["hunt"],
+        "summary": "Next Field",
+        "operationId": "next_field_api_v1_hunt_next_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Next Field Api V1 Hunt Next Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hunt/votes": {
+      "post": {
+        "tags": ["hunt"],
+        "summary": "Submit Vote",
+        "operationId": "submit_vote_api_v1_hunt_votes_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VoteIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Submit Vote Api V1 Hunt Votes Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hunt/counters": {
+      "get": {
+        "tags": ["hunt"],
+        "summary": "Get Counters",
+        "operationId": "get_counters_api_v1_hunt_counters_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Get Counters Api V1 Hunt Counters Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hunt/candidates": {
+      "get": {
+        "tags": ["hunt"],
+        "summary": "Get Candidates",
+        "operationId": "get_candidates_api_v1_hunt_candidates_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Get Candidates Api V1 Hunt Candidates Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/client-errors": {
+      "post": {
+        "tags": ["meta"],
+        "summary": "Client Error",
+        "description": "Log one browser error. Over the limit, reports are dropped silently (still 204).",
+        "operationId": "client_error_api_v1_client_errors_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientErrorIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AstrometryRequest": {
+        "properties": {
+          "ra_deg": {
+            "type": "number",
+            "exclusiveMaximum": 360.0,
+            "minimum": 0.0,
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Dec Deg"
+          },
+          "detector": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 6.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detector"
+          },
+          "fit_parallax": {
+            "type": "boolean",
+            "title": "Fit Parallax",
+            "default": false
+          },
+          "reference": {
+            "type": "string",
+            "enum": ["literature", "gaia", "none"],
+            "title": "Reference",
+            "default": "literature"
+          },
+          "pmra_masyr": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 20000.0,
+                "minimum": -20000.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pmra Masyr"
+          },
+          "pmdec_masyr": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 20000.0,
+                "minimum": -20000.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pmdec Masyr"
+          },
+          "ref_epoch": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 32
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ref Epoch"
+          }
+        },
+        "type": "object",
+        "required": ["ra_deg", "dec_deg"],
+        "title": "AstrometryRequest"
+      },
+      "CandidateDetectorOut": {
+        "properties": {
+          "detector": {
+            "type": "integer",
+            "title": "Detector"
+          },
+          "usable": {
+            "type": "boolean",
+            "title": "Usable"
+          },
+          "n_features": {
+            "type": "integer",
+            "title": "N Features"
+          },
+          "n_extended": {
+            "type": "integer",
+            "title": "N Extended"
+          },
+          "residual_fraction": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Residual Fraction"
+          },
+          "registration_applied": {
+            "type": "boolean",
+            "title": "Registration Applied"
+          },
+          "n_stars_used": {
+            "type": "integer",
+            "title": "N Stars Used"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "detector",
+          "usable",
+          "n_features",
+          "n_extended",
+          "registration_applied",
+          "n_stars_used"
+        ],
+        "title": "CandidateDetectorOut"
+      },
+      "CandidateMatchOut": {
+        "properties": {
+          "catalog": {
+            "type": "string",
+            "title": "Catalog"
+          },
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "sep_arcsec": {
+            "type": "number",
+            "title": "Sep Arcsec"
+          },
+          "mag": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mag"
+          },
+          "mag_band": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mag Band"
+          },
+          "pm_total_masyr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pm Total Masyr"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["catalog", "source_id", "sep_arcsec"],
+        "title": "CandidateMatchOut"
+      },
+      "CandidateOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["moved", "brighter_in_a", "brighter_in_b"],
+            "title": "Kind"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["unmatched", "unchecked", "target", "known_source", "not_measurable"],
+            "title": "Status"
+          },
+          "snr": {
+            "type": "number",
+            "title": "Snr"
+          },
+          "snr_local": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Snr Local"
+          },
+          "detectors": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Detectors"
+          },
+          "snr_by_detector": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Snr By Detector"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          },
+          "x": {
+            "type": "number",
+            "title": "X"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y"
+          },
+          "a": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CandidatePointOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "b": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CandidatePointOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "separation_arcsec": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Separation Arcsec"
+          },
+          "match": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CandidateMatchOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "status",
+          "snr",
+          "detectors",
+          "snr_by_detector",
+          "ra_deg",
+          "dec_deg",
+          "x",
+          "y"
+        ],
+        "title": "CandidateOut"
+      },
+      "CandidatePointOut": {
+        "properties": {
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          },
+          "x": {
+            "type": "number",
+            "title": "X"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["ra_deg", "dec_deg", "x", "y"],
+        "title": "CandidatePointOut"
+      },
+      "CandidatesOut": {
+        "properties": {
+          "sequence_id": {
+            "type": "string",
+            "title": "Sequence Id"
+          },
+          "epoch_a": {
+            "type": "integer",
+            "title": "Epoch A"
+          },
+          "epoch_b": {
+            "type": "integer",
+            "title": "Epoch B"
+          },
+          "threshold_sigma": {
+            "type": "number",
+            "title": "Threshold Sigma"
+          },
+          "pair_max_arcsec": {
+            "type": "number",
+            "title": "Pair Max Arcsec"
+          },
+          "match_radius_arcsec": {
+            "type": "number",
+            "title": "Match Radius Arcsec"
+          },
+          "min_detectors_unpaired": {
+            "type": "integer",
+            "title": "Min Detectors Unpaired"
+          },
+          "target_radius_arcsec": {
+            "type": "number",
+            "title": "Target Radius Arcsec"
+          },
+          "target_wing_radius_arcsec": {
+            "type": "number",
+            "title": "Target Wing Radius Arcsec"
+          },
+          "method_version": {
+            "type": "string",
+            "title": "Method Version"
+          },
+          "detectors": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateDetectorOut"
+            },
+            "type": "array",
+            "title": "Detectors"
+          },
+          "catalogs": {
+            "additionalProperties": {
+              "type": "string",
+              "enum": ["ok", "unavailable"]
+            },
+            "type": "object",
+            "title": "Catalogs"
+          },
+          "counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Counts"
+          },
+          "truncated": {
+            "type": "boolean",
+            "title": "Truncated"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateOut"
+            },
+            "type": "array",
+            "title": "Candidates"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sequence_id",
+          "epoch_a",
+          "epoch_b",
+          "threshold_sigma",
+          "pair_max_arcsec",
+          "match_radius_arcsec",
+          "min_detectors_unpaired",
+          "target_radius_arcsec",
+          "target_wing_radius_arcsec",
+          "method_version",
+          "detectors",
+          "catalogs",
+          "counts",
+          "truncated",
+          "candidates"
+        ],
+        "title": "CandidatesOut",
+        "description": "F-29: significant differences between two epochs. Never a discovery claim."
+      },
+      "CheckIn": {
+        "properties": {
+          "sequence_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{16}$",
+            "title": "Sequence Id"
+          },
+          "marks": {
+            "items": {
+              "$ref": "#/components/schemas/destello__api__routes__reports__MarkIn"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 2,
+            "title": "Marks"
+          },
+          "detector": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 6.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "string",
+                "const": "all"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detector"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["sequence_id", "marks"],
+        "title": "CheckIn"
+      },
+      "ClientErrorIn": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["error", "unhandledrejection", "boundary"],
+            "title": "Kind"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Message"
+          },
+          "stack": {
+            "type": "string",
+            "maxLength": 4000,
+            "title": "Stack",
+            "default": ""
+          },
+          "route": {
+            "type": "string",
+            "maxLength": 300,
+            "title": "Route",
+            "default": ""
+          },
+          "release": {
+            "type": "string",
+            "maxLength": 64,
+            "title": "Release",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["kind", "message"],
+        "title": "ClientErrorIn"
+      },
+      "DefaultViewOut": {
+        "properties": {
+          "fov_arcmin": {
+            "type": "number",
+            "title": "Fov Arcmin"
+          },
+          "detectors": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Detectors"
+          },
+          "det": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Det",
+            "default": "all"
+          },
+          "mode": {
+            "type": "string",
+            "title": "Mode",
+            "default": "blink"
+          },
+          "panel": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Panel"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["fov_arcmin", "detectors"],
+        "title": "DefaultViewOut"
+      },
+      "DifferenceOut": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "scale": {
+            "type": "number",
+            "title": "Scale"
+          },
+          "n_stars_used": {
+            "type": "integer",
+            "title": "N Stars Used"
+          },
+          "registration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DifferenceRegistrationOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "method_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Method Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["url", "scale", "n_stars_used"],
+        "title": "DifferenceOut"
+      },
+      "DifferenceRegistrationOut": {
+        "properties": {
+          "dx_pix": {
+            "type": "number",
+            "title": "Dx Pix"
+          },
+          "dy_pix": {
+            "type": "number",
+            "title": "Dy Pix"
+          },
+          "dx_err_pix": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dx Err Pix"
+          },
+          "dy_err_pix": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dy Err Pix"
+          },
+          "n_stars": {
+            "type": "integer",
+            "title": "N Stars"
+          },
+          "applied": {
+            "type": "boolean",
+            "title": "Applied"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["dx_pix", "dy_pix", "dx_err_pix", "dy_err_pix", "n_stars", "applied"],
+        "title": "DifferenceRegistrationOut",
+        "description": "Residual shift of epoch b relative to epoch a in grid pixels along the FITS axes of the\ncoadd (x = NAXIS1, y = NAXIS2), measured on field stars (median of centroid in a minus\ncentroid in b). b was resampled by (+dx, +dy) before the subtraction only if `applied`."
+      },
+      "EstimateOut": {
+        "properties": {
+          "images": {
+            "type": "integer",
+            "title": "Images"
+          },
+          "megabytes": {
+            "type": "integer",
+            "title": "Megabytes"
+          },
+          "seconds": {
+            "type": "integer",
+            "title": "Seconds"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["images", "megabytes", "seconds"],
+        "title": "EstimateOut"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "pipeline_version": {
+            "type": "string",
+            "title": "Pipeline Version"
+          },
+          "irsa": {
+            "type": "string",
+            "enum": ["ok", "degraded", "down"],
+            "title": "Irsa"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["status", "version", "pipeline_version", "irsa"],
+        "title": "HealthResponse"
+      },
+      "MotionDetectorOut": {
+        "properties": {
+          "detector": {
+            "type": "integer",
+            "title": "Detector"
+          },
+          "usable": {
+            "type": "boolean",
+            "title": "Usable"
+          },
+          "n_epochs": {
+            "type": "integer",
+            "title": "N Epochs"
+          },
+          "n_trials": {
+            "type": "integer",
+            "title": "N Trials"
+          },
+          "step_arcsec_yr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Step Arcsec Yr"
+          },
+          "n_peaks": {
+            "type": "integer",
+            "title": "N Peaks"
+          },
+          "n_fitted": {
+            "type": "integer",
+            "title": "N Fitted"
+          },
+          "n_moving": {
+            "type": "integer",
+            "title": "N Moving"
+          },
+          "residual_fraction": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Residual Fraction"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["detector", "usable", "n_epochs", "n_trials", "n_peaks", "n_fitted", "n_moving"],
+        "title": "MotionDetectorOut"
+      },
+      "MotionMatchOut": {
+        "properties": {
+          "catalog": {
+            "type": "string",
+            "title": "Catalog"
+          },
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "sep_arcsec": {
+            "type": "number",
+            "title": "Sep Arcsec"
+          },
+          "mag": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mag"
+          },
+          "mag_band": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mag Band"
+          },
+          "pmra_masyr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pmra Masyr"
+          },
+          "pmdec_masyr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pmdec Masyr"
+          },
+          "pm_total_masyr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pm Total Masyr"
+          },
+          "agreement_sigma": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Agreement Sigma"
+          },
+          "parallax_mas": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parallax Mas"
+          },
+          "parallax_err_mas": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parallax Err Mas"
+          },
+          "parallax_agreement_sigma": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parallax Agreement Sigma"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["catalog", "source_id", "sep_arcsec"],
+        "title": "MotionMatchOut"
+      },
+      "MotionPointOut": {
+        "properties": {
+          "epoch": {
+            "type": "integer",
+            "title": "Epoch"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          },
+          "x": {
+            "type": "number",
+            "title": "X"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["epoch", "ra_deg", "dec_deg", "x", "y"],
+        "title": "MotionPointOut"
+      },
+      "MotionSearchOut": {
+        "properties": {
+          "sequence_id": {
+            "type": "string",
+            "title": "Sequence Id"
+          },
+          "method_version": {
+            "type": "string",
+            "title": "Method Version"
+          },
+          "epochs": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Epochs"
+          },
+          "baseline_years": {
+            "type": "number",
+            "title": "Baseline Years"
+          },
+          "ref_epoch_jyear": {
+            "type": "number",
+            "title": "Ref Epoch Jyear"
+          },
+          "mu_max_arcsec_yr": {
+            "type": "number",
+            "title": "Mu Max Arcsec Yr"
+          },
+          "step_arcsec_yr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Step Arcsec Yr"
+          },
+          "threshold_sigma": {
+            "type": "number",
+            "title": "Threshold Sigma"
+          },
+          "epoch_min_sigma": {
+            "type": "number",
+            "title": "Epoch Min Sigma"
+          },
+          "min_motion_sigma": {
+            "type": "number",
+            "title": "Min Motion Sigma"
+          },
+          "min_detectors": {
+            "type": "integer",
+            "title": "Min Detectors"
+          },
+          "parallax_fitted": {
+            "type": "boolean",
+            "title": "Parallax Fitted",
+            "default": false
+          },
+          "min_parallax_sigma": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Parallax Sigma"
+          },
+          "match_radius_arcsec": {
+            "type": "number",
+            "title": "Match Radius Arcsec"
+          },
+          "target_radius_arcsec": {
+            "type": "number",
+            "title": "Target Radius Arcsec"
+          },
+          "detectors": {
+            "items": {
+              "$ref": "#/components/schemas/MotionDetectorOut"
+            },
+            "type": "array",
+            "title": "Detectors"
+          },
+          "catalogs": {
+            "additionalProperties": {
+              "type": "string",
+              "enum": ["ok", "unavailable"]
+            },
+            "type": "object",
+            "title": "Catalogs"
+          },
+          "counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Counts"
+          },
+          "truncated": {
+            "type": "boolean",
+            "title": "Truncated"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/MotionSourceOut"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sequence_id",
+          "method_version",
+          "epochs",
+          "baseline_years",
+          "ref_epoch_jyear",
+          "mu_max_arcsec_yr",
+          "threshold_sigma",
+          "epoch_min_sigma",
+          "min_motion_sigma",
+          "min_detectors",
+          "match_radius_arcsec",
+          "target_radius_arcsec",
+          "detectors",
+          "catalogs",
+          "counts",
+          "truncated",
+          "sources"
+        ],
+        "title": "MotionSearchOut",
+        "description": "F-32: sources that move consistently across every measurable epoch. Never a discovery\nclaim."
+      },
+      "MotionSourceOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["unmatched", "unchecked", "target", "known_source"],
+            "title": "Status"
+          },
+          "snr": {
+            "type": "number",
+            "title": "Snr"
+          },
+          "detectors": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Detectors"
+          },
+          "snr_by_detector": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Snr By Detector"
+          },
+          "pmra_masyr": {
+            "type": "number",
+            "title": "Pmra Masyr"
+          },
+          "pmdec_masyr": {
+            "type": "number",
+            "title": "Pmdec Masyr"
+          },
+          "pmra_err_masyr": {
+            "type": "number",
+            "title": "Pmra Err Masyr"
+          },
+          "pmdec_err_masyr": {
+            "type": "number",
+            "title": "Pmdec Err Masyr"
+          },
+          "pm_total_masyr": {
+            "type": "number",
+            "title": "Pm Total Masyr"
+          },
+          "parallax_mas": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parallax Mas"
+          },
+          "parallax_err_mas": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parallax Err Mas"
+          },
+          "parallax_sigma": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parallax Sigma"
+          },
+          "distance_pc": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Distance Pc"
+          },
+          "distance_err_pc": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Distance Err Pc"
+          },
+          "ref_epoch_jyear": {
+            "type": "number",
+            "title": "Ref Epoch Jyear"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          },
+          "x": {
+            "type": "number",
+            "title": "X"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y"
+          },
+          "track": {
+            "items": {
+              "$ref": "#/components/schemas/MotionPointOut"
+            },
+            "type": "array",
+            "title": "Track"
+          },
+          "match": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MotionMatchOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "snr",
+          "detectors",
+          "snr_by_detector",
+          "pmra_masyr",
+          "pmdec_masyr",
+          "pmra_err_masyr",
+          "pmdec_err_masyr",
+          "pm_total_masyr",
+          "ref_epoch_jyear",
+          "ra_deg",
+          "dec_deg",
+          "x",
+          "y",
+          "track"
+        ],
+        "title": "MotionSourceOut"
+      },
+      "OverlayEpochOut": {
+        "properties": {
+          "index": {
+            "type": "integer",
+            "title": "Index"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/OverlaySourceOut"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["index", "sources"],
+        "title": "OverlayEpochOut"
+      },
+      "OverlayOut": {
+        "properties": {
+          "catalog": {
+            "type": "string",
+            "enum": ["gaia_dr3", "catwise2020"],
+            "title": "Catalog"
+          },
+          "archive": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archive"
+          },
+          "epochs": {
+            "items": {
+              "$ref": "#/components/schemas/OverlayEpochOut"
+            },
+            "type": "array",
+            "title": "Epochs"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["catalog", "epochs"],
+        "title": "OverlayOut"
+      },
+      "OverlaySourceOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "x": {
+            "type": "number",
+            "title": "X"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y"
+          },
+          "mag": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mag"
+          },
+          "pmra_masyr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pmra Masyr"
+          },
+          "pmdec_masyr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pmdec Masyr"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["id", "x", "y"],
+        "title": "OverlaySourceOut"
+      },
+      "PathEllipseOut": {
+        "properties": {
+          "center_t_mjd": {
+            "type": "number",
+            "title": "Center T Mjd"
+          },
+          "center_x": {
+            "type": "number",
+            "title": "Center X"
+          },
+          "center_y": {
+            "type": "number",
+            "title": "Center Y"
+          },
+          "semi_major_arcsec": {
+            "type": "number",
+            "title": "Semi Major Arcsec"
+          },
+          "semi_minor_arcsec": {
+            "type": "number",
+            "title": "Semi Minor Arcsec"
+          },
+          "points": {
+            "items": {
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array",
+              "maxItems": 2,
+              "minItems": 2
+            },
+            "type": "array",
+            "title": "Points"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "center_t_mjd",
+          "center_x",
+          "center_y",
+          "semi_major_arcsec",
+          "semi_minor_arcsec",
+          "points"
+        ],
+        "title": "PathEllipseOut",
+        "description": "Yearly parallax loop around the barycentric position at `center_t_mjd` (frame pixels)."
+      },
+      "PathEpochOut": {
+        "properties": {
+          "t_mjd": {
+            "type": "number",
+            "title": "T Mjd"
+          },
+          "x": {
+            "type": "number",
+            "title": "X"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          },
+          "index": {
+            "type": "integer",
+            "title": "Index"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["t_mjd", "x", "y", "ra_deg", "dec_deg", "index"],
+        "title": "PathEpochOut"
+      },
+      "PathOut": {
+        "properties": {
+          "sequence_id": {
+            "type": "string",
+            "title": "Sequence Id"
+          },
+          "ref_epoch": {
+            "type": "string",
+            "title": "Ref Epoch"
+          },
+          "pmra_masyr": {
+            "type": "number",
+            "title": "Pmra Masyr"
+          },
+          "pmdec_masyr": {
+            "type": "number",
+            "title": "Pmdec Masyr"
+          },
+          "parallax_mas": {
+            "type": "number",
+            "title": "Parallax Mas"
+          },
+          "observer": {
+            "type": "string",
+            "const": "geocentric",
+            "title": "Observer",
+            "default": "geocentric"
+          },
+          "t_start_mjd": {
+            "type": "number",
+            "title": "T Start Mjd"
+          },
+          "t_end_mjd": {
+            "type": "number",
+            "title": "T End Mjd"
+          },
+          "pixel_scale_arcsec": {
+            "type": "number",
+            "title": "Pixel Scale Arcsec"
+          },
+          "path": {
+            "items": {
+              "$ref": "#/components/schemas/PathPointOut"
+            },
+            "type": "array",
+            "title": "Path"
+          },
+          "epochs": {
+            "items": {
+              "$ref": "#/components/schemas/PathEpochOut"
+            },
+            "type": "array",
+            "title": "Epochs"
+          },
+          "ellipse": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PathEllipseOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sequence_id",
+          "ref_epoch",
+          "pmra_masyr",
+          "pmdec_masyr",
+          "parallax_mas",
+          "t_start_mjd",
+          "t_end_mjd",
+          "pixel_scale_arcsec",
+          "path",
+          "epochs"
+        ],
+        "title": "PathOut",
+        "description": "F-27 predicted path of a source with known motion over the sequence span (docs/06)."
+      },
+      "PathPointOut": {
+        "properties": {
+          "t_mjd": {
+            "type": "number",
+            "title": "T Mjd"
+          },
+          "x": {
+            "type": "number",
+            "title": "X"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["t_mjd", "x", "y", "ra_deg", "dec_deg"],
+        "title": "PathPointOut",
+        "description": "One sample of the predicted path, in frame pixel EDGE coordinates (as overlays) and ICRS."
+      },
+      "PropagatedOut": {
+        "properties": {
+          "epoch": {
+            "type": "string",
+            "title": "Epoch"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["epoch", "ra_deg", "dec_deg"],
+        "title": "PropagatedOut"
+      },
+      "ReleaseOut": {
+        "properties": {
+          "collection": {
+            "type": "string",
+            "title": "Collection"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "doi": {
+            "type": "string",
+            "title": "Doi"
+          },
+          "data_as_of": {
+            "type": "string",
+            "title": "Data As Of"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["collection", "label", "doi", "data_as_of"],
+        "title": "ReleaseOut"
+      },
+      "ReleasesOut": {
+        "properties": {
+          "default": {
+            "type": "string",
+            "title": "Default"
+          },
+          "releases": {
+            "items": {
+              "$ref": "#/components/schemas/ReleaseOut"
+            },
+            "type": "array",
+            "title": "Releases"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["default", "releases"],
+        "title": "ReleasesOut"
+      },
+      "ReportIn": {
+        "properties": {
+          "sequence_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{16}$",
+            "title": "Sequence Id"
+          },
+          "marks": {
+            "items": {
+              "$ref": "#/components/schemas/destello__api__routes__reports__MarkIn"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 2,
+            "title": "Marks"
+          },
+          "detector": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 6.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "string",
+                "const": "all"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detector"
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 4000,
+            "title": "Notes",
+            "default": ""
+          },
+          "contact": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 254
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact"
+          },
+          "turnstile_token": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2048
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Turnstile Token"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["sequence_id", "marks"],
+        "title": "ReportIn"
+      },
+      "ResolveOut": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "Query"
+          },
+          "main_id": {
+            "type": "string",
+            "title": "Main Id"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          },
+          "ref_epoch": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ref Epoch"
+          },
+          "pmra_masyr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pmra Masyr"
+          },
+          "pmdec_masyr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pmdec Masyr"
+          },
+          "parallax_mas": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parallax Mas"
+          },
+          "propagated": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PropagatedOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "resolver": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resolver"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "query",
+          "main_id",
+          "ra_deg",
+          "dec_deg",
+          "ref_epoch",
+          "pmra_masyr",
+          "pmdec_masyr",
+          "parallax_mas"
+        ],
+        "title": "ResolveOut"
+      },
+      "SequenceCreate": {
+        "properties": {
+          "ra_deg": {
+            "type": "number",
+            "exclusiveMaximum": 360.0,
+            "minimum": 0.0,
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Dec Deg"
+          },
+          "fov_arcmin": {
+            "type": "number",
+            "maximum": 30.0,
+            "minimum": 2.0,
+            "title": "Fov Arcmin"
+          },
+          "detectors": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 6,
+            "minItems": 1,
+            "title": "Detectors"
+          },
+          "release": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 32
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Release"
+          },
+          "track": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TrackIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "priority_detector": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 6.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority Detector"
+          },
+          "include_partial": {
+            "type": "boolean",
+            "title": "Include Partial",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["ra_deg", "dec_deg", "fov_arcmin"],
+        "title": "SequenceCreate"
+      },
+      "SequenceQueued": {
+        "properties": {
+          "sequence_id": {
+            "type": "string",
+            "title": "Sequence Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["queued", "running"],
+            "title": "Status",
+            "default": "queued"
+          },
+          "events_url": {
+            "type": "string",
+            "title": "Events Url"
+          },
+          "estimate": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EstimateOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["sequence_id", "events_url"],
+        "title": "SequenceQueued"
+      },
+      "SequenceReady": {
+        "properties": {
+          "sequence_id": {
+            "type": "string",
+            "title": "Sequence Id"
+          },
+          "status": {
+            "type": "string",
+            "const": "ready",
+            "title": "Status",
+            "default": "ready"
+          },
+          "manifest_url": {
+            "type": "string",
+            "title": "Manifest Url"
+          },
+          "refreshing": {
+            "type": "boolean",
+            "title": "Refreshing",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["sequence_id", "manifest_url"],
+        "title": "SequenceReady"
+      },
+      "SequenceStatusOut": {
+        "properties": {
+          "sequence_id": {
+            "type": "string",
+            "title": "Sequence Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["queued", "running", "ready", "failed"],
+            "title": "Status"
+          },
+          "manifest_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Manifest Url"
+          },
+          "position": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Position"
+          },
+          "events_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Events Url"
+          },
+          "detectors_ready": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detectors Ready"
+          },
+          "partial_manifest_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partial Manifest Url"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["sequence_id", "status"],
+        "title": "SequenceStatusOut"
+      },
+      "SessionIn": {
+        "properties": {
+          "session": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{16,64}$",
+            "title": "Session"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["session"],
+        "title": "SessionIn"
+      },
+      "TargetAstrometryOut": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "ref_epoch": {
+            "type": "string",
+            "title": "Ref Epoch"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          },
+          "pmra_masyr": {
+            "type": "number",
+            "title": "Pmra Masyr"
+          },
+          "pmdec_masyr": {
+            "type": "number",
+            "title": "Pmdec Masyr"
+          },
+          "parallax_mas": {
+            "type": "number",
+            "title": "Parallax Mas"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["source", "ref_epoch", "ra_deg", "dec_deg", "pmra_masyr", "pmdec_masyr", "parallax_mas"],
+        "title": "TargetAstrometryOut"
+      },
+      "TargetOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "names": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Names"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          },
+          "astrometry": {
+            "$ref": "#/components/schemas/TargetAstrometryOut"
+          },
+          "default_view": {
+            "$ref": "#/components/schemas/DefaultViewOut"
+          },
+          "notes": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Notes"
+          },
+          "sequence_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sequence Id"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TargetResultOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "not_measurable": {
+            "type": "boolean",
+            "title": "Not Measurable",
+            "default": false
+          },
+          "kind": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kind"
+          },
+          "headline": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Headline"
+          },
+          "look": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Look"
+          },
+          "caption": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "label": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Label"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["id", "names", "ra_deg", "dec_deg", "astrometry", "default_view", "notes"],
+        "title": "TargetOut"
+      },
+      "TargetResultOut": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["motion", "variability"],
+            "title": "Kind"
+          },
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "err": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Err"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          },
+          "reference_value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Value"
+          },
+          "reference_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Source"
+          },
+          "agreement_sigma": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Agreement Sigma"
+          },
+          "significance_sigma": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Significance Sigma"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["kind", "value", "unit"],
+        "title": "TargetResultOut"
+      },
+      "TrackIn": {
+        "properties": {
+          "pmra_masyr": {
+            "type": "number",
+            "maximum": 100000.0,
+            "minimum": -100000.0,
+            "title": "Pmra Masyr"
+          },
+          "pmdec_masyr": {
+            "type": "number",
+            "maximum": 100000.0,
+            "minimum": -100000.0,
+            "title": "Pmdec Masyr"
+          },
+          "parallax_mas": {
+            "type": "number",
+            "maximum": 1000.0,
+            "minimum": 0.0,
+            "title": "Parallax Mas",
+            "default": 0.0
+          },
+          "ref_epoch": {
+            "type": "string",
+            "pattern": "^(J[0-9]{4}(\\.[0-9]+)?|MJD[0-9]{4,6}(\\.[0-9]+)?)$",
+            "title": "Ref Epoch",
+            "default": "J2016.0"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["pmra_masyr", "pmdec_masyr"],
+        "title": "TrackIn"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      },
+      "VoteIn": {
+        "properties": {
+          "session": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{16,64}$",
+            "title": "Session"
+          },
+          "field_id": {
+            "type": "string",
+            "pattern": "^[a-z]{3,4}-[0-9]{2}$",
+            "title": "Field Id"
+          },
+          "label": {
+            "type": "string",
+            "enum": ["mover", "brightness_change", "artifact", "nothing", "not_sure"],
+            "title": "Label"
+          },
+          "mark": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/destello__api__routes__hunt__MarkIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "turnstile_token": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2048
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Turnstile Token"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["session", "field_id", "label"],
+        "title": "VoteIn"
+      },
+      "destello__api__routes__hunt__MarkIn": {
+        "properties": {
+          "ra_deg": {
+            "type": "number",
+            "exclusiveMaximum": 360.0,
+            "minimum": 0.0,
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Dec Deg"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["ra_deg", "dec_deg"],
+        "title": "MarkIn"
+      },
+      "destello__api__routes__reports__MarkIn": {
+        "properties": {
+          "epoch": {
+            "type": "integer",
+            "maximum": 999.0,
+            "minimum": 0.0,
+            "title": "Epoch"
+          },
+          "ra_deg": {
+            "type": "number",
+            "exclusiveMaximum": 360.0,
+            "minimum": 0.0,
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Dec Deg"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["epoch", "ra_deg", "dec_deg"],
+        "title": "MarkIn"
+      }
+    }
+  }
+}

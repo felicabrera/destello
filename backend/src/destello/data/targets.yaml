@@ -1,0 +1,156 @@
+# Test target registry (docs/08 section 5). Reference astrometry pinned from primary archives on
+# 2026-11-09 by live queries (Gaia archive TAP, IRSA TAP for CatWISE2020). See backend/data-notes.md.
+# Positions are ICRS degrees at the stated reference epoch. Always propagate before use.
+# Proper motions are mu_alpha* (including cos dec) and mu_delta in mas/yr; parallax in mas.
+# ref_epoch accepts "J2016.0" (Julian year, TDB) or "MJD<number>" (UTC).
+
+- id: barnard
+  names: {en: "Barnard's Star", es: "Estrella de Barnard"}
+  aliases: ["Barnard's Star", "Barnards Star", "Barnard's star", "Estrella de Barnard", "GJ 699", "BD+04 3561a", "V2500 Oph"]
+  simbad: "Barnard's star"
+  astrometry:
+    source: "Gaia DR3 4472832130942575872"
+    ref_epoch: "J2016.0"
+    ra_deg: 269.44850252543836
+    dec_deg: 4.739420051112412
+    pmra_masyr: -801.5509783684709
+    pmdec_masyr: 10362.394206546573
+    parallax_mas: 546.975939730948
+    pmra_err_masyr: 0.031820867
+    pmdec_err_masyr: 0.036070455
+    parallax_err_mas: 0.040116355
+    rv_kms: -110.46822
+    ruwe: 1.0848505
+  reference_motion:
+    pmra_masyr: -801.5509783684709
+    pmdec_masyr: 10362.394206546573
+    pmra_err_masyr: 0.031820867
+    pmdec_err_masyr: 0.036070455
+    source: "Gaia DR3 4472832130942575872"
+    verified: true
+  default_view: {fov_arcmin: 6, detectors: [1, 2, 3, 4, 5, 6], det: all, mode: blink}
+  validation: {measure_motion: true, mover: true, saturation_risk: true}
+  notes:
+    en: "Fastest-moving star in our sky. It is bright in the near infrared and may saturate in some detectors."
+    es: "La estrella con mayor movimiento propio del cielo. Es muy brillante en el infrarrojo cercano y puede saturar algunos detectores."
+
+- id: wise0855
+  names: {en: "WISE 0855-0714", es: "WISE 0855-0714"}
+  aliases: ["WISE 0855-0714", "WISE 0855", "WISE J085510.83-071442.5", "WISEA J085510.74-071442.5", "W0855"]
+  simbad: "WISE J085510.83-071442.5"
+  astrometry:
+    # CatWISE2020 J085507.96-071439.3, the entry matching the motion of WISE 0855 (mu about 8 arcsec/yr
+    # westward). The position is at the CatWISE2020 mean observation epoch of that source.
+    source: "CatWISE2020 J085507.96-071439.3"
+    ref_epoch: "MJD57338.571065"
+    ra_deg: 133.7831722
+    dec_deg: -7.2442516
+    pmra_masyr: -8021.20
+    pmdec_masyr: 1035.70
+    pmra_err_masyr: 89.2
+    pmdec_err_masyr: 141.2
+    # Parallax is not measured well by CatWISE for this source. The value below is the approximate
+    # literature parallax quoted in docs/03 (0.44 to 0.45 arcsec); it was NOT verified against a
+    # primary source in this environment (CDS and journals were unreachable).
+    parallax_mas: 449.0
+    parallax_err_mas: 5.0
+    parallax_verified: false
+  reference_motion:
+    # Approximate literature proper motion quoted in docs/03 and docs/08 [VERIFY]. Not verified here.
+    pmra_masyr: -8118.0
+    pmdec_masyr: 673.0
+    pmra_err_masyr: 100.0
+    pmdec_err_masyr: 100.0
+    source: "literature value from docs/03 (approximate, unverified)"
+    verified: false
+  challenge_position:
+    # Coordinates given in the challenge text, without an epoch. Comparing with CatWISE2020 and its
+    # motion implies an epoch near 2010.5 (WISE era), about 5.3 years before the CatWISE epoch.
+    ra_deg: 133.795129
+    dec_deg: -7.245147
+    implied_epoch_jyear: 2010.54
+  default_view: {fov_arcmin: 8, detectors: [5, 6], det: 6, mode: blink}
+  validation: {measure_motion: true, mover: true, faint: true}
+  notes:
+    en: "Coldest known brown dwarf. Faint at short wavelengths and detectable mainly in detectors D5 and D6. The challenge coordinates carry no epoch and must be propagated."
+    es: "La enana marrón más fría conocida. Es tenue en longitudes de onda cortas y se detecta principalmente en los detectores D5 y D6. Las coordenadas del desafío no indican época y deben propagarse."
+
+- id: epsindib
+  names: {en: "Epsilon Indi B", es: "Épsilon Indi B"}
+  aliases: ["Epsilon Indi B", "Eps Indi B", "eps Ind B", "eps Ind Ba", "eps Ind Bb", "Épsilon Indi B", "Epsilon Indi Ba/Bb"]
+  simbad: "eps Ind B"
+  astrometry:
+    # Gaia DR3 treats the unresolved pair Ba/Bb as one source (photocentre). RUWE is high because
+    # of the orbital motion of the pair.
+    source: "Gaia DR3 6412596012146801152"
+    ref_epoch: "J2016.0"
+    ra_deg: 331.07645259656397
+    dec_deg: -56.79381206688221
+    pmra_masyr: 3981.97666296105
+    pmdec_masyr: -2466.8318147663504
+    pmra_err_masyr: 0.6016568
+    pmdec_err_masyr: 0.6256827
+    parallax_mas: 270.6580324694526
+    parallax_err_mas: 0.6895573
+    ruwe: 4.2955413
+  reference_motion:
+    pmra_masyr: 3981.97666296105
+    pmdec_masyr: -2466.8318147663504
+    pmra_err_masyr: 0.6016568
+    pmdec_err_masyr: 0.6256827
+    source: "Gaia DR3 6412596012146801152"
+    verified: true
+  default_view: {fov_arcmin: 10, detectors: [1, 2, 3, 4, 5, 6], det: all, mode: blink}
+  validation: {measure_motion: true, mover: true, unresolved_pair: true, scattered_light_risk: true}
+  notes:
+    en: "Two brown dwarfs (Ba and Bb) separated by less than 1 arcsec: SPHEREx pixels are about 6.2 arcsec, so the pair is unresolved. Epsilon Indi A is bright and about 400 arcsec away."
+    es: "Dos enanas marrones (Ba y Bb) separadas por menos de 1 segundo de arco: los píxeles de SPHEREx miden unos 6,2 segundos de arco, por lo que el par no se resuelve. Épsilon Indi A es brillante y está a unos 400 segundos de arco."
+
+- id: rwaur
+  names: {en: "RW Aurigae", es: "RW Aurigae"}
+  aliases: ["RW Aurigae", "RW Aur", "RW Aur A", "V* RW Aur"]
+  simbad: "V* RW Aur"
+  astrometry:
+    # Gaia DR3 lists the A and B components separately; A is the brighter of the pair. The companion
+    # is about 1.5 arcsec away and unresolved by SPHEREx.
+    source: "Gaia DR3 156430822114424576"
+    ref_epoch: "J2016.0"
+    ra_deg: 76.95608119552952
+    dec_deg: 30.401204589097233
+    pmra_masyr: 2.6406431770317083
+    pmdec_masyr: -27.397582540455325
+    pmra_err_masyr: 0.048948765
+    pmdec_err_masyr: 0.03592746
+    parallax_mas: 6.406249329219477
+    parallax_err_mas: 0.04412279
+    rv_kms: -20.937069
+    ruwe: 1.5003728
+  default_view: {fov_arcmin: 4, detectors: [1, 2, 3, 4, 5, 6], det: all, mode: blink, panel: spectrum}
+  validation: {variability: true}
+  notes:
+    en: "Young star with known dimming events. Its companion at about 1.5 arcsec is blended in the SPHEREx pixels."
+    es: "Estrella joven con eventos de atenuación conocidos. Su compañera, a unos 1,5 segundos de arco, está mezclada en los píxeles de SPHEREx."
+
+- id: rdra
+  names: {en: "R Draconis", es: "R Draconis"}
+  aliases: ["R Draconis", "R Dra", "V* R Dra"]
+  simbad: "V* R Dra"
+  astrometry:
+    source: "Gaia DR3 1648328016354496384"
+    ref_epoch: "J2016.0"
+    ra_deg: 248.1673783672889
+    dec_deg: 66.75500674547219
+    pmra_masyr: -20.642811719160797
+    pmdec_masyr: 6.148818852711324
+    pmra_err_masyr: 0.08512829
+    pmdec_err_masyr: 0.091321476
+    parallax_mas: 1.2509180143740992
+    parallax_err_mas: 0.0647879
+    ruwe: 1.297982
+  default_view: {fov_arcmin: 4, detectors: [1, 2, 3, 4, 5, 6], det: all, mode: blink, panel: spectrum}
+  validation: {variability: true, saturation_risk: true}
+  notes:
+    en: "Mira variable with a period of about 245 days: its infrared brightness and spectrum change with phase. It is bright, so check for saturation."
+    es: "Variable tipo Mira con un período de unos 245 días: su brillo y espectro infrarrojos cambian con la fase. Es muy brillante, por lo que conviene revisar la saturación."
+
+# Preset copy (text only, EN and ES). Numbers are never taken from the design placeholders.

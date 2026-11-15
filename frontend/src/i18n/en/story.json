@@ -1,0 +1,91 @@
+{
+  "nav": "Story",
+  "kicker": "Story",
+  "title": "From Pluto to Planet X",
+  "lead": "A short tour of how astronomers find things that move, from two photographic plates to the infrared sky of SPHEREx.",
+  "keys": "Keys: N next chapter, P previous chapter, 1 to 7 jump to a chapter. The buttons below do the same.",
+  "reduced": "Reduced motion is on: nothing plays by itself and the page scrolls without animation.",
+  "navLabel": "Story chapters",
+  "prev": "Previous",
+  "next": "Next",
+  "counter": "Chapter {{n}} of {{total}}",
+  "chapterLabel": "Chapter {{n}}",
+  "embedWaiting": "The interactive view loads when you get close to this chapter.",
+  "openInDestello": "Open this view in Destello",
+  "huntCta": "Start the hunt",
+  "learnCta": "Measure it yourself",
+  "ch1": {
+    "title": "1930: Pluto, found by blinking",
+    "body": [
+      "In 1930 Clyde Tombaugh, working at Lowell Observatory, photographed the same patch of sky on different nights. He then compared the plates in a blink comparator, an instrument that flips quickly between two images.",
+      "Stars stay where they are. A planet in the outer solar system shifts a little between the nights, so it appears to jump back and forth. That jump gave away Pluto.",
+      "This chapter has no images of the plates: their reuse terms are not verified for this project."
+    ]
+  },
+  "ch2": {
+    "title": "WISE and the volunteers who blinked",
+    "body": [
+      "NASA's WISE telescope surveyed the whole sky in the infrared and returned to many places more than once. Cold, nearby brown dwarfs are faint at visible wavelengths but show up in the infrared, and because they are close they move across the sky.",
+      "The Backyard Worlds citizen science project asked volunteers to blink WISE images and flag anything that moved. Volunteers used a web tool called WiseView and discovered brown dwarfs that automated searches had missed.",
+      "Destello uses the same idea on a different telescope. It does not include any image or data from WiseView."
+    ]
+  },
+  "ch3": {
+    "title": "SPHEREx and its 102 colors",
+    "body": [
+      "SPHEREx is a NASA mission that maps the whole sky in 102 spectral channels, according to the mission. Each image is one small slice of color, so the full set of images for a position forms a spectrum.",
+      "The view below shows the Spectrum panel for R Draconis, built by Destello from real SPHEREx images at this position. Use it to see how brightness changes with wavelength."
+    ],
+    "embedTitle": "Spectrum panel for R Draconis"
+  },
+  "ch4": {
+    "title": "Barnard's Star, on the move",
+    "body": [
+      "Barnard's Star is a nearby red dwarf with the largest proper motion of any known star. Its motion is slow for a human lifetime but is visible when images taken months apart are blinked.",
+      "The player below shows real SPHEREx epochs of this star. Press play, or step through the epochs, and watch it shift against the background stars."
+    ],
+    "embedTitle": "Blink of Barnard's Star in SPHEREx epochs",
+    "fact": "The catalog proper motion served by Destello for this star is {{value}} {{unit}}.",
+    "wiseIntro": "Below, the field of another fast mover, WISE 0855, is shown on one time axis with the images of WISE, NEOWISE and SPHEREx. Every marker is a real image of the field. Select a marker, or step with the buttons, to see how the field changes from one survey to the next.",
+    "wiseTitle": "Time axis of the WISE 0855 field with WISE, NEOWISE and SPHEREx images"
+  },
+  "ch5": {
+    "title": "WISE 0855, the coldest brown dwarf, measured",
+    "body": [
+      "WISE 0855 is among the coldest known brown dwarfs and one of the Sun's nearest neighbors. It is very faint, and it was found because it moves.",
+      "Destello measures its position in each SPHEREx epoch and fits the motion. The numbers below are read from the server, from the published catalog entry and from the latest validation run."
+    ],
+    "embedTitle": "Blink of WISE 0855 in SPHEREx epochs",
+    "fact": "The catalog proper motion served by Destello for this object is {{value}} {{unit}}.",
+    "measured": "Measured proper motion in right ascension (validation V-03): {{value}}.",
+    "reference": "Published value: {{value}}. Source: {{source}}.",
+    "sourceUnknown": "not stated"
+  },
+  "ch6": {
+    "variable": {
+      "title": "Stars that change, not only move",
+      "body": [
+        "Not everything that differs between two epochs has moved. Some stars change brightness, and the change is not the same at every wavelength.",
+        "The Spectrum panel below shows R Draconis, a variable star, with one curve per epoch. Where the curves part, the star itself has changed."
+      ],
+      "embedTitle": "Spectrum panel for R Draconis by epoch"
+    },
+    "comet": {
+      "title": "A visitor from another star",
+      "body": [
+        "Astronomers have recently watched a comet that came from outside the solar system. Such an object moves quickly and is not in the usual star catalogs.",
+        "The view below follows the comet through SPHEREx exposures, so the stars move while the comet stays at the center, and shows the spectrum Destello measured. Where a measurement cannot be made, the page says so and claims nothing."
+      ],
+      "embedTitle": "Exposures of comet 3I/ATLAS and its measured spectrum"
+    }
+  },
+  "ch7": {
+    "title": "Your turn",
+    "body": [
+      "Real SPHEREx fields are waiting. Look at each one, decide what changes between epochs, and compare your answer with other volunteers."
+    ]
+  },
+  "hero": "Read the story: from Pluto to Planet X",
+  "prevLabel": "Previous chapter",
+  "nextLabel": "Next chapter"
+}

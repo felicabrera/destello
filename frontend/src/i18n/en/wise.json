@@ -1,0 +1,74 @@
+{
+  "entry": "See 16 years of this field",
+  "title": "16 years of the sky: WISE, NEOWISE and SPHEREx",
+  "intro": "Real coadds of the same field from three phases of two missions, placed on one time axis. Select a marker, or focus the view and use the arrow keys.",
+  "region": "Long-baseline timeline",
+  "axis": "Time axis from {{start}} to {{end}}",
+  "legend": {
+    "WISE": "WISE (2010 to 2011)",
+    "NEOWISE": "NEOWISE (2013 to 2024)",
+    "SPHEREx": "SPHEREx (2025 onward)"
+  },
+  "marker": "{{mission}}, {{date}}",
+  "keys": "Arrow keys step through epochs, Home and End jump to the first and last, Space plays and pauses.",
+  "controls": {
+    "label": "Playback",
+    "play": "Play",
+    "pause": "Pause",
+    "prev": "Previous epoch",
+    "next": "Next epoch",
+    "position": "Epoch {{n}} of {{total}}",
+    "reducedMotion": "Playback is off because your system asks for reduced motion. Step with the buttons or the arrow keys."
+  },
+  "frame": {
+    "alt": "{{mission}} coadd of {{date}}",
+    "mission": "Mission",
+    "date": "Mid time (UTC)",
+    "images": "Images in the coadd",
+    "band": "Wavelength range",
+    "detector": "Detector",
+    "stretch": "Stretch ({{key}})",
+    "stretchValue": "{{method}}, {{vmin}} to {{vmax}} {{unit}}",
+    "none": "No frame is available for this epoch."
+  },
+  "notice": {
+    "different": "The two missions have different pixels, bands and stretches. WISE frames share one stretch among themselves; SPHEREx frames share the stretch of their detector. Brightness is not comparable between the two missions.",
+    "spherex": "The SPHEREx frame shown is the per-detector coadd that overlaps the WISE {{band}} window ({{lo}} to {{hi}} µm) the most. It is not rebuilt from the exposures matched to that window, so its range can extend beyond the window."
+  },
+  "warning": {
+    "title": "Data notes",
+    "codes": {
+      "WISE_FRAME_LIST_PARQUET": "The WISE frame list comes from the NEOWISE-R single-exposure table, which covers December 2013 to 2024 only. The 2010 to 2011 WISE epochs are missing, and no frame quality value is available."
+    }
+  },
+  "astrometry": {
+    "title": "Proper motion over the full baseline",
+    "loading": "Reading the stored astrometry",
+    "unavailable": "No long-baseline astrometry is stored for this sequence.",
+    "failed": "The stored astrometry could not be read.",
+    "notMeasurable": "The proper motion is not measurable from the stored epochs.",
+    "measured": "Measured",
+    "reference": "Reference",
+    "referenceSource": "Reference source: {{source}}",
+    "unit": "mas/yr",
+    "pmra": "Proper motion in right ascension (times cos declination)",
+    "pmdec": "Proper motion in declination",
+    "value": "{{value}} ± {{err}} mas/yr",
+    "epochs": "Epochs used: {{wise}} WISE and NEOWISE, {{spherex}} SPHEREx",
+    "agreement": "Agreement with the reference: {{sigma}} combined sigma (status: {{status}})",
+    "spherexOnly": "SPHEREx epochs alone give errors of {{ra}} and {{dec}} mas/yr, so the long baseline reduces them by a factor of {{rar}} and {{decr}}.",
+    "referenceNote": "The reference may use WISE and NEOWISE data itself, so the two values are not fully independent.",
+    "status": {
+      "pass": "within 3 sigma",
+      "fail": "beyond 3 sigma"
+    }
+  },
+  "credit": {
+    "title": "Credits and citation",
+    "wise": "This publication makes use of data products from the Wide-field Infrared Survey Explorer, which is a joint project of the University of California, Los Angeles, and the Jet Propulsion Laboratory/California Institute of Technology, funded by the National Aeronautics and Space Administration.",
+    "neowise": "This publication also makes use of data products from NEOWISE, which is a project of the Jet Propulsion Laboratory/California Institute of Technology, funded by the Planetary Science Division of the National Aeronautics and Space Administration.",
+    "cite": "Papers to cite: Wright et al. (2010); Mainzer et al. (2011); Mainzer et al. (2014).",
+    "doi": "Data DOI: {{doi}}",
+    "distributor": "Single-exposure images are distributed by NASA/IPAC Infrared Science Archive."
+  }
+}

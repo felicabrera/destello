@@ -1,0 +1,45 @@
+# Weekly dependency updates. Minor and patch updates are grouped into one pull request per ecosystem;
+# major updates arrive one by one. Commit subjects follow the repository rule `tag: summary`.
+version: 2
+updates:
+  - package-ecosystem: uv
+    directory: /backend
+    schedule: {interval: weekly, day: monday}
+    open-pull-requests-limit: 5
+    commit-message: {prefix: chore}
+    groups:
+      python-minor-patch:
+        update-types: [minor, patch]
+  - package-ecosystem: npm
+    # Covers pnpm: Dependabot reads frontend/pnpm-lock.yaml through the npm ecosystem.
+    directory: /frontend
+    schedule: {interval: weekly, day: monday}
+    open-pull-requests-limit: 5
+    commit-message: {prefix: chore}
+    groups:
+      npm-minor-patch:
+        update-types: [minor, patch]
+  - package-ecosystem: docker
+    directory: /backend
+    schedule: {interval: weekly, day: monday}
+    open-pull-requests-limit: 3
+    commit-message: {prefix: chore}
+    groups:
+      docker-minor-patch:
+        update-types: [minor, patch]
+  - package-ecosystem: docker-compose
+    directory: /deploy
+    schedule: {interval: weekly, day: monday}
+    open-pull-requests-limit: 3
+    commit-message: {prefix: chore}
+    groups:
+      compose-minor-patch:
+        update-types: [minor, patch]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: {interval: weekly, day: monday}
+    open-pull-requests-limit: 5
+    commit-message: {prefix: ci}
+    groups:
+      actions-minor-patch:
+        update-types: [minor, patch]

@@ -1,0 +1,45 @@
+.venv/
+__pycache__/
+*.pyc
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.env
+node_modules/
+frontend/dist/
+/data/
+scratch/
+.env.*
+!.env.example
+deploy/.env
+*.pem
+*.key
+frontend/test-results/
+frontend/playwright-report/
+.playwright-mcp/
+*.tsbuildinfo
+# Stray output folder of the screenshot helpers when the output directory argument is missing
+frontend/undefined/
+undefined/
+.DS_Store
+.hypothesis/
+
+# Generated demo bundle (scripts/export_demo.py); uploaded to the server, not published here.
+/demo/
+# QA screenshots written by the e2e and screenshot runs.
+/qa/
+# Host specific operations material: runbook, reverse proxy and WAF configuration, server side scripts.
+/DEPLOY.md
+/deploy/nginx/
+/deploy/host/
+# Local work log and editor settings.
+/PROGRESS.md
+.vscode/
+.idea/
+# Local databases, logs and coverage output.
+*.sqlite
+*.sqlite-*
+*.log
+coverage/
+htmlcov/
+.coverage

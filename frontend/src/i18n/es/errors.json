@@ -1,0 +1,25 @@
+{
+  "home": "Ir a la página de inicio",
+  "retry": "Intentar de nuevo",
+  "reload": "Recargar la página",
+  "reference": "Referencia: {{ref}}",
+  "notFound": {
+    "status": "404",
+    "title": "Página no encontrada",
+    "body": "No hay nada en esta dirección. Es posible que se haya movido o que el enlace esté incompleto.",
+    "requested": "Dirección solicitada",
+    "presets": "O abra uno de los objetivos de ejemplo",
+    "docTitle": "Página no encontrada"
+  },
+  "unexpected": {
+    "status": "500",
+    "title": "Algo salió mal",
+    "body": "Algo salió mal de nuestra parte. Sus datos no se ven afectados. Intente de nuevo o vuelva a la página de inicio.",
+    "docTitle": "Error inesperado"
+  },
+  "chunk": {
+    "title": "No se pudo cargar esta página",
+    "body": "No se pudieron descargar los archivos de la página. Suele ocurrir después de una actualización o si se interrumpe la conexión. Recargue para obtener la versión más reciente.",
+    "docTitle": "No se pudo cargar la página"
+  }
+}

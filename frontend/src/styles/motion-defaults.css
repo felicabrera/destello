@@ -1,0 +1,8 @@
+/* Defaults for motion tokens as real CSS variables. Imported before tokens.css so the
+   reduced-motion override in tokens.css (0 ms) wins. */
+:root {
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}

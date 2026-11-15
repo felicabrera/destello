@@ -1,0 +1,1759 @@
+{
+  "app": {
+    "name": "Destello",
+    "skip": "Ir al contenido",
+    "nav": {
+      "science": "Ciencia",
+      "validation": "Validación",
+      "about": "Acerca de"
+    },
+    "more": "Más",
+    "menu": "Menú",
+    "language": "Idioma",
+    "footer": "Proyecto del NASA Space Apps Challenge 2026. Usa datos de SPHEREx de la NASA provistos por NASA/IPAC IRSA. No es un producto oficial de la NASA.",
+    "loading": "Cargando",
+    "close": "Cerrar",
+    "apiStatus": "Estado del servidor",
+    "apiOk": "en línea",
+    "apiDown": "sin conexión",
+    "version": "versión"
+  },
+  "hero": {
+    "title": "Observe cómo se mueve el cielo infrarrojo",
+    "subtitle": "Imágenes reales de SPHEREx (NASA), con meses de diferencia. Identifique qué cambió.",
+    "pick": "Elija un objeto"
+  },
+  "search": {
+    "label": "Buscar objeto o posición",
+    "placeholder": "Nombre del objeto o AR Dec (ej. 08h55m10.8s -07d14m42s)",
+    "button": "Buscar",
+    "parsedSexa": "Leído como sexagesimal, ICRS",
+    "parsedDec": "Leído como grados decimales, ICRS",
+    "near": "Cerca de <b>{{name}}</b> ({{separation}}). Su posición se propagará a cada época.",
+    "far": "No hay un ejemplo cerca. Presione Enter para construir una vista de 6 arcmin.",
+    "enter": "Enter",
+    "kChoose": "↑ ↓ elegir",
+    "kBuild": "Enter construir",
+    "kClose": "Esc cerrar",
+    "preset": "Ejemplo",
+    "simbad": "resuelto por SIMBAD",
+    "decRange": "Dec debe estar entre -90 y +90. Se ingresó {{value}}.",
+    "raRange": "AR debe estar entre 0 y 360 grados, o entre 0h y 24h. Se ingresó {{value}}.",
+    "minRange": "Minutos y segundos deben ser menores que 60.",
+    "keepTyping": "Continúe escribiendo: se reconocen nombres y coordenadas.",
+    "formats": "Formatos válidos:",
+    "notFound": "No se encontró \"{{query}}\"",
+    "resolverDown": "El servicio de nombres no está disponible",
+    "resolverDownSub": "No se puede acceder al resolutor de nombres en este momento, por lo que no se pudo buscar el nombre. Ingrese coordenadas, por ejemplo 08h55m10.8s -07d14m42s, o abra uno de los ejemplos.",
+    "notFoundSub": "SIMBAD no tiene un objeto con ese nombre. Pruebe un nombre de catálogo o coordenadas.",
+    "tryPreset": "O abra un ejemplo:",
+    "lookup": "Presione Enter para buscar \"{{query}}\" en SIMBAD",
+    "resolving": "Buscando",
+    "demoOff": "La búsqueda está desactivada en el modo de ejemplos",
+    "demoOffWhy": "Las vistas nuevas necesitan nuestro servidor, que no responde por ahora. Los cinco ejemplos son datos reales de SPHEREx guardados: parpadeo, diferencia, capas, espectros y mediciones funcionan.",
+    "invalidFormat": "No se pudieron leer esas coordenadas.",
+    "raLabel": "AR",
+    "propagated": "Posición propagada a {{date}}",
+    "recent": "Búsquedas recientes"
+  },
+  "presets": {
+    "label": "Ejemplos",
+    "showPresets": "Ejemplos",
+    "how": "Cómo funciona",
+    "step1": "SPHEREx fotografía todo el cielo en infrarrojo, de nuevo cada seis meses.",
+    "step2": "Destello alinea las imágenes de una región del cielo, época por época.",
+    "step3": "Obsérvelas una tras otra. Lo que salta entre cuadros se está moviendo.",
+    "result": "Resultado",
+    "lookFor": "Qué buscar",
+    "measured": "Lo que medimos",
+    "limit": "Limitaciones",
+    "open": "Abrir en el Explorador",
+    "noMeasurement": "Aún no hay una medición publicada por el servidor para este objeto.",
+    "reference": "Referencia",
+    "agrees": "Coincide",
+    "differs": "Difiere",
+    "variable": "Variable",
+    "labelMotion": "Movimiento propio total, μ",
+    "labelMag": "Cambio de magnitud entre épocas",
+    "notMeasurable": "Destello no pudo medir este objeto con los datos actuales. Las limitaciones indicadas abajo explican el motivo."
+  },
+  "notice": {
+    "propTitle": "Posición propagada a cada época.",
+    "propBody": "{{name}} está ahora {{offset}}. Catálogo: {{catalog}}.",
+    "propDate": "Fecha media de los datos: {{date}}.",
+    "propSource": "Época de la posición de referencia: {{epoch}}.",
+    "details": "Detalles",
+    "dismiss": "Descartar"
+  },
+  "player": {
+    "play": "Reproducir",
+    "pause": "Pausa",
+    "first": "Primera época",
+    "prev": "Época anterior",
+    "next": "Época siguiente",
+    "last": "Última época",
+    "speed": "Velocidad",
+    "loop": "Repetir",
+    "playback": "Reproducción",
+    "fps": "{{fps}} cuadros/s",
+    "rmTitle": "Reproducción automática desactivada",
+    "rmBody": "Su dispositivo solicita reducir el movimiento. Presione Reproducir o avance época por época.",
+    "rmPlay_one": "Reproducir {{count}} época",
+    "rmPlay_other": "Reproducir {{count}} épocas",
+    "rmPlay_many": "Reproducir {{count}} épocas",
+    "playMotionReduced": "Reproducir (movimiento reducido)",
+    "aria": "Época {{epoch}} de {{total}}, {{date}}, {{detector}}, {{band}}. {{name}} cerca del centro.",
+    "ariaNoName": "Época {{epoch}} de {{total}}, {{date}}, {{detector}}, {{band}}.",
+    "diffAlt": "Diferencia contra la época 1: naranja donde está ahora, azul donde estaba.",
+    "diffTag": "menos E1",
+    "epochLine": "E{{epoch}} de {{total}} · {{detector}} · {{band}}",
+    "flaggedLine": "Píxeles marcados {{fraction}}",
+    "diffEq": "Época {{a}} − Época {{b}}",
+    "now": "ahora",
+    "was": "antes",
+    "epoch": "Época",
+    "of": "de",
+    "img": "img",
+    "nEpochs_one": "{{count}} época",
+    "nEpochs_other": "{{count}} épocas",
+    "nEpochs_many": "{{count}} épocas",
+    "stackTag_one": "apilado de {{count}} época",
+    "stackTag_other": "apilado de {{count}} épocas",
+    "stackTag_many": "apilado de {{count}} épocas",
+    "timeline": "Línea de tiempo de épocas",
+    "timelineNode": "Época {{epoch}}: {{start}} a {{end}}, {{images}} imágenes",
+    "missingInDetector": "Sin datos en este detector",
+    "hoverReadout": "AR {{ra}} Dec {{dec}}",
+    "pixelValue": "valor {{value}}",
+    "oneArcmin": "1′",
+    "hoverMag": "mag {{mag}}",
+    "hoverPm": "mov. propio {{pmra}}, {{pmdec}} mas/año",
+    "zeroDiff": "Esta es la época de referencia",
+    "zeroDiffBody": "La diferencia de una época consigo misma es cero. Elija otra época.",
+    "diffLoading": "Calculando la diferencia",
+    "diffFailed": "No se pudo calcular la diferencia",
+    "diffScale": "Factor de escala {{scale}} con {{stars}} estrellas",
+    "diffScaleLabel": "Factor de escala",
+    "diffLegendNote": "Naranja: donde algo está ahora. Azul: donde estaba.",
+    "northUp": "Norte arriba, Este a la izquierda",
+    "preloading": "Cargando cuadros {{done}} de {{total}}",
+    "frameError": "No se pudo cargar un cuadro",
+    "canvasHelp": "Use las flechas izquierda y derecha para cambiar de época.",
+    "mjd": "MJD",
+    "to": "a",
+    "motionLabel": "{{value}}″/año {{dir}}",
+    "dir": {
+      "N": "N",
+      "NE": "NE",
+      "E": "E",
+      "SE": "SE",
+      "S": "S",
+      "SW": "SO",
+      "W": "O",
+      "NW": "NO"
+    },
+    "trackTag": "Modo seguimiento: objeto fijo, el fondo se desplaza",
+    "trackStackTag": "Apilado a lo largo de la trayectoria del objeto",
+    "trackCoords": "Imagen alineada con el objeto: las coordenadas del cielo difieren entre épocas",
+    "lowMissing": "La época {{epoch}} es una revisita breve que no observó {{detector}}. Elija otro detector para verla.",
+    "lowMissingShort": "Revisita breve sin datos en este detector",
+    "noPairTitle": "No hay nada que restar",
+    "noPairRef": "La época de referencia {{n}} no tiene datos en {{detector}}. Elija otra época de referencia.",
+    "noPairPrev": "Ninguna época anterior tiene datos en {{detector}}.",
+    "pairLow": "La época {{n}} es una época de cobertura baja."
+  },
+  "mode": {
+    "label": "Modo",
+    "blink": "Parpadeo",
+    "diff": "Diferencia",
+    "diffseq": "Dif. secuencial",
+    "stack": "Apilado",
+    "rgb": "Color",
+    "rgbWhy": "Color necesita tres detectores con datos",
+    "reference": "Época de referencia",
+    "refOption": "Época {{n}}",
+    "needsTwo": "Diferencia, Dif. secuencial y Apilado necesitan dos o más épocas.",
+    "stackNote": "Promedio de los cuadros de todas las épocas para el mismo detector.",
+    "channel": {
+      "r": "Rojo",
+      "g": "Verde",
+      "b": "Azul"
+    },
+    "rgbLegend": "Composición en color: rojo {{r}}, verde {{g}}, azul {{b}}",
+    "track": "Seguimiento",
+    "trackHint": "Recentrar cada época en la posición prevista del objeto",
+    "trackDiff": "El modo seguimiento no se aplica a las diferencias, que se calculan sobre la cuadrícula del cielo.",
+    "refOptionLow": "Época {{n}} (cobertura baja)"
+  },
+  "detector": {
+    "label": "Detector",
+    "all": "Todos",
+    "broadband": "banda ancha",
+    "allDet": "Todos los detectores",
+    "range": "{{min}} a {{max}} µm",
+    "noData": "Sin datos en este detector",
+    "noDataWhy": "Este detector no tiene un cuadro para este campo. Aun así, es posible seleccionarlo.",
+    "unknownRange": "rango por confirmar",
+    "noDataShort": "sin datos"
+  },
+  "fov": {
+    "label": "Campo de visión",
+    "arcmin": "{{value}} arcmin",
+    "estimate": "~{{images}} imágenes · {{megabytes}} MB · unos {{seconds}} s",
+    "estimateNone": "Sin estimación",
+    "fastMover": "Este objeto sale del campo antes de la última época. Pruebe {{next}} arcmin.",
+    "confirm": "Reconstruir tardará más de un minuto. Presione nuevamente para confirmar."
+  },
+  "overlays": {
+    "label": "Superposiciones",
+    "gaia": "Gaia",
+    "catwise": "CatWISE",
+    "flags": "Banderas",
+    "hiddenInDiff": "No disponible en modo diferencia",
+    "gaiaLegend": "Círculo cian: Gaia DR3",
+    "catwiseLegend": "Cuadrado violeta: CatWISE2020",
+    "flagsLegend": "Rayado de advertencia: píxeles con banderas",
+    "count": "{{count}} fuentes",
+    "loading": "Cargando capa",
+    "unavailable": "Catálogo no disponible temporalmente",
+    "retry": "Reintentar",
+    "failed": "No se pudo cargar la capa",
+    "hoverMag": "Magnitud",
+    "hoverPm": "Mov. propio",
+    "hoverAt": "Posición en esta época",
+    "flagsNone": "Los píxeles con banderas no están disponibles para este cuadro.",
+    "flagsLegendTitle": "Píxeles marcados",
+    "flagsLegendBody": "Rayado: píxeles sin datos válidos en este cuadro ({{fraction}}), enmascarados en todas las exposiciones de entrada o sin cobertura.",
+    "flagsLegendBodyNoFraction": "Rayado: píxeles sin datos válidos en este cuadro, enmascarados en todas las exposiciones de entrada o sin cobertura.",
+    "flagsLegendNames": "Banderas de enmascaramiento presentes en las entradas, leídas de los encabezados FLAGS:",
+    "flagsLegendNoNames": "Ninguna bandera de enmascaramiento estaba activa en las exposiciones de entrada de este cuadro.",
+    "flagsLegendUnknown": "Los nombres de las banderas no están registrados para esta secuencia.",
+    "path": "Trayectoria",
+    "pathLegend": "Línea púrpura rojiza: trayectoria prevista",
+    "pathOffDemo": "La trayectoria prevista necesita el servidor en vivo y no está disponible en modo demostración.",
+    "pathOffNoMotion": "La trayectoria prevista necesita un movimiento propio de catálogo y una época de referencia para el objetivo.",
+    "pathLegendTitle": "Trayectoria prevista",
+    "pathLegendBody": "Línea: posición de catálogo propagada desde {{epoch}} con su movimiento propio y el desplazamiento anual por paralaje. Rombos: posición prevista en cada época; el relleno corresponde a la época mostrada.",
+    "pathEllipse": "Elipse de paralaje: semieje mayor {{major}} segundos de arco ({{majorPx}} px), semieje menor {{minor}} segundos de arco ({{minorPx}} px).",
+    "pathEllipseInset": "El recuadro está ampliado para que sea visible; a la escala del cuadro el lazo mide menos de tres píxeles y no se dibuja sobre el cuadro.",
+    "pathEllipseOnFrame": "El recuadro está ampliado; el lazo también se dibuja sobre el cuadro a escala real con contorno discontinuo.",
+    "pathNoParallax": "Sin paralaje de catálogo: la trayectoria muestra solo el movimiento propio y no se dibuja la elipse.",
+    "pathObserver": "Calculada para un observador geocéntrico. SPHEREx está en órbita terrestre baja; la diferencia es menor que una diezmilésima del paralaje."
+  },
+  "panel": {
+    "info": "Información",
+    "spectrum": "Espectro",
+    "measure": "Medir",
+    "context": "Contexto",
+    "specEmpty": "Haga clic en una fuente del cuadro para ver su espectro en cada época.",
+    "measEmpty": "Haga clic en una fuente del cuadro para medir su posición en cada época.",
+    "ctxEmpty": "El cielo alrededor de este campo, de 2MASS y AllWISE. Se carga al abrir esta pestaña."
+  },
+  "info": {
+    "frame": "Cuadro",
+    "release": "Publicación",
+    "collection": "Colección",
+    "observed": "Observado",
+    "mid": "Tiempo medio",
+    "band": "Banda en el objetivo",
+    "nimg": "Imágenes combinadas",
+    "stretch": "Escala",
+    "stretchValue_one": "asinh, común a {{count}} época",
+    "stretchValue_other": "asinh, común a las {{count}} épocas",
+    "stretchValue_many": "asinh, común a las {{count}} épocas",
+    "unitNormalized": "unidades normalizadas",
+    "pipeline": "Procesamiento",
+    "flagged": "Píxeles marcados",
+    "flagNote": "Excluidos de la coadición. El significado de cada bit se lee del encabezado FLAGS.",
+    "normal": "normal",
+    "src": "Imágenes de origen",
+    "showAll": "Mostrar todas",
+    "hide": "Ocultar",
+    "srcSum_one": "{{count}} imagen del {{from}} al {{to}} · {{detectors}}",
+    "srcSum_other": "{{count}} imágenes del {{from}} al {{to}} · {{detectors}}",
+    "srcSum_many": "{{count}} imágenes del {{from}} al {{to}} · {{detectors}}",
+    "oneDet": "un detector",
+    "manyDet_one": "{{count}} detector",
+    "manyDet_other": "{{count}} detectores",
+    "manyDet_many": "{{count}} detectores",
+    "copyList": "Copiar lista",
+    "downloads": "Descargas",
+    "fits": "Coadición FITS",
+    "manifest": "Manifiesto JSON",
+    "allEp": "todas las épocas",
+    "doi": "DOI",
+    "cite": "Copiar cita",
+    "dataAsOf": "datos al",
+    "unit": "Unidad",
+    "detector": "Detector",
+    "epoch": "Época",
+    "kind": "Tipo",
+    "unavailable": "No disponible",
+    "copied": "Copiado",
+    "warn": {
+      "EPOCH_PARTIAL_SKIPPED": "No se usó una revisita parcial de {{count}} imágenes alrededor de MJD {{mjd}}: es demasiado pequeña para coañadir y comparar.",
+      "partialOne": "SPHEREx también observó esta posición en una fecha más, con muy pocas imágenes para formar una época comparable, por lo que no se usaron: {{item}}.",
+      "partialMany": "SPHEREx también observó esta posición en {{count}} fechas más, cada una con muy pocas imágenes para formar una época comparable, por lo que no se usaron: {{list}}.",
+      "partialItem": "{{n}} imágenes alrededor del {{date}} (MJD {{mjd}})",
+      "QUICK_RELEASE_CALIBRATION": "La calibración de la Quick Release de SPHEREx es preliminar; los flujos absolutos pueden tener errores sistemáticos.",
+      "WAVELENGTH_MIXTURE": "Cada coadición mezcla exposiciones de distintas longitudes de onda; las épocas de un mismo detector pueden diferir en el muestreo espectral.",
+      "SATURATION_RISK": "El objetivo es brillante y puede saturar algunos detectores; los píxeles marcados se excluyen de los centroides y de la fotometría.",
+      "SATURATED_CORE": "El núcleo del objetivo está saturado en {{n}} de {{total}} coadiciones (detectores {{detectors}}); los píxeles saturados se excluyen de los centroides y de la fotometría.",
+      "FAST_MOVER_NEAR_EDGE": "El objetivo en movimiento se acerca al borde del campo o lo supera en al menos una época; un campo de visión mayor lo mantiene dentro.",
+      "SINGLE_EPOCH": "Solo hay una época disponible; no es posible generar la secuencia temporal.",
+      "UNRESOLVED_PAIR": "El objetivo es un par no resuelto (separación menor que 1 arcsec; los píxeles de SPHEREx miden unos 6,2 arcsec).",
+      "EPOCH_LOW_COVERAGE": "Una revisita breve se muestra como época de cobertura baja. No se usa en las mediciones.",
+      "MOVING_TARGET": "Los cuadros siguen al objeto en movimiento: cada exposición está centrada en la posición de JPL Horizons a su propia hora media, de modo que las estrellas se mueven entre cuadros y dejan estelas en los apilados.",
+      "NO_APERTURE_CORRECTION": "El brillo de la coma es una suma en apertura sin corrección de apertura, por lo que los valores absolutos son límites inferiores del total.",
+      "NO_SPACECRAFT_POSITION": "La posición de la nave no estuvo disponible en algunas exposiciones, por lo que sus posiciones son geocéntricas, sin la corrección topocéntrica.",
+      "IMAGES_FAILED": "Algunas imágenes no se pudieron procesar y faltan en la secuencia.",
+      "lowOne": "Una revisita breve se muestra como época de cobertura baja y no se usa en las mediciones: {{item}}.",
+      "lowMany": "{{count}} revisitas breves se muestran como épocas de cobertura baja y no se usan en las mediciones: {{list}}."
+    },
+    "warnings": "Advertencias",
+    "dataNotes": "Sobre estos datos",
+    "noFrame": "Aún no hay un cuadro cargado.",
+    "sequence": "Secuencia",
+    "coverage": "Cobertura",
+    "coverageFull": "Todas las épocas son pasadas completas del relevamiento.",
+    "coverageLowBody": "Las épocas de cobertura baja son revisitas breves con pocas imágenes. Comparten la escala de intensidad de su detector y se excluyen de la astrometría, la fotometría, los espectros, los candidatos y la validación."
+  },
+  "build": {
+    "title": "Construyendo esta vista",
+    "step": "Paso {{n}} de 4",
+    "stage": {
+      "query": "Buscando imágenes",
+      "cutouts": "Descargando",
+      "coadd": "Combinando",
+      "render": "Generando cuadros",
+      "photometry": "Fotometría"
+    },
+    "queryDesc": "Consultando a NASA IRSA qué imágenes de SPHEREx cubren esta región.",
+    "cutoutsDesc": "La época 1 llega primero, por lo que se mostrará un cuadro antes.",
+    "count": "{{done}} de {{total}}",
+    "found": "Encontradas {{images}} imágenes en {{epochs}} épocas",
+    "downloading": "Descargando {{done}} de {{total}}",
+    "queued": "En cola, posición {{position}}",
+    "queuedNoPos": "En cola",
+    "eta": "Unos {{seconds}} s",
+    "epochsHeading": "Épocas",
+    "epochReady": "lista",
+    "epochPending": "cargando",
+    "playableAt": "El parpadeo empieza cuando la época 2 esté lista.",
+    "locked": "Modo, detector y capas se activan cuando la primera época esté lista.",
+    "complete": "Vista completa",
+    "announceEpoch": "Época {{n}} lista",
+    "announceDone": "La vista está completa",
+    "leaveHint": "La construcción continúa aunque se cierre esta vista. Queda listada en el encabezado, a un clic.",
+    "estimateBody": "{{images}} imágenes, {{mb}} MB, unos {{seconds}} s",
+    "statusDone": "completado",
+    "statusRunning": "en curso",
+    "statusWaiting": "en espera",
+    "statusFailed": "con error",
+    "skeleton": "Preparando el primer cuadro",
+    "foundImages": "Encontradas {{images}} imágenes",
+    "detectorsHeading": "Detectores",
+    "announceDetector": "Detector D{{n}} listo",
+    "showingDetector": "Se muestra D{{n}} mientras terminan los demás detectores.",
+    "downloadDesc": "Descargando las imágenes de SPHEREx que cubren esta zona, un detector a la vez.",
+    "combineDesc": "Combinando las imágenes de cada época en un cuadro por detector."
+  },
+  "states": {
+    "singleTitle": "Solo hay una época por ahora",
+    "singleBody": "Ver movimiento requiere dos o más épocas. {{release}} ha observado esta región una vez. SPHEREx vuelve aproximadamente cada seis meses, así que una segunda época debería llegar en una publicación posterior.",
+    "singleStill": "Sigue funcionando",
+    "singleStillBody": "Información, detectores, capas, Espectro y Contexto",
+    "singleNeeds": "Necesita dos épocas",
+    "singleNeedsBody": "Parpadeo, Diferencia, Apilado, Medir y Reportar",
+    "singleSuggest": "Pruebe un ejemplo con varias épocas:",
+    "noDataTitle": "Aún no hay imágenes de SPHEREx aquí",
+    "noDataBody": "{{release}} no tiene imágenes que cubran esta posición en un campo de {{fov}} arcmin. Posibles razones:",
+    "noDataR1": "SPHEREx aún no ha observado esta región en una época publicada.",
+    "noDataR2": "Las imágenes nuevas tardan semanas en llegar a NASA IRSA. Los datos llegan hasta {{date}}.",
+    "noDataNote": "No se descargó nada. Buscar en una región vacía no cuenta para su límite de construcciones.",
+    "noDataTry": "Pruebe un ejemplo",
+    "noDataIrsa": "Revisar la cobertura en NASA IRSA",
+    "irsaTitle": "NASA IRSA está lento en este momento.",
+    "irsaBody": "Los ejemplos y los enlaces guardados funcionan. Las vistas nuevas pueden tardar varios minutos.",
+    "irsaBadge": "IRSA degradado",
+    "irsaDownTitle": "NASA IRSA no está disponible.",
+    "irsaDownBody": "Los ejemplos y los enlaces guardados siguen funcionando. Las vistas nuevas no se pueden construir ahora.",
+    "demoBadge": "EJEMPLOS",
+    "demoBanner": "Los datos en vivo no están disponibles por el momento. Mostrando ejemplos guardados.",
+    "demoReportOff": "Los reportes necesitan el servidor en vivo.",
+    "rateTitle": "Podrás iniciar una vista nueva en {{time}}",
+    "rateBody": "Cada visitante puede iniciar 6 vistas nuevas cada 10 minutos, para que NASA IRSA siga rápido para todos. Los ejemplos y los enlaces a vistas ya construidas funcionan ahora.",
+    "rateButton": "Construir en {{time}}",
+    "errorTitle": "Se produjo un error",
+    "errorBody": "No se pudo construir esta vista. Puede reintentar o abrir un ejemplo.",
+    "errorCode": "Código de error",
+    "retry": "Reintentar",
+    "emptyTitle": "Elija un objeto o escriba una posición",
+    "emptyBody": "Los ejemplos de arriba abren datos reales de SPHEREx al instante.",
+    "emptySlot": "Los cuadros aparecerán aquí",
+    "thisPosition": "Esta posición",
+    "dataAsOf": "datos al {{date}}",
+    "refreshBadge": "Datos nuevos",
+    "refreshBanner": "La NASA publicó imágenes más recientes de SPHEREx para este campo. Esta vista se está reconstruyendo con ellas; recargue en unos minutos para ver la actualización."
+  },
+  "errors": {
+    "INVALID_COORDINATES": "Las coordenadas no son válidas.",
+    "NOT_FOUND": "No se encontró lo solicitado.",
+    "NO_COVERAGE": "SPHEREx no cubre esta posición en la publicación actual.",
+    "POSITION_OUTSIDE_FIELD": "Esta posición está fuera del campo de esta secuencia. Seleccione un punto dentro de la imagen.",
+    "RATE_LIMITED": "Demasiadas solicitudes.",
+    "IRSA_UNAVAILABLE": "NASA IRSA no está disponible.",
+    "RESOLVER_UNAVAILABLE": "El servicio de nombres no está accesible en este momento. Ingrese coordenadas o abra un ejemplo.",
+    "RESOLVE_FAILED": "No se pudo resolver el nombre.",
+    "UNKNOWN": "Error inesperado.",
+    "NETWORK": "No hay conexión con el servidor."
+  },
+  "actions": {
+    "more": "Más acciones"
+  },
+  "share": {
+    "title": "Compartir esta vista",
+    "button": "Compartir",
+    "report": "Reportar",
+    "link": "Enlace a esta vista",
+    "copyLink": "Copiar enlace",
+    "copied": "Copiado",
+    "linkNote": "Quien tenga el enlace verá esta vista.",
+    "linkDone": "Enlace copiado. Corresponde exactamente a esta vista.",
+    "embed": "Insertar en su sitio",
+    "size": "Tamaño",
+    "controls": "Controles",
+    "ctlFull": "Completos",
+    "ctlMin": "Mínimos",
+    "ctlNone": "Ninguno",
+    "theme": "Tema",
+    "dark": "Oscuro",
+    "light": "Claro",
+    "playOnLoad": "Reproducir al cargar",
+    "playOnLoadNote": "Desactivado para quienes prefieren menos movimiento.",
+    "copyCode": "Copiar código",
+    "codeDone": "Código copiado.",
+    "sizeCompact": "Compacto",
+    "sizeStandard": "Estándar",
+    "sizeLarge": "Grande",
+    "embedTitle": "Destello: {{name}} visto por SPHEREx de la NASA",
+    "buildingNote": "Esta vista todavía se está construyendo. El enlace ya apunta a ella: quien lo abra verá la misma vista, terminada o aún en curso."
+  },
+  "shortcuts": {
+    "title": "Atajos",
+    "hint": "Los atajos no funcionan mientras se escribe en un campo de texto.",
+    "playPause": "Reproducir o pausar",
+    "step": "Época anterior o siguiente",
+    "firstLast": "Primera o última época",
+    "speed": "Más rápido o más lento",
+    "detectors": "Detector D1 a D6, 0 para Todos",
+    "modes": "Parpadeo, Diferencia, Apilado, Color",
+    "overlays": "Alternar Gaia, CatWISE, Banderas",
+    "measure": "Medir en el cursor",
+    "help": "Abrir esta ayuda",
+    "track": "Modo seguimiento (objetos con movimiento conocido)"
+  },
+  "pages": {
+    "science": "Ciencia",
+    "validation": "Validación",
+    "about": "Acerca de",
+    "pending": "Esta página se completa en un bloque posterior.",
+    "back": "Volver al Explorador",
+    "ackTitle": "Reconocimientos de datos",
+    "ackIntro": "Si utiliza imágenes o números de Destello en una publicación, cite los datos originales que siguen, no a Destello.",
+    "ack": {
+      "spherex": {
+        "t": "SPHEREx e IRSA",
+        "d": "Esta publicación usa productos de datos de SPHEREx, un proyecto conjunto del Jet Propulsion Laboratory y el California Institute of Technology, financiado por la NASA. Datos del NASA/IPAC Infrared Science Archive, operado por Caltech/IPAC bajo contrato con la NASA."
+      },
+      "gaia": {
+        "t": "Gaia (ESA/Gaia/DPAC)",
+        "d": "Este trabajo usa datos de la misión Gaia de la Agencia Espacial Europea, procesados por el Gaia Data Processing and Analysis Consortium (DPAC). Los datos de Gaia DR3 se leen a través de la copia de NASA alojada en el Mikulski Archive for Space Telescopes (MAST) del STScI. El propietario de los datos es ESA/Gaia/DPAC."
+      },
+      "wise": {
+        "t": "WISE y CatWISE",
+        "d": "Usa productos de datos del Wide-field Infrared Survey Explorer, un proyecto conjunto de UCLA y JPL/Caltech, financiado por la NASA, y el catálogo CatWISE2020."
+      },
+      "cds": {
+        "t": "CDS",
+        "d": "Esta investigación usa la base de datos SIMBAD, el resolvedor de nombres Sesame, Aladin Lite y los servicios HiPS, operados en el CDS, Estrasburgo, Francia. Créditos: CDS/SIMBAD, CDS/VizieR, CDS/Aladin."
+      },
+      "jpl": {
+        "t": "JPL",
+        "d": "Los cuerpos menores conocidos se verifican con la API Small-Body Identification de JPL Solar System Dynamics."
+      },
+      "software": {
+        "t": "Software",
+        "d": "Astropy, astroquery, pyvo, photutils, reproject, FastAPI, React, Aladin Lite y Plotly. Inspirado en Backyard Worlds: Planet 9 y sus voluntarios."
+      }
+    },
+    "privTitle": "Privacidad",
+    "priv": {
+      "accounts": {
+        "t": "Sin cuentas, rastreadores ni publicidad.",
+        "d": "Puede usar todas las funciones sin iniciar sesión."
+      },
+      "ip": {
+        "t": "Nunca guardamos direcciones IP en claro.",
+        "d": "Guardamos un hash con sal para límites de uso y registros, y borramos los registros a los 30 días."
+      },
+      "hosting": {
+        "t": "Las fuentes y el código se alojan en nuestro servidor.",
+        "d": "Las imágenes del cielo del panel Contexto también se sirven a través de este sitio, desde NASA/IPAC IRSA, por lo que su navegador no contacta a ningún servidor de terceros."
+      },
+      "reports": {
+        "t": "Los reportes son públicos.",
+        "d": "El campo de contacto es opcional y nunca se publica. Para borrar un reporte, escriba a {{addr}} con su enlace.",
+        "dNoAddr": "El campo de contacto es opcional y nunca se publica. Los reportes pueden borrarse a pedido del responsable del sitio; incluya el enlace del reporte."
+      },
+      "embeds": {
+        "t": "Los reproductores insertados funcionan igual.",
+        "d": "Un reproductor insertado no usa cookies y no envía nada a la página que lo aloja, salvo los eventos documentados ready y frame."
+      }
+    }
+  },
+  "embed": {
+    "open": "Abrir en Destello"
+  },
+  "sheet": {
+    "label": "Panel",
+    "hint": "Arrastre o presione para cambiar el tamaño",
+    "state": {
+      "peek": "contraído",
+      "half": "a media altura",
+      "full": "abierto"
+    },
+    "overlaysBtn": "Capas",
+    "modeBtn": "Modo"
+  },
+  "loupe": "×8 · cuadrícula = 1 píxel de SPHEREx",
+  "pixel": "píxel",
+  "predicted": "prevista",
+  "presetCopy": {
+    "barnard": {
+      "name": "Estrella de Barnard",
+      "chip": "Estrella de Barnard",
+      "kind": "Enana roja · 6 años luz",
+      "headline": "La estrella más veloz de nuestro cielo, vista en movimiento por SPHEREx",
+      "look": "Un punto brillante que avanza hacia el norte, cerca de un píxel cada seis meses, mientras las demás estrellas no se mueven.",
+      "measuredLabel": "Movimiento propio en Dec, μδ",
+      "unit": "arcsec/año",
+      "limit": "Satura el núcleo en los seis detectores. Los centroides salen de un ajuste a las alas de la PSF en D5 y D6, con el núcleo enmascarado.",
+      "caption": "El punto que sube es la Estrella de Barnard. Avanza cerca de un píxel entre épocas, separadas por seis meses."
+    },
+    "wise0855": {
+      "name": "WISE 0855-0714",
+      "chip": "WISE 0855",
+      "kind": "Enana marrón · unos 250 K · 7,4 años luz",
+      "headline": "La enana marrón más fría conocida cruzando el cielo infrarrojo",
+      "look": "Un punto débil que avanza hacia el oeste en D5 y D6. Al cambiar a D1 desaparece: casi no emite luz por debajo de 3 µm.",
+      "measuredLabel": "Movimiento propio en AR, μα*",
+      "unit": "arcsec/año",
+      "limit": "Demasiado débil por debajo de 3 µm. Con tres épocas, la paralaje se fija al valor publicado.",
+      "caption": "El punto débil que se mueve a la derecha es WISE 0855-0714, la enana marrón más fría conocida. Solo aparece entre 4 y 5 µm."
+    },
+    "epsindib": {
+      "name": "Epsilon Indi B",
+      "chip": "Eps Indi B",
+      "kind": "Dos enanas marrones · 12 años luz",
+      "headline": "Dos enanas marrones que viajan juntas, vistas como un solo punto",
+      "look": "Un punto que baja hacia la izquierda, al sureste. En realidad son dos objetos a menos de 1 arcsec entre sí.",
+      "measuredLabel": "Movimiento propio total, μ",
+      "unit": "arcsec/año",
+      "limit": "Los píxeles de SPHEREx miden 6,2 arcsec, así que el par no se puede separar. La brillante ε Indi A, a 400 arcsec, agrega luz dispersa.",
+      "caption": "El punto que baja hacia la izquierda es Epsilon Indi B: dos enanas marrones demasiado juntas para que SPHEREx las separe."
+    },
+    "rwaur": {
+      "name": "RW Aurigae",
+      "chip": "RW Aur",
+      "kind": "Estrella joven · unos 450 años luz",
+      "headline": "Una estrella joven que varía su brillo cuando el polvo pasa frente a ella",
+      "look": "El punto del centro no se mueve, pero se apaga y se recupera. Las estrellas vecinas mantienen su brillo.",
+      "measuredLabel": "Cambio de flujo en D3, E2 vs E1",
+      "unit": "por ciento",
+      "limit": "Su compañera a 1,5 arcsec queda mezclada. Los flujos de Quick Release son preliminares.",
+      "caption": "RW Aurigae no se mueve, pero se apaga y se recupera entre épocas, cuando nubes de polvo pasan frente a ella."
+    },
+    "rdra": {
+      "name": "R Draconis",
+      "chip": "R Dra",
+      "kind": "Gigante pulsante · variable Mira",
+      "headline": "Una gigante pulsante que cambia de brillo en cuestión de meses",
+      "look": "La estrella brillante del centro crece y se apaga. Abra Espectro para ver cambiar también sus bandas de agua.",
+      "measuredLabel": "Cambio de flujo de banda ancha, E2 vs E1",
+      "unit": "por ciento",
+      "limit": "Lo bastante brillante para saturar D1 en algunas exposiciones. La forma del espectro cambia con la fase de pulsación.",
+      "caption": "R Draconis es una gigante que pulsa. Observe cómo se apaga y se intensifica entre épocas, separadas por unos seis meses."
+    }
+  },
+  "caption": {
+    "blink": "Cada cuadro es la misma región del cielo en otro momento. Lo que salta entre cuadros se está moviendo.",
+    "diff": "Naranja muestra dónde está algo ahora; azul, dónde estaba."
+  },
+  "spec": {
+    "title": "Espectro",
+    "count": "{{points}} puntos, {{epochs}} épocas",
+    "sub": "Fotometría de apertura forzada en cada imagen individual en {{pos}}.",
+    "aperture": "Radio de apertura {{r}} segundos de arco.",
+    "legendAria": "Épocas mostradas",
+    "scale": "Escala de flujo",
+    "linear": "Lineal",
+    "log": "Log",
+    "xTitle": "Longitud de onda (µm)",
+    "yTitle": "Densidad de flujo ({{unit}})",
+    "plotAria": "Densidad de flujo en función de la longitud de onda. Cada época tiene su propio color y forma de marcador, y los límites de detector son líneas punteadas. Los mismos valores están en la tabla de abajo.",
+    "loading": "Midiendo el flujo en cada imagen",
+    "waiting": "El espectro se mide cuando la vista está completa.",
+    "failed": "No se pudo calcular el espectro.",
+    "noPoints": "No hay puntos utilizables en esta posición. Pruebe con una fuente más brillante.",
+    "satTitle": "Píxeles saturados.",
+    "satBody": "Algunos puntos incluyen píxeles saturados, por lo que su flujo es un límite inferior. Prefiera un detector donde la fuente no esté saturada.",
+    "satShort": "saturado",
+    "flagged_one": "{{count}} punto marcado no se grafica.",
+    "flagged_other": "{{count}} puntos marcados no se grafican.",
+    "flagged_many": "{{count}} puntos marcados no se grafican.",
+    "photTitle": "Fotometría de banda ancha por época",
+    "colDate": "Fecha media",
+    "colFlux": "Flujo ({{unit}})",
+    "colChange": "Cambio vs E1",
+    "baseline": "referencia",
+    "nSigma": "{{n}} sigma",
+    "verdict": "De E1 a E{{n}} en D{{det}} el flujo cambia {{pct}} por ciento ({{sigma}} sigma).",
+    "verdictSingle": "Solo una época tiene medición, por lo que no se puede calcular un cambio.",
+    "csvSub_one": "{{count}} punto",
+    "csvSub_other": "{{count}} puntos",
+    "csvSub_many": "{{count}} puntos"
+  },
+  "meas": {
+    "title": "Posición y movimiento",
+    "measuring": "Midiendo la posición en cada época",
+    "waiting": "La vista aún se está construyendo. La posición se medirá en cuanto todas las épocas estén listas.",
+    "failed": "No se pudo completar la medición.",
+    "tooFewTitle": "Se necesitan dos épocas",
+    "tooFewBody": "El movimiento se mide entre épocas. Esta vista tiene solo una, por lo que Medir no está disponible.",
+    "blendTitle": "Fuente mezclada.",
+    "blendBody": "Hay otra fuente a menos de un píxel de SPHEREx. El centroide y el movimiento son más inciertos de lo que sugieren sus barras de error.",
+    "fitTitle": "Movimiento propio ajustado",
+    "verdict": {
+      "agrees": "Coincide",
+      "marginal": "Marginal",
+      "differs": "Difiere"
+    },
+    "unit": "arcsec/año",
+    "parallax": "Paralaje",
+    "fixed": "(fijado al catálogo)",
+    "fitted": "(ajustado)",
+    "refTitle": "Valor publicado",
+    "source": "Fuente",
+    "noRef": "No hay un valor publicado para esta posición.",
+    "centroids": "Centroide en cada época",
+    "err": "Error (arcsec)",
+    "residuals": "Residuos tras el ajuste",
+    "residualsAria": "Posición residual en ascensión recta y declinación para cada época, en segundos de arco, tras el ajuste.",
+    "residualsNote": "Puntos cercanos a cero indican que el movimiento en línea recta describe los datos.",
+    "resX": "Época",
+    "resY": "Residuo (arcsec)"
+  },
+  "ctx": {
+    "title": "El cielo alrededor de este campo",
+    "survey": "Relevamiento",
+    "s2mass": "2MASS",
+    "sAllwise": "AllWISE",
+    "sSpherex": "SPHEREx",
+    "loading": "Cargando el mapa del cielo",
+    "failed": "No se pudo cargar el mapa del cielo. Revise su conexión e intente de nuevo.",
+    "intro": "Una vista más amplia del mismo cielo tomada de relevamientos de todo el cielo anteriores (2MASS en el infrarrojo cercano, AllWISE en el infrarrojo medio); no son datos de SPHEREx. Permite ver qué rodea al campo. Arrastre para desplazarse y utilice los botones de zoom o la rueda del ratón.",
+    "note": "El cuadrado cian marca el campo de {{fov}} minutos de arco de la vista actual.",
+    "creditMirror": "Las imágenes del cielo provienen de NASA/IPAC IRSA mediante Aladin Lite."
+  },
+  "buildSky": {
+    "title": "El cielo en la posición solicitada",
+    "badge": "No son datos de SPHEREx",
+    "label": "Imagen de un relevamiento de contexto, mostrada mientras se preparan los cuadros de SPHEREx. El reproductor la reemplaza cuando estén listos los primeros cuadros."
+  },
+  "panel2": {
+    "demoOff": "Este panel necesita el servidor en vivo, que no está disponible en este momento."
+  },
+  "sci": {
+    "kicker": "Ciencia",
+    "title": "Ver moverse el cielo",
+    "lead": "En 1930 un joven astrónomo encontró Plutón alternando entre dos fotografías de las mismas estrellas. Destello hace lo mismo con el relevamiento infrarrojo SPHEREx de la NASA, para cualquier zona del cielo.",
+    "toc": "En esta página",
+    "s1": {
+      "t": "1930: un parpadeo en el Observatorio Lowell",
+      "p1": "En el Observatorio Lowell, en Flagstaff, Arizona, Clyde Tombaugh buscaba un planeta más allá de Neptuno. Fotografió la misma región del cielo con unas noches de diferencia y puso las dos placas de vidrio en un comparador de parpadeo: un visor que alterna rápidamente entre ambas.",
+      "p2": "Cientos de miles de estrellas permanecieron quietas. Un punto tenue saltaba de un lado a otro. Era Plutón. Destello aplica la misma idea a imágenes de SPHEREx tomadas con meses de diferencia."
+    },
+    "s2": {
+      "t": "Qué es SPHEREx",
+      "p1": "SPHEREx es un telescopio espacial de la NASA que mapea todo el cielo en luz infrarroja. Se construyó para estudiar cómo comenzó el universo, cómo crecieron las galaxias y de dónde provienen el agua y el hielo de las nubes donde se forman planetas.",
+      "p2": "Para ello fotografía cada parte del cielo aproximadamente cada seis meses. Esas visitas repetidas son lo que usa Destello: cada visita es una época, y comparar épocas muestra qué se movió o cambió."
+    },
+    "s3": {
+      "t": "Seis detectores, 102 colores",
+      "p1": "SPHEREx tiene seis detectores, D1 a D6. Cada uno está detrás de un filtro cuyo color cambia suavemente en su superficie, por lo que una imagen individual no es de un solo color. Juntos cubren de 0,75 a 5,0 micrómetros, todo invisible para nuestros ojos.",
+      "p2": "En Destello puede ver un detector cualquiera, o Todos combinados. Los bordes de banda de abajo son los valores nominales de diseño.",
+      "thDet": "Detector",
+      "thFrom": "Desde (µm)",
+      "thTo": "Hasta (µm)",
+      "caption": "Cobertura nominal de longitud de onda de cada detector. La banda exacta en un píxel dado se lee de los encabezados de las imágenes."
+    },
+    "s4": {
+      "t": "Una imagen limpia por detector",
+      "p1": "Durante una visita SPHEREx fotografía una zona muchas veces a lo largo de una a unas pocas semanas, cada vez con un color ligeramente distinto. Una sola exposición es ruidosa, por lo que Destello ordena las exposiciones por detector y combina cada grupo en una suma.",
+      "p2": "Antes de combinar, resta el brillo del polvo zodiacal, enmascara los píxeles marcados y alinea todo en una misma grilla. Todas las épocas de un detector comparten una escala de brillo, así que una estrella que se ve más débil realmente es más débil."
+    },
+    "s5": {
+      "t": "Restar épocas para encontrar objetos en movimiento",
+      "p1": "Una imagen de diferencia resta una época de otra. Primero Destello escala ambas para que las estrellas fijas coincidan en brillo, ya que cada suma muestrea una mezcla de colores ligeramente distinta. Luego resta, píxel por píxel.",
+      "p2": "Todo lo constante se cancela a gris. Un objeto en movimiento deja un par: azul donde estaba, naranja donde está ahora. Un objeto que solo cambia de brillo deja un solo color y ningún par."
+    },
+    "s6": {
+      "t": "Lo que Destello no puede decirle",
+      "p1": "SPHEREx se construyó para mapear todo el cielo en muchos colores, no para tomar imágenes nítidas. Estos límites también se muestran en el Explorador, junto a los datos que afectan.",
+      "l1": {
+        "t": "Los píxeles son grandes",
+        "d": "Un píxel de SPHEREx mide unos 6,2 segundos de arco. Los pares cercanos no se separan y los campos densos se mezclan."
+      },
+      "l2": {
+        "t": "Pocas épocas",
+        "d": "El movimiento requiere al menos dos épocas, y la versión actual tiene pocas. Los ajustes con tres épocas son inciertos."
+      },
+      "l3": {
+        "t": "Las estrellas brillantes se saturan",
+        "d": "Las estrellas muy brillantes saturan algunos detectores. Sus centroides usan las alas sin saturar u otro detector."
+      },
+      "l4": {
+        "t": "Los objetos débiles necesitan el detector correcto",
+        "d": "Las enanas marrones frías son casi invisibles bajo 3 micrómetros. Elija D5 o D6 para ellas."
+      },
+      "l5": {
+        "t": "Calibración de Quick Release",
+        "d": "Los flujos de un Quick Release son preliminares y pueden cambiar en versiones posteriores."
+      },
+      "l6": {
+        "t": "Las posiciones necesitan una época",
+        "d": "Las posiciones de catálogo se propagan a la hora de cada imagen con el movimiento propio. Una coordenada sin época indicada puede errar por muchos píxeles."
+      }
+    },
+    "s7": {
+      "t": "Créditos",
+      "p1": "Destello usa datos de NASA SPHEREx servidos por NASA/IPAC IRSA, Gaia DR3 (ESA), CatWISE2020, SIMBAD y Sesame (CDS) e Identificación de Cuerpos Menores de JPL. Los reconocimientos completos están en la página Acerca de.",
+      "link": "Reconocimientos de datos"
+    },
+    "play": "Reproducirlo en el Explorador"
+  },
+  "val": {
+    "kicker": "Validación",
+    "title": "Destello frente a valores publicados",
+    "lead": "Destello encuentra la misma fuente en cada época de SPHEREx, calcula su centroide y ajusta un movimiento lineal. Comparamos el resultado con valores de la literatura y de Gaia. Cada fila de abajo se lee de la última ejecución de validación, nada se escribe a mano.",
+    "run": "Ejecución: {{date}} · pipeline {{version}} · {{release}}",
+    "summary": "{{pass}} de {{total}} pruebas aprobadas",
+    "loading": "Cargando los resultados de validación",
+    "unavailTitle": "Los resultados de validación aún no están disponibles",
+    "unavailBody": "El servidor no ha publicado una ejecución de validación. Esta página solo muestra resultados cuando existen, por lo que no se muestra nada en su lugar.",
+    "errorBody": "No se pudieron cargar los resultados de validación. Intente de nuevo en un momento.",
+    "retry": "Intentar de nuevo",
+    "tableTitle": "Pruebas",
+    "caption": "La tolerancia es la mayor diferencia aceptada entre Destello y el valor publicado, en unidades de la incertidumbre combinada de 1 sigma.",
+    "colTest": "Prueba",
+    "colTarget": "Objetivo",
+    "colMeasured": "Destello",
+    "colReference": "Publicado",
+    "colSource": "Fuente",
+    "colSigma": "Diferencia",
+    "colTol": "Tolerancia",
+    "colResult": "Resultado",
+    "colEpochs": "Épocas",
+    "status": {
+      "pass": "Aprobada",
+      "fail": "Fallida",
+      "not_measurable": "No medible"
+    },
+    "sigma": "{{n}} sigma",
+    "resTitle": "Residuos tras el ajuste",
+    "resAria": "Posición residual de {{name}} en ascensión recta y declinación en cada época, en segundos de arco.",
+    "resNote": "Los residuos son la distancia del centroide de cada época al movimiento en línea recta ajustado.",
+    "limitsTitle": "Límites y cómo los trata Destello",
+    "limitsIntro": "Estos límites provienen del instrumento y de las versiones de datos. En cada uno se indica qué hace Destello al respecto y qué se midió en los objetivos de prueba de este informe.",
+    "limitsDoes": "Qué hace Destello",
+    "limitsMeasured": "Medido en este informe",
+    "rulesTitle": "Reglas de la comparación",
+    "limits": {
+      "l1": {
+        "t": "Pocas épocas",
+        "b": "SPHEREx vuelve a una posición aproximadamente cada seis meses, por lo que un campo tiene pocas épocas y un movimiento ajustado tiene una incertidumbre grande.",
+        "d": "Se usan todas las imágenes de todas las versiones públicas, la secuencia se reconstruye cuando IRSA publica datos nuevos y cada ajuste informa su incertidumbre y el número de épocas que lo sustentan.",
+        "mEpochs": "De {{min}} a {{max}} épocas por objetivo de prueba.",
+        "mMotion": "Los movimientos propios ajustados difieren de los valores publicados entre {{min}} y {{max}} por ciento."
+      },
+      "l2": {
+        "t": "Píxeles grandes",
+        "b": "Un píxel cubre unos 6,2 segundos de arco. Las fuentes más cercanas entre sí no se resuelven y ningún procesamiento las separa.",
+        "d": "Los centroides se miden a una fracción de píxel y se comparan con las posiciones de catálogo propagadas a cada época. Un par que no puede resolverse se declara como no resuelto.",
+        "mCentroid": "Las posiciones observadas quedan a una mediana de {{median}} segundos de arco ({{fraction}} de píxel) de la posición de catálogo propagada, y como máximo a {{max}} segundos de arco."
+      },
+      "l3": {
+        "t": "Calibración de Quick Release",
+        "b": "La astrometría y la fotometría de un Quick Release son preliminares y pueden cambiar en versiones posteriores.",
+        "d": "Cada época se vuelve a referir a estrellas de campo de Gaia DR3 antes de medir, la escala de flujo se verifica frente a 2MASS y cada resultado registra la versión de la que proviene.",
+        "mAstrometry": "Desviación mediana respecto de Gaia DR3: {{before}} segundos de arco tal como se entrega, {{after}} segundos de arco tras la recalibración.",
+        "mFlux": "Escala de flujo entre {{min}} y {{max}} de la de 2MASS, con {{stars}} estrellas de campo por banda."
+      },
+      "l4": {
+        "t": "Una prueba que no puede ejecutarse no se da por aprobada",
+        "b": "Un objetivo que no se puede medir se informa como no medible con su motivo, nunca como aprobado."
+      },
+      "l5": {
+        "t": "Los valores publicados también tienen error",
+        "b": "Las diferencias se calculan frente a la incertidumbre combinada de Destello y del valor publicado."
+      }
+    },
+    "methodsTitle": "Métodos",
+    "methods": {
+      "m1": {
+        "t": "Buscar y combinar imágenes",
+        "b": "Cada imagen de SPHEREx que cubre la posición se agrupa en épocas por tiempo de observación y se combina por detector."
+      },
+      "m2": {
+        "t": "Calibrar la astrometría",
+        "b": "Cada época se alinea con estrellas de Gaia DR3 del mismo campo, tras propagarlas al momento de observación."
+      },
+      "m3": {
+        "t": "Calcular el centroide",
+        "b": "Un ajuste de la función de dispersión de punto da una posición y una incertidumbre para cada época. Los píxeles marcados se excluyen."
+      },
+      "m4": {
+        "t": "Ajustar movimiento lineal",
+        "b": "Una recta de posición contra tiempo da el movimiento propio. La paralaje se fija al valor del catálogo."
+      },
+      "m5": {
+        "t": "Comparar",
+        "b": "La diferencia con el valor publicado se divide por la incertidumbre combinada. Una prueba se aprueba cuando queda bajo su tolerancia."
+      }
+    },
+    "data": "Datos: imágenes espectrales de SPHEREx vía NASA IRSA. Referencia astrométrica: Gaia DR3 (ESA/Gaia/DPAC), leída a través de la copia de NASA MAST.",
+    "summaryAll": "{{fail}} fallidas, {{nm}} no medibles",
+    "failNote": "Las pruebas fallidas se muestran tal como están, con los valores medidos y el motivo de cada resultado.",
+    "resTwo": "Los objetivos con menos de tres épocas no tienen gráfico de residuos: una recta se ajusta exactamente a dos puntos.",
+    "colCriterion": "Criterio de aceptación",
+    "noRelease": "versión no indicada",
+    "sourceForced": "Fotometría forzada de SPHEREx (este trabajo)",
+    "sourceWing": "Fotometría de las alas de la PSF de SPHEREx (este trabajo)",
+    "targets": {
+      "field_stars": "Estrellas de campo (todos los presets)"
+    },
+    "units": {
+      "arcsec": "arcsec",
+      "sigma": "sigma",
+      "masyr": "mas/año",
+      "arcsecyr": "arcsec/año",
+      "percent": "por ciento",
+      "count": "cantidad",
+      "index": "índice"
+    },
+    "catalogs": {
+      "gaia_dr3": "Gaia DR3",
+      "catwise2020": "CatWISE2020",
+      "twomass_psc": "Catálogo de fuentes puntuales de 2MASS",
+      "field_stars_gaia": "Estrellas de campo de Gaia DR3 medidas con SPHEREx (este trabajo)"
+    },
+    "warnNames": {
+      "TOO_FEW_EPOCHS": "Pocas épocas",
+      "PARALLAX_FIXED": "Paralaje fija"
+    },
+    "testNames": {
+      "V-01": "Residuos de la recalibración astrométrica",
+      "V-02": "Movimiento propio de la estrella de Barnard",
+      "V-03": "Movimiento propio de WISE 0855-0714",
+      "V-04": "Movimiento propio de Epsilon Indi B",
+      "V-05": "Posición observada frente a la predicción propagada",
+      "V-06": "Cambio de R Dra entre épocas",
+      "V-07": "Cambio de RW Aur entre épocas",
+      "V-08": "Escala de flujo del espectro frente a 2MASS (estrellas de campo)",
+      "V-09": "Prueba nula en estrellas de campo estacionarias",
+      "V-10": "Dipolos en imágenes de diferencia",
+      "V-11": "La búsqueda ciega de movimiento recupera el objetivo",
+      "V-12": "Absorción de metano de Epsilon Indi B (índice de 3,3 µm)"
+    },
+    "tol": {
+      "median_offset_below": "Desplazamiento mediano de las estrellas de referencia menor que {{value}} {{unit}} tras la recalibración",
+      "within_sigma_and_relative_error": "Dentro de {{value}} sigma combinados por eje respecto de la referencia; error relativo menor que {{rel}} por ciento",
+      "within_sigma": "Dentro de {{value}} sigma combinados por eje respecto de la referencia",
+      "max_separation_below": "Dentro de {{value}} {{unit}} (un píxel nativo) en cada época en que se detecta",
+      "change_above_sigma_consistent_sign": "Cambio superior a {{value}} sigma con signo consistente entre detectores, o documentado como no muestreado",
+      "change_above_sigma_or_no_change": "Cambio detectado superior a {{value}} sigma, o una declaración honesta de que no hay cambio",
+      "within_percent_per_band": "Dentro de {{value}} por ciento en cada banda de 2MASS (J, H, Ks)",
+      "no_unexplained_dipoles": "Sin dipolos salvo en objetos en movimiento o variables conocidos (lóbulos de {{sigma}} sigma a menos de {{sep}} píxeles de la malla; sigma incluye el residuo medido de las fuentes estáticas; un dipolo con un lóbulo junto a un píxel sin exposiciones válidas se informa como no medible)",
+      "blind_search_within_sigma": "Listado por la búsqueda ciega de movimiento en {{n}} o más detectores, con un movimiento dentro de {{value}} sigmas combinadas por eje respecto de la referencia",
+      "methane_index_below_field": "Índice de metano menor que la mediana de las estrellas de campo en más de {{value}} sigma (su error y la dispersión robusta entre estrellas en cuadratura), con al menos {{n}} estrellas de campo medidas"
+    },
+    "r": {
+      "warnings": "Advertencias: {{list}}.",
+      "recalibration_residuals": "Por época, desplazamiento mediano antes de la recalibración: {{before}} arcsec; después: {{after}} arcsec; dispersión robusta: {{scatter}} arcsec; estrellas usadas: {{stars}} ({{catalog}}).",
+      "motionFit": "Movimiento ajustado: pmra* {{pmra}} ± {{pmraErr}}, pmdec {{pmdec}} ± {{pmdecErr}} {{unit}}.",
+      "onDetector": "Medido en {{detector}} con {{n}} épocas.",
+      "chi2": "Chi cuadrado reducido: {{chi2}}.",
+      "motionRef": "Referencia: pmra* {{pmra}}, pmdec {{pmdec}} {{unit}}.",
+      "relErr": "Error relativo: {{rel}}.",
+      "parallaxFixed": "Paralaje fija en {{plx}} mas.",
+      "recalStars": "Recalibrado con {{catalog}} y {{stars}} estrellas por época.",
+      "unverified": "El valor de la literatura sin verificar ({{pmra}}, {{pmdec}}) no se usa como referencia.",
+      "crossFit": "Verificación cruzada en {{detector}}: pmra* {{pmra}} ± {{pmraErr}}, pmdec {{pmdec}} ± {{pmdecErr}} {{unit}}, {{sigma}} sigma.",
+      "crossNone": "Verificación cruzada en {{detector}}: medida en {{measured}} de {{total}} épocas, sin ajuste.",
+      "no_reference_motion": "No hay movimiento de referencia disponible.",
+      "position_separations": "Separación respecto de la posición predicha por época: {{seps}} arcsec en {{detector}}.",
+      "missingEpochs": "No se detectó en las épocas {{epochs}}.",
+      "not_detected_any_epoch": "La fuente no se midió en ninguna época.",
+      "too_few_epochs": "La fuente se midió en {{measured}} de {{total}} épocas en {{detector}}. Se necesitan al menos dos para ajustar un movimiento.",
+      "science_error": "No fue posible realizar la medición (código {{code}}).",
+      "no_reference_stars": "Ninguna época tuvo tres o más estrellas de referencia.",
+      "gaia_unavailable": "Gaia DR3 no está disponible para este campo.",
+      "no_suitable_star": "No fue posible medir ninguna estrella adecuada.",
+      "no_suitable_star_n_one": "No fue posible medir ninguna estrella adecuada ({{n}} candidata probada).",
+      "no_suitable_star_n_other": "No fue posible medir ninguna estrella adecuada ({{n}} candidatas probadas).",
+      "null_test_stars_one": "{{n}} estrella, excluida de su propia recalibración, en {{detector}}.",
+      "null_test_stars_other": "{{n}} estrellas, cada una excluida de su propia recalibración, en {{detector}}.",
+      "nullFirst": "Primera estrella: Gaia DR3 {{id}} (G {{g}}), pmra* {{pmra}} ± {{pmraErr}}, pmdec {{pmdec}} ± {{pmdecErr}} {{unit}}, {{sigma}} sigma.",
+      "nullWorst": "El valor de la tabla es el de la primera estrella; sigma es el peor de todos ({{sigma}}).",
+      "fewer_than_two_epochs": "Menos de dos épocas con fotometría sin marcas.",
+      "no_shared_wavelengths": "Ningún detector muestreó las mismas longitudes de onda en dos épocas.",
+      "noSignificant": "No se detectó un cambio significativo.",
+      "changeLargest": "Mayor cambio entre las épocas {{a}} y {{b}}: por detector {{dets}} (magnitudes, positivo significa más tenue).",
+      "signYes": "Signo consistente entre los detectores significativos: sí.",
+      "signNo": "Signo consistente entre los detectores significativos: no.",
+      "pairItem": "{{a}} a {{b}}: {{dmag}} ± {{err}} mag",
+      "pairsAll": "Todos los pares: {{pairs}}. Se excluyen las exposiciones saturadas o marcadas.",
+      "pairsAllWing": "Todos los pares: {{pairs}}.",
+      "wingMethod": "El núcleo está saturado en las {{total}} exposiciones, por lo que el cambio se mide sobre el flujo de las alas de la PSF entre {{r0}} y {{r1}} arcsec ({{used}} exposiciones usadas), por detector y por intervalo de longitud de onda. Los errores incluyen un sistemático por detector obtenido con la misma medición sobre {{control}}, un control no variable: {{sys}} mag.",
+      "pairsNote": "Se informa el mayor de {{n}} pares, por lo que la significancia no se corrige por el número de pares.",
+      "no_coadd_pair": "No hay ningún par de coadds de épocas.",
+      "dipole_count": "{{n}} imágenes de diferencia (épocas consecutivas, todos los detectores).",
+      "dipoleLobes": "Lóbulos de {{sigma}} sigma a menos de {{sep}} píxeles de la malla.",
+      "regShift": "Desplazamiento de registro mediano {{median}} arcsec (máximo {{max}}), aplicado en {{applied}} de {{n}}.",
+      "regNone": "Registro no medible (muy pocas estrellas de campo), aplicado en {{applied}} de {{n}}.",
+      "resFraction": "Fracción de residuo de fuentes estáticas {{min}} a {{max}} ({{measured}} de {{n}} imágenes).",
+      "resNone": "Residuo de fuentes estáticas no medible (solo ruido de píxel).",
+      "dipoleBlank": "Dipolos con un lóbulo junto a un píxel sin exposiciones válidas (no medibles): {{n}}.",
+      "dipoleCounts": "Dipolos en el objetivo preestablecido: {{target}}. Sin explicar: {{unexplained}}.",
+      "measurement_error": "La medición falló ({{exception}}).",
+      "irsa_tool_interactive": "La herramienta de espectrofotometría de SPHEREx de IRSA es un servicio interactivo. En esta ejecución no hubo una comparación legible por máquina, por lo que no se realizó la comparación.",
+      "too_few_flux_stars": "Menos de dos estrellas de campo válidas en al menos una banda de 2MASS.",
+      "motion_search_recovery": "Listado sin usar la posición del objetivo en {{count}} detectores ({{detectors}}) con {{n}} épocas a lo largo de {{baseline}} años, a {{sep}} segundos de arco del objetivo propagado.",
+      "motion_search_listed": "Fuentes listadas en el campo: {{n}}.",
+      "motion_search_not_found": "El objetivo no está entre las fuentes listadas por la búsqueda de movimiento ({{n}} listadas; {{epochs}} épocas a lo largo de {{baseline}} años).",
+      "fluxMethod": "Resultado de la herramienta de espectro (fotometría de apertura en exposiciones individuales, radio de {{aperture}} arcsec, sin corrección de apertura) para estrellas de campo aisladas y no saturadas con calidad 2MASS AAA y contraparte en Gaia DR3, ajustado por banda con una ley de potencias y evaluado en la longitud de onda isofotal de 2MASS.",
+      "fluxBands": "Mediana del cociente SPHEREx sobre 2MASS: {{bands}}.",
+      "fluxBand": "{{band}} {{ratio}} ± {{err}} (N = {{n}})",
+      "fluxBandNone": "{{band}} sin estrellas",
+      "fluxPresets": "Estrellas por preset: {{list}}.",
+      "fluxRdra": "R Draconis está saturada en todas las exposiciones y su campo no tiene ninguna estrella válida, por lo que se usan las estrellas de campo de todos los presets.",
+      "fluxReference": "La herramienta de espectrofotometría de IRSA no ofrece acceso programático, por lo que 2MASS es la referencia independiente.",
+      "methane_index_vs_field": "Índice: flujo en la banda de 3,20-3,45 µm sobre un continuo interpolado en log-log desde 2,90-3,10 y 3,85-4,10 µm, exposiciones individuales, por pasada del relevamiento. Epsilon Indi B: {{index}} ± {{err}}. {{n}} estrellas de campo: mediana {{median}}, dispersión robusta {{scatter}}. Profundidad bajo el campo: {{depth}} sigma. Epsilon Indi Ba y Bb no se resuelven, por lo que es su luz combinada.",
+      "methane_not_measurable_stars": "No medible: {{n}} estrellas de campo medidas (se necesitan al menos {{min}}).",
+      "methane_not_measurable_target": "No medible: ninguna época del objetivo tiene medidas las tres ventanas de longitud de onda.",
+      "window_not_measurable": "No medible: la ventana de la banda de CO2 (4,23 a 4,27 µm) y sus dos ventanas de continuo tienen {{band}}, {{blue}} y {{red}} puntos utilizables (banda, azul y rojo; se necesitan al menos 2 en cada una). No se afirma ninguna detección.",
+      "window_below_snr": "No medible: la ventana de la banda de CO2 (4,23 a 4,27 µm) y sus dos ventanas de continuo tienen cada una los 2 puntos necesarios (banda {{nBand}}, azul {{nBlue}}, rojo {{nRed}}), pero al menos una media de ventana se detecta por debajo de 3 sigma (S/N: banda {{snrBand}}, azul {{snrBlue}}, rojo {{snrRed}}). No se afirma ninguna detección.",
+      "band_excess_continuum_undetected": "Flujo de la banda de CO2 {{bandFlux}} ± {{bandErr}} Jy frente a un continuo de {{cont}} ± {{contErr}} Jy, que no se detecta (S/N: azul {{snrBlue}}, rojo {{snrRed}}) y se interpola linealmente en flujo. Banda menos continuo: {{sig}} sigma; {{sigUpper}} sigma por encima del límite superior a 3 sigma del continuo, {{upper}} Jy. No se informa un cociente con un continuo no detectado. Puntos utilizables en las ventanas azul, de banda y roja: {{blue}}, {{band}}, {{red}}.",
+      "band_excess": "Flujo de la banda de CO2 {{bandFlux}} Jy frente a un continuo de {{cont}} Jy: exceso {{excess}} ± {{err}} (banda sobre continuo, menos 1), {{sig}} sigma. Puntos utilizables en las ventanas azul, de banda y roja: {{blue}}, {{band}}, {{red}}.",
+      "ephemeris_check": "{{within}} de {{measured}} exposiciones medidas están dentro de su cota de posición respecto de la posición de JPL Horizons ({{total}} exposiciones en la campaña). Desfase mediano {{median}} arcsec, mayor {{max}} arcsec.",
+      "recalibration_catalog_not_gaia": "No medible por regla: el catálogo de recalibración no es Gaia DR3, que el ajuste de larga base exige.",
+      "no_wise_companion": "No medible: no se ha construido una secuencia compañera de WISE para este objetivo.",
+      "too_few_epochs_per_mission": "No medible: se midieron {{wise}} épocas de WISE y NEOWISE y {{spherex}} de SPHEREx, y se exigen al menos 2 de cada misión.",
+      "long_baseline_fit": "Ajuste conjunto de {{total}} épocas ({{wise}} de WISE y NEOWISE, {{spherex}} de SPHEREx): movimiento propio de {{pmra}} ± {{pmraErr}} mas/año en ascensión recta (multiplicado por cos de la declinación) y de {{pmdec}} ± {{pmdecErr}} mas/año en declinación, en la época J{{epoch}}.",
+      "long_baseline_chi2": "Chi cuadrado reducido {{chi2}}."
+    },
+    "colFieldMedian": "Mediana de las estrellas de campo"
+  },
+  "pages2": {
+    "aboutKicker": "Acerca de",
+    "aboutTitle": "Mire moverse el cielo infrarrojo",
+    "aboutP1": "Destello es una herramienta web gratuita y bilingüe que convierte las imágenes infrarrojas de todo el cielo de NASA SPHEREx en secuencias temporales de cualquier zona del cielo. Escriba un nombre o una posición y encuentra todas las imágenes de SPHEREx de ese lugar, las combina por época y las reproduce en orden.",
+    "aboutP2": "Está pensada primero para estudiantes, docentes y científicos ciudadanos, con suficiente trazabilidad para que los astrónomos confíen en lo que ven. Destello busca que el movimiento de una estrella resulte evidente a primera vista.",
+    "challengeTitle": "NASA Space Apps Challenge 2026",
+    "challengeBody": "Destello se construyó en 48 horas para el desafío Planet X and SPHEREx. El desafío pedía una forma de alternar imágenes de SPHEREx, consultar cualquier posición por URL, superponer catálogos de Gaia y WISE y hacer el resultado incrustable.",
+    "nonEndorseTitle": "No es un producto oficial",
+    "nonEndorse": "Destello es un proyecto independiente creado para el NASA Space Apps Challenge. No es un producto oficial de NASA, Caltech/IPAC ni JPL, y sus nombres no implican respaldo.",
+    "toc": "En esta página",
+    "scienceIntro": "Cómo se hacen las imágenes y qué pueden y qué no pueden mostrar se explica en la página Ciencia.",
+    "scienceLink": "Leer la página Ciencia"
+  },
+  "share2": {
+    "lang": "Idioma",
+    "ctlNoteFull": "Reproducción, velocidad, bucle y línea de tiempo de épocas.",
+    "ctlNoteMinimal": "Reproducir, avanzar y etiqueta de época.",
+    "ctlNoteNone": "Solo la imagen, con atribución.",
+    "preview": "Vista previa en vivo",
+    "previewNote": "{{w}} por {{h}} píxeles",
+    "embedCode": "Código para incrustar",
+    "sizeCompactDesc": "360 px de ancho",
+    "sizeStandardDesc": "480 px de ancho",
+    "sizeLargeDesc": "720 px de ancho"
+  },
+  "embed2": {
+    "attribution": "Datos: NASA SPHEREx vía IRSA",
+    "loading": "Cargando imágenes",
+    "unavailable": "Esta vista no está disponible."
+  },
+  "mobile": {
+    "tools": "Herramientas de vista",
+    "player": "Reproductor",
+    "none": "Ninguna",
+    "frameSummary": "E{{epoch}} de {{total}} · {{images}} img · {{flagged}} marcado"
+  },
+  "sheet2": {
+    "grab": "Cambiar tamaño del panel",
+    "closeSearch": "Cerrar la búsqueda"
+  },
+  "pixel2": {
+    "value": "Valor del píxel"
+  },
+  "sciWarn": {
+    "title": "Advertencias de la medición",
+    "codes": {
+      "SATURATION": {
+        "t": "Saturación.",
+        "b": "Hay píxeles saturados o marcados dentro de la apertura de medición. Esas exposiciones no tienen valor de flujo y el centroide depende de la parte tenue exterior de la estrella."
+      },
+      "PSF_WINGS_CENTROID": {
+        "t": "Posición a partir del perfil exterior.",
+        "b": "La estrella está saturada en el centro en todas las épocas. Cada posición proviene de ajustes a la parte exterior no marcada de la estrella en exposiciones individuales, promediados por época."
+      },
+      "BLENDED_SOURCE": {
+        "t": "Fuente mezclada.",
+        "b": "Otra fuente está a menos de un píxel de SPHEREx del objetivo. Las posiciones y el movimiento son más inciertos de lo que indican sus barras de error."
+      },
+      "EPSILON_INDI_UNRESOLVED": {
+        "t": "Par no resuelto.",
+        "b": "Epsilon Indi Ba y Bb están separadas por menos de 1 segundo de arco y los píxeles de SPHEREx miden unos 6,2 segundos de arco, por lo que el par no se resuelve y la medición se refiere a ambas juntas."
+      },
+      "NO_REDUNDANCY": {
+        "t": "Solo dos épocas.",
+        "b": "Dos épocas determinan el movimiento de forma exacta. No hay chi cuadrado y la incertidumbre depende solo de los errores de cada época."
+      },
+      "PARALLAX_UNKNOWN": {
+        "t": "Paralaje desconocida.",
+        "b": "No se conoce la paralaje de esta posición, por lo que se fija en cero."
+      },
+      "QUICK_RELEASE_CALIBRATION": {
+        "t": "Calibración preliminar.",
+        "b": "La calibración de la versión Quick Release de SPHEREx es preliminar y puede tener errores sistemáticos."
+      },
+      "RECALIBRATION_UNAVAILABLE": {
+        "t": "Recalibración reducida.",
+        "b": "Había menos de tres estrellas de referencia en al menos una época, por lo que allí se usaron las coordenadas del archivo sin corrección local."
+      },
+      "NO_APERTURE_CORRECTION": {
+        "t": "Sin corrección de apertura.",
+        "b": "Los flujos son sumas dentro de la apertura y no incluyen las alas tenues de la estrella, por lo que son límites inferiores del flujo total."
+      },
+      "PRESET_ASTROMETRY_USED": {
+        "t": "Movimiento de catálogo aplicado.",
+        "b": "La posición se desplazó al instante de cada exposición con el movimiento propio de catálogo de este objetivo."
+      },
+      "POSITION_NOT_PROPAGATED": {
+        "t": "Posición sin propagar.",
+        "b": "No se indicó movimiento propio, por lo que se usa la misma posición en todas las exposiciones."
+      },
+      "OVERFLOW_PIXELS_USED": {
+        "t": "Píxeles brillantes del núcleo conservados.",
+        "b": "Algunos puntos sin marca incluyen píxeles del núcleo que alcanzaron el umbral de desborde a bordo, cerca de la mitad del pozo completo. Sus valores provienen de las muestras tomadas antes del umbral y se conservan, según el Suplemento Explicativo de SPHEREx."
+      },
+      "PARALLAX_FIXED": {
+        "t": "Paralaje fija.",
+        "b": "Ajustar la paralaje requiere cuatro o más épocas a lo largo de al menos un año, por lo que se fijó en el valor de referencia."
+      },
+      "TOO_FEW_EPOCHS": {
+        "t": "Épocas insuficientes.",
+        "b": "La fuente se midió en menos de dos épocas en este detector, por lo que no es posible ajustar un movimiento."
+      }
+    },
+    "other": "Nota."
+  },
+  "spec2": {
+    "loadingLong": "Midiendo el flujo en cada exposición. La primera vez puede tardar hasta dos minutos; luego el resultado queda guardado.",
+    "elapsed": "{{s}} s transcurridos",
+    "satNoneTitle": "No hay valores de flujo en esta posición.",
+    "satNoneBody": "Todas las exposiciones tienen píxeles saturados o marcados en la apertura, por lo que Destello no entrega el flujo en lugar de mostrar un número incorrecto. Es un límite de la medición, no un error.",
+    "emptyPlot": "Sin valores de flujo utilizables",
+    "usable": "{{n}} de {{total}} exposiciones utilizables",
+    "noFlux": "sin flujo",
+    "flaggedHint": "{{count}} de {{total}} exposiciones están marcadas y no tienen flujo graficado.",
+    "retryHint": "Intente nuevamente. El servidor puede estar ocupado o reiniciándose.",
+    "rateLimited": "Demasiadas mediciones en poco tiempo. Espere un momento e intente nuevamente.",
+    "colExp": "Utilizables",
+    "ch4Short": "CH4",
+    "ch4Title": "Índice de la banda de metano (3,3 µm)",
+    "ch4Value_one": "Índice {{index}} ± {{err}}, a partir de {{n}} pasada del relevamiento.",
+    "ch4Value_other": "Índice {{index}} ± {{err}}, combinado sobre {{n}} pasadas del relevamiento.",
+    "ch4Below": "Inferior a 1 en {{sigma}} errores estándar: el flujo en la banda está deprimido respecto del continuo, como produce la absorción de metano en las enanas T e Y.",
+    "ch4Flat": "Compatible con un continuo sin banda de absorción en 3,3 µm (índice 1), dentro de 3 errores estándar.",
+    "ch4None": "No medible en esta posición: ninguna pasada del relevamiento tiene suficientes exposiciones sin indicadores y con señal en las tres ventanas.",
+    "ch4Method": "Flujo en la banda ({{band}} µm) dividido por el continuo interpolado en log-log desde {{blue}} y {{red}} µm (sombreados en el gráfico). Un continuo estelar suave da 1."
+  },
+  "meas2": {
+    "notMeasurableTitle": "No fue posible medir la fuente",
+    "notMeasurableBody": "La fuente no se midió en ninguna época en el detector seleccionado. Por lo general está saturada y no existe un centroide confiable. Pruebe otro detector si alguno tiene una imagen sin saturación.",
+    "notMeasurableCount": "La fuente se midió en {{measured}} de {{total}} épocas en el detector D{{detector}}. Se necesitan al menos dos para ajustar un movimiento.",
+    "suggestDetector": "Probar el detector D{{detector}}",
+    "tooFewMeasured_one": "La fuente se midió en solo {{count}} época en este detector. Se necesitan al menos dos para ajustar un movimiento.",
+    "tooFewMeasured_other": "La fuente se midió en solo {{count}} épocas en este detector. Se necesitan al menos dos para ajustar un movimiento.",
+    "detectorUsed": "Detector utilizado",
+    "recalCatalog": "Recalibrado con",
+    "refEpoch": "Época de referencia",
+    "colN": "Imágenes",
+    "colSnr": "S/N",
+    "colSat": "Saturación",
+    "colStars": "Estrellas",
+    "notMeasured": "no medida",
+    "unresolvedNote": "Epsilon Indi Ba y Bb no se resuelven a la escala de píxel de SPHEREx, por lo que este es el movimiento del par.",
+    "twoEpochsNote": "Con dos épocas la recta pasa exactamente por ambos puntos, por lo que los residuos son cero por construcción y no se grafican.",
+    "chi2": "Chi cuadrado reducido",
+    "rateLimited": "Demasiadas mediciones en poco tiempo. Espere un momento e intente nuevamente.",
+    "retryHint": "Intente nuevamente. El servidor puede estar ocupado o reiniciándose.",
+    "epochsLabel": "Épocas medidas",
+    "epochsValue": "{{n}} de {{total}}",
+    "csv": "Descargar épocas y residuos (CSV)"
+  },
+  "builds": {
+    "button_one": "{{count}} construcción en curso",
+    "button_other": "{{count}} construcciones en curso",
+    "buttonReady_one": "{{count}} construcción lista",
+    "buttonReady_other": "{{count}} construcciones listas",
+    "short": "en curso",
+    "shortReady": "listas",
+    "heading": "Construcciones",
+    "building": "En construcción",
+    "queued": "En cola",
+    "downloading": "Descargando {{done}} de {{total}}",
+    "detectors": "{{n}} de 6 detectores listos",
+    "ready": "Lista para ver",
+    "open": "Ver progreso",
+    "openReady": "Abrir",
+    "dismiss": "Quitar de la lista",
+    "fov": "Campo de {{fov}} arcmin",
+    "hint": "La construcción continúa en el servidor mientras se abren otras vistas."
+  },
+  "options": {
+    "title": "Opciones de datos",
+    "summaryAll": "todas las publicaciones",
+    "summaryPartial": "con revisitas breves"
+  },
+  "release": {
+    "label": "Versión de datos",
+    "default": "{{label}} (predeterminado)",
+    "all": "Todas las publicaciones, versión más reciente de cada imagen"
+  },
+  "tour": {
+    "take": "Iniciar el recorrido",
+    "replay": "Recorrido guiado",
+    "count": "{{n}} de {{total}}",
+    "skip": "Omitir recorrido",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "finish": "Finalizar",
+    "keysLabel": "Atajos de teclado",
+    "keyPlay": "reproducir",
+    "keyStep": "avanzar",
+    "keyDetector": "detector",
+    "keyDiff": "diferencia",
+    "keyGaia": "Gaia",
+    "keyCatwise": "CatWISE",
+    "keyMeasure": "medir",
+    "steps": {
+      "player": {
+        "title": "El reproductor de parpadeo",
+        "body": "La misma región del cielo, registrada por SPHEREx en cada pasada del relevamiento, con unos seis meses de separación. Cada cuadro es un píxel de la imagen a su resolución real, sin suavizado. Las estrellas fijas permanecen en su lugar; un objeto en movimiento salta entre cuadros."
+      },
+      "search": {
+        "title": "Elegir una posición del cielo",
+        "body": "Escriba coordenadas (AR y Dec) o el nombre de un objeto en el cuadro de búsqueda, o abra uno de los objetos predefinidos. Cada uno es un objeto conocido, seleccionado para mostrar movimiento o variabilidad."
+      },
+      "transport": {
+        "title": "Reproducir y recorrer las épocas",
+        "body": "Reproduzca la secuencia o avance una época por vez. La línea de tiempo presenta cada época con su fecha; al seleccionar una, se accede directamente a ella. Todas las épocas de un detector comparten una misma escala de brillo, de modo que un cambio entre cuadros proviene de los datos y no de la visualización."
+      },
+      "detector": {
+        "title": "Elegir un detector",
+        "body": "SPHEREx observa con seis detectores, cada uno con su propio rango de longitudes de onda infrarrojas. Cambie de detector para comparar el aspecto del campo en distintas longitudes de onda."
+      },
+      "mode": {
+        "title": "Modo diferencia",
+        "body": "El modo diferencia resta una época de referencia a la época en pantalla. Las fuentes fijas se cancelan, y una fuente que se desplazó deja un par de residuos opuestos."
+      },
+      "overlays": {
+        "title": "Superposición de catálogos",
+        "body": "Active Gaia y CatWISE para marcar las fuentes conocidas en la posición que cada catálogo les asigna en la fecha de la época en pantalla. Una fuente en movimiento sin marcador merece un análisis detallado."
+      },
+      "results": {
+        "title": "Resultados, mediciones y espectro",
+        "body": "En los objetos predefinidos, la ficha de resultados compara el movimiento medido en SPHEREx con el valor publicado. La pestaña Medir mide la fuente seleccionada en cada época, y la pestaña Espectro presenta su espectro y su curva de luz."
+      },
+      "motion": {
+        "title": "Búsqueda de movimiento",
+        "body": "La búsqueda de movimiento identifica fuentes que se desplazan de forma coherente en todas las épocas de la secuencia. Se ejecuta solo a pedido. Cada entrada es un candidato a revisar, que debe contrastarse con los catálogos y las imágenes antes de extraer conclusiones."
+      },
+      "share": {
+        "title": "Compartir y exportar",
+        "body": "Compartir copia un enlace que abre esta misma vista, o un código para insertarla en otra página. Exportar guarda la secuencia como un GIF animado con los créditos de los datos. El recorrido puede repetirse desde Recorrido guiado, en la parte superior de la página."
+      }
+    }
+  },
+  "report": {
+    "title": "Reportar un candidato",
+    "stepsLabel": "Pasos del reporte",
+    "step": {
+      "mark": "Marcar",
+      "check": "Verificar",
+      "results": "Resultados",
+      "notes": "Notas",
+      "done": "Listo"
+    },
+    "markIntro": "Haga clic sobre la fuente en el reproductor, en al menos dos épocas. Avance con ← y →. Cada marca se guarda para la época que está en pantalla.",
+    "marksLabel": "Marcas por época",
+    "marked": "Marcada",
+    "notMarked": "Opcional",
+    "show": "Ver {{e}}",
+    "clear": "Borrar {{e}}",
+    "keyboardTitle": "Marcar con el teclado",
+    "keyboardHelp": "Coloque una marca en la época que está en pantalla y luego muévala de a un píxel. El norte está arriba y el este a la izquierda.",
+    "place": "Colocar marca en esta época",
+    "placed": "Marcada en esta época",
+    "nudge": {
+      "n": "Mover la marca un píxel al norte",
+      "s": "Mover la marca un píxel al sur",
+      "e": "Mover la marca un píxel al este",
+      "w": "Mover la marca un píxel al oeste"
+    },
+    "dir": {
+      "n": "N",
+      "s": "S",
+      "e": "E",
+      "w": "O"
+    },
+    "needMarks": "Marque la fuente en al menos dos épocas para ejecutar las verificaciones. Marcas pendientes: {{n}}.",
+    "thirdOptional": "Una marca en una tercera época es opcional. Permite que las verificaciones pongan a prueba una trayectoria recta.",
+    "runChecks": "Ejecutar verificaciones",
+    "running": "En curso…",
+    "checking": "Se consultan cuatro catálogos alrededor de cada marca. Las posiciones se propagan a la fecha de cada marca, de modo que también se detectan los objetos con movimiento conocido.",
+    "checkingTime": "Por lo general tarda menos de 20 segundos.",
+    "searching": "Consultando",
+    "geocentric": "SBIdent supone un observador geocéntrico, mientras que SPHEREx está en órbita terrestre baja, por lo que los objetos muy cercanos se identifican solo de forma aproximada. Sus posiciones se calculan en el instante medio de cada coadición, que abarca unas dos semanas.",
+    "addNotes": "Agregar notas",
+    "notesLabel": "¿Qué observó?",
+    "notesCount": "{{n}} / {{max}} · se muestra públicamente",
+    "contactLabel": "Contacto (opcional)",
+    "contactPlaceholder": "Correo electrónico, solo si desea una respuesta",
+    "contactHelp": "Se mantiene privado. Nunca se muestra en la página del reporte.",
+    "contactInvalid": "Ingrese una dirección de correo válida o deje el campo vacío.",
+    "publicNotice": "La página del reporte es pública. Muestra sus marcas, los resultados de las verificaciones y sus notas, e indica que el candidato no está confirmado.",
+    "turnstileNote": "Una verificación de Cloudflare Turnstile comprueba que una persona envía este reporte. No instala cookies de seguimiento.",
+    "turnstileError": "No se pudo cargar la verificación de Turnstile. Recargue la página e intente nuevamente; si el problema continúa, intente más tarde.",
+    "submit": "Enviar reporte",
+    "submitting": "Enviando…",
+    "saved": "Reporte guardado",
+    "permalink": "Enlace permanente",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "alsoFiles": "También:",
+    "back": "Atrás",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "openPage": "Abrir la página del reporte",
+    "needTwoEpochs": "Para reportar se necesita una vista terminada con dos o más épocas.",
+    "err": {
+      "RATE_LIMITED": "Hay demasiados reportes o verificaciones desde esta conexión. Espere unos minutos e intente nuevamente.",
+      "TURNSTILE_FAILED": "La verificación de Turnstile no fue superada. Complétela otra vez y vuelva a enviar.",
+      "TURNSTILE_UNAVAILABLE": "La verificación de Turnstile no está disponible en este momento. Intente más tarde.",
+      "REPORTS_UNAVAILABLE": "Los reportes no están disponibles en este momento. Sus marcas se conservan en esta página; intente más tarde.",
+      "INVALID_MARKS": "Las marcas no son válidas: use una marca por época, en al menos dos épocas.",
+      "POSITION_OUTSIDE_FIELD": "Una marca está fuera del campo de esta vista. Bórrela y marque nuevamente.",
+      "VALIDATION_ERROR": "No se pudo leer el reporte. Revise las notas y el campo de contacto.",
+      "NOT_FOUND": "Esta vista ya no está disponible en el servidor. Constrúyala otra vez y luego reporte.",
+      "network": "No se pudo contactar al servidor. Revise la conexión e intente nuevamente.",
+      "generic": "Ocurrió un error de nuestro lado. Sus marcas se conservan; intente nuevamente.",
+      "demo": "Los reportes requieren el servidor en línea. Volverán cuando esté disponible."
+    },
+    "verdict": {
+      "match": {
+        "t": "Coincide con una fuente conocida.",
+        "d": "Un catálogo registra una fuente en cada posición marcada. Lo más probable es que el objeto marcado sea esa fuente."
+      },
+      "partial": {
+        "t": "Coincide en parte con una fuente conocida.",
+        "d": "Una fuente de catálogo aparece en algunas marcas, pero no en todas. Revise las marcas: la fuente podría ser conocida pero moverse de otra manera."
+      },
+      "incomplete": {
+        "t": "Las verificaciones están incompletas.",
+        "d": "Al menos un catálogo no pudo consultarse, por lo que el resultado no es definitivo. Ejecute las verificaciones más tarde."
+      },
+      "no_match": {
+        "t": "Sin coincidencias en catálogos. Merece una revisión más detallada.",
+        "d": "Eso por sí solo no lo convierte en un objeto real. Puede ser un artefacto de imagen, una fuente que estos catálogos omiten o un asteroide no catalogado."
+      }
+    },
+    "motion": {
+      "line": "Movimiento estimado {{rate}} ± {{sigma}} ″/año, AP {{pa}}° ({{dir}}) · a partir de {{n}} marcas en {{days}} días",
+      "parallaxFitted": "La paralaje se ajusta junto con el movimiento.",
+      "noParallax": "La paralaje no se ajusta, por lo que el movimiento real puede diferir."
+    },
+    "compass": {
+      "n": "norte",
+      "ne": "noreste",
+      "e": "este",
+      "se": "sureste",
+      "s": "sur",
+      "sw": "suroeste",
+      "w": "oeste",
+      "nw": "noroeste"
+    },
+    "radius": {
+      "cone": "cono de {{r}}″ por marca",
+      "box": "{{r}}″ en la fecha de cada marca"
+    },
+    "cat": {
+      "gaia_dr3": "Gaia DR3",
+      "catwise2020": "CatWISE2020",
+      "simbad": "SIMBAD",
+      "sbident": "JPL SBIdent"
+    },
+    "scope": {
+      "gaia_dr3": "propagado a cada marca",
+      "catwise2020": "propagado a cada marca",
+      "simbad": "propagado a cada marca",
+      "sbident": "cuerpos menores conocidos en la fecha de cada marca"
+    },
+    "status": {
+      "match": "Coincidencia",
+      "partial": "Coincidencia parcial",
+      "no_match": "Sin coincidencia",
+      "unavailable": "No disponible"
+    },
+    "res": {
+      "unavailable": "No se pudo consultar este catálogo.",
+      "none": "Nada a menos de {{r}}″",
+      "body": "{{name}} · {{sep}}″ · V {{vmag}}",
+      "source": "La más cercana a {{sep}}″ de {{mark}}{{mag}} · {{id}}"
+    },
+    "note": {
+      "match": "Una fuente catalogada queda dentro del radio de búsqueda en todas las marcas.",
+      "partial": "Una fuente catalogada queda dentro del radio de búsqueda solo en algunas marcas.",
+      "no_match": "Ninguna fuente catalogada dentro del radio de búsqueda sigue las marcas.",
+      "unavailable": "Ejecute las verificaciones más tarde.",
+      "incomplete": "Parte de la consulta falló, por lo que este resultado puede estar incompleto.",
+      "sbident": "Aproximado para objetos muy cercanos."
+    },
+    "next": {
+      "title": "Próximos pasos",
+      "noReview": "Destello no revisa los reportes ni los envía a ningún lugar. Quienes pueden evaluar un candidato:",
+      "byw": {
+        "name": "Backyard Worlds: Planet 9",
+        "text": "Voluntarios que evalúan candidatos en movimiento en imágenes de WISE. Comparta su enlace en su foro."
+      },
+      "mpc": {
+        "name": "Minor Planet Center",
+        "text": "Si se mueve como un asteroide, las posiciones pueden enviarse allí, siguiendo sus normas. Destello no las envía por usted."
+      }
+    },
+    "page": {
+      "kicker": "Reporte de candidato · {{id}}",
+      "unconfirmed": "No confirmado",
+      "notFound": "Este reporte no existe o fue eliminado.",
+      "loadError": "No se pudo cargar el reporte. Intente más tarde.",
+      "loading": "Cargando el reporte…",
+      "title": {
+        "match": "Una fuente marcada que coincide con una entrada de catálogo",
+        "partial": "Una fuente marcada con una coincidencia parcial en catálogos",
+        "incomplete": "Una fuente marcada con verificaciones de catálogo incompletas",
+        "no_match": "Una posible fuente en movimiento sin coincidencias en catálogos"
+      },
+      "meta": "Reportado el {{date}} UTC · {{collections}} · detector {{det}} · secuencia {{seq}} · pipeline {{pipeline}}",
+      "whatTitle": "Qué es esta página",
+      "what": "Una persona marcó esta fuente en {{n}} épocas de SPHEREx. Las verificaciones automáticas consultaron Gaia DR3, CatWISE2020, SIMBAD y la lista de cuerpos menores conocidos del JPL alrededor de cada marca. Es un candidato no confirmado.",
+      "cropsCaption": "Recortes de {{size}}″ de las coadiciones de {{det}}, norte arriba, este a la izquierda, con un único estiramiento común. Cruces naranjas: las marcas de quien reporta.",
+      "cropAlt": "Recorte de {{e}} con la marca de quien reporta en el centro",
+      "cropLoading": "Cargando imagen…",
+      "cropGone": "Esta imagen ya no se conserva en el servidor. Las posiciones y las verificaciones de abajo no cambian.",
+      "motionTitle": "Movimiento estimado, a partir de {{n}} marcas",
+      "marksCaption": "Posiciones marcadas",
+      "colMark": "Marca",
+      "colPos": "Posición (ICRS)",
+      "colDate": "Fecha media",
+      "checksTitle": "Verificaciones automáticas",
+      "propagated": "Antes de comparar, las posiciones de catálogo se propagan a la fecha media de cada marca con sus propios movimientos propios.",
+      "notesTitle": "Notas de quien reporta",
+      "noNotes": "Quien reporta no dejó notas.",
+      "notesCaption": "Se muestran tal como fueron escritas. Los datos de contacto nunca se publican.",
+      "filesTitle": "Archivos",
+      "openExplorer": "Abrir en el Explorador",
+      "obsIds": "imágenes listadas por obs_id en report.json",
+      "laterTitle": "Vuelva a revisar más tarde.",
+      "later": "Una marca en otra época, o una época posterior en una próxima publicación de datos, permite comprobar si la trayectoria es recta."
+    }
+  },
+  "surprise": {
+    "button": "Sorpréndame",
+    "hint": "Abrir un campo al azar de una lista seleccionada de objetos reales",
+    "demoOff": "Sorpréndame necesita el servidor en vivo, que no está disponible en este momento.",
+    "why": "Por qué es interesante",
+    "position": "Posición",
+    "refEpoch": "época de referencia {{epoch}}",
+    "pm": "Movimiento propio del catálogo: {{value}} arcsec/año, propagado a cada época.",
+    "noPm": "Sin movimiento propio: la posición es fija en el cielo.",
+    "coverage": "La cobertura depende de la versión de datos. Las estrellas brillantes pueden saturar algunos detectores.",
+    "another": "Otro campo",
+    "kind": {
+      "mover": "Estrella de alto movimiento propio",
+      "variable": "Estrella joven variable",
+      "transient": "Supernova"
+    },
+    "items": {
+      "proxima": {
+        "name": "Próxima Centauri",
+        "why": "La estrella conocida más cercana al Sol, a unos 4,2 años luz. Recorre unos 3,9 segundos de arco de cielo por año."
+      },
+      "teegarden": {
+        "name": "Estrella de Teegarden",
+        "why": "Una enana roja débil a unos 12,5 años luz, identificada recién en 2003 al buscar objetos rápidos en datos de archivo. Se mueve unos 5,1 segundos de arco por año."
+      },
+      "vanmaanen": {
+        "name": "Van Maanen 2",
+        "why": "La enana blanca solitaria conocida más cercana, a unos 14 años luz, descubierta en 1917 por su movimiento de unos 3 segundos de arco por año."
+      },
+      "wolf359": {
+        "name": "Wolf 359",
+        "why": "Una de las estrellas más cercanas, una enana roja a unos 7,9 años luz que se mueve unos 4,7 segundos de arco por año."
+      },
+      "kapteyn": {
+        "name": "Estrella de Kapteyn",
+        "why": "Una subenana antigua del halo galáctico a unos 12,8 años luz. Su movimiento de unos 8,6 segundos de arco por año es el segundo mayor conocido, después de la Estrella de Barnard."
+      },
+      "groombridge1830": {
+        "name": "Groombridge 1830",
+        "why": "Una estrella pobre en metales del halo galáctico que cruza la vecindad solar a gran velocidad, unos 7 segundos de arco por año."
+      },
+      "lacaille9352": {
+        "name": "Lacaille 9352",
+        "why": "Una enana roja a unos 10,7 años luz que se mueve unos 6,9 segundos de arco por año."
+      },
+      "trappist1": {
+        "name": "TRAPPIST-1",
+        "why": "Una enana ultrafría a unos 41 años luz con siete planetas conocidos del tamaño de la Tierra. Se mueve alrededor de 1 segundo de arco por año, menos de un píxel de SPHEREx por década."
+      },
+      "ross128": {
+        "name": "Ross 128",
+        "why": "Una enana roja tranquila a unos 11 años luz que alberga un planeta templado. Se mueve unos 1,4 segundos de arco por año."
+      },
+      "v1647ori": {
+        "name": "V1647 Orionis",
+        "why": "Una estrella joven cuyos estallidos de acreción iluminaron la Nebulosa de McNeil en 2004 y de nuevo en 2008. Su brillo infrarrojo cambia en escalas de meses."
+      },
+      "fuori": {
+        "name": "FU Orionis",
+        "why": "El prototipo de los estallidos FU Orionis: aumentó su brillo unas seis magnitudes en 1937 y todavía se atenúa lentamente."
+      },
+      "ttau": {
+        "name": "T Tauri",
+        "why": "El prototipo de las estrellas T Tauri, jóvenes y aún en contracción, con cambios de brillo irregulares."
+      },
+      "boyajian": {
+        "name": "Estrella de Boyajian",
+        "why": "Una estrella cuyas disminuciones irregulares de brillo, de hasta un 22 por ciento, se hallaron en datos de Kepler y siguen en discusión."
+      },
+      "sn2023ixf": {
+        "name": "SN 2023ixf",
+        "why": "Una supernova de tipo II en la Galaxia del Molinete (M101), descubierta en mayo de 2023 y una de las más cercanas de la década. En las épocas de SPHEREx puede haberse atenuado por debajo del límite de detección."
+      }
+    }
+  },
+  "lc": {
+    "title": "Curva de luz",
+    "detector": "Detector de la curva de luz",
+    "xTitle": "Fecha media de la época (UTC)",
+    "plotAria": "Densidad de flujo del objetivo en función del tiempo en el detector D{{det}}, un marcador por época con su barra de error. Los mismos valores figuran en la tabla siguiente.",
+    "note": "Fotometría de apertura en la posición del objetivo sobre el coadd de cada época, radio {{r}} segundos de arco, sin corrección de apertura. Un coadd combina las longitudes de onda que cubrieron el objetivo durante esa época (columna Banda), por lo que parte de un cambio entre épocas puede deberse a una combinación distinta de longitudes de onda.",
+    "colBand": "Banda",
+    "loading": "Cargando la fotometría de esta secuencia",
+    "waiting": "La curva de luz estará disponible cuando la vista esté completa.",
+    "unavailable": "Esta secuencia no tiene archivo de fotometría, por lo que no se puede dibujar la curva de luz.",
+    "failed": "No se pudo cargar la fotometría de esta secuencia.",
+    "emptyPlot": "Ninguna época tiene una medición utilizable en este detector",
+    "missingHint": "Las épocas sin valor no se midieron; el motivo figura en la tabla.",
+    "reason": {
+      "off_image": "No medible: la apertura queda fuera del cuadro",
+      "saturated_core": "No medible: núcleo saturado",
+      "no_valid_pixels": "No medible: sin píxeles válidos",
+      "no_background": "No medible: muy pocos píxeles de fondo",
+      "core_masked": "No medible: píxeles marcados en el núcleo",
+      "aperture_masked": "No medible: apertura mayormente marcada",
+      "unknown": "No medible"
+    },
+    "csv": "Descargar curva de luz (CSV)",
+    "emptyAll": "Ningún detector tiene una medición utilizable en los coadds",
+    "emptyAllHint": "Ningún coadd de época de ningún detector puede medirse en esta posición (el motivo figura en la tabla). La fotometría por exposición, debajo del espectro, usa las exposiciones que quedan sin marcar."
+  },
+  "export": {
+    "python": "Abrir en Python",
+    "pythonTitle": "Cuaderno de Jupyter",
+    "pythonDesc": "Descarga un cuaderno que reconstruye esta secuencia a partir de su manifiesto: los identificadores de observación y las direcciones de los recortes exactos, la resta de la luz zodiacal, la máscara de indicadores, una coadición por época, un parpadeo con un único estiramiento compartido, las posiciones de Gaia DR3 propagadas a cada época y las citas. Es una reproducción simplificada. Los datos se descargan de IRSA al ejecutarlo.",
+    "pythonDemo": "El cuaderno requiere el servicio en vivo y no está disponible en la demostración sin conexión.",
+    "pythonNotReady": "El cuaderno estará disponible cuando esta secuencia termine de construirse.",
+    "title": "Exportar animación",
+    "button": "Exportar",
+    "desc": "Crea un GIF animado con los cuadros que muestra el reproductor: los mismos cuadros, el mismo estiramiento compartido, las capas activas y una leyenda con el objetivo, el detector, las fechas de las épocas, la versión de datos y el DOI. El archivo se genera en su navegador.",
+    "frames": "Cuadros",
+    "detector": "Detector",
+    "speed": "Velocidad",
+    "speedValue": "{{fps}} cuadros por segundo",
+    "overlays": "Capas",
+    "none": "Ninguna",
+    "create": "Crear GIF",
+    "download": "Descargar GIF",
+    "drawing": "Dibujando el cuadro {{done}} de {{total}}",
+    "encoding": "Codificando el GIF",
+    "done": "GIF listo ({{size}} KB).",
+    "failed": "No se pudo crear el GIF. Inténtelo de nuevo.",
+    "notReady": "Los cuadros todavía se están cargando. La exportación estará disponible cuando todos los cuadros de la secuencia estén listos.",
+    "noFrames": "No hay cuadros para exportar con este detector y este modo.",
+    "previewAlt": "Vista previa animada del GIF exportado",
+    "stillAlt": "Primer cuadro del GIF exportado",
+    "stillNote": "El movimiento reducido está activado, por lo que la vista previa muestra solo el primer cuadro. El archivo descargado es animado.",
+    "field": "Campo del cielo",
+    "capEpoch": "Época {{epoch}} de {{total}} · {{date}} (MJD {{mjd}})",
+    "capStack": "Promedio de {{total}} épocas",
+    "capSpan": "{{mode}} · épocas del {{first}} al {{last}}",
+    "capRelease": "{{release}} · DOI {{doi}}",
+    "capCredit": "Datos de SPHEREx de NASA/IPAC IRSA · Destello",
+    "capScale": "Norte arriba, este a la izquierda · 1 píxel = {{scale}} segundos de arco"
+  },
+  "cand": {
+    "toggle": "Candidatos",
+    "toggleHint": "Listar los lugares donde las dos épocas difieren y marcarlos sobre la imagen",
+    "on": "Activado",
+    "off": "Desactivado",
+    "title": "Candidatos a revisar",
+    "pair": "Época {{a}} ({{dateA}}) menos época {{b}} ({{dateB}})",
+    "disclaimer": "Un candidato es un lugar donde dos épocas difieren. No es la detección de un objeto nuevo. Revíselo en el parpadeo y en varios detectores antes de reportarlo.",
+    "method": "Diferencias de al menos {{sigma}} sigma entre las dos épocas, vistas por al menos {{n}} detectores salvo que la entrada sea un dipolo (una parte negativa y una positiva contiguas), y comparadas con Gaia DR3 y CatWISE2020 en la época dentro de {{radius}} arcsec.",
+    "causes": "Causas habituales de una entrada sin coincidencia en catálogos: reflejos ópticos y estructura de difracción de estrellas brillantes, que cambian con la orientación del telescopio entre épocas; fuentes variables ausentes de los catálogos; y objetos en movimiento.",
+    "countsLabel": "Recuentos",
+    "count": {
+      "listed": "Listados"
+    },
+    "status": {
+      "unmatched": "Sin coincidencia en catálogos",
+      "unchecked": "Sin verificar",
+      "target": "En el objetivo",
+      "known_source": "Fuente de catálogo",
+      "not_measurable": "No medible"
+    },
+    "statusHelp": {
+      "unmatched": "Ninguna fuente de Gaia DR3 ni de CatWISE2020 a menos de {{radius}} arcsec en la época.",
+      "unchecked": "Un catálogo no respondió, por lo que la entrada no pudo compararse con él.",
+      "target": "En la posición del objetivo de esta vista, donde se espera un cambio.",
+      "known_source": "Una fuente de catálogo en esta posición explica la diferencia.",
+      "not_measurable": "Junto a píxeles sin exposiciones válidas."
+    },
+    "uncheckedNotice": "Sin respuesta de {{catalogs}}. Las entradas indicadas como sin verificar no pudieron compararse con todos los catálogos.",
+    "truncated": "La lista fue recortada: solo se muestran las entradas más significativas.",
+    "dropped": "No listados: {{single}} vistos por un solo detector, {{extended}} en estructura extendida.",
+    "empty": "No hay candidatos en este par",
+    "emptyPrimary": "Ninguna entrada sin coincidencia en catálogos en este par. Los grupos siguientes contienen las entradas que tienen explicación.",
+    "loading": "Comparando las dos épocas",
+    "needPair": "Esta época es la de referencia, por lo que no hay diferencia que examinar. Elija otra época.",
+    "waiting": "Los candidatos estarán disponibles cuando todas las épocas de esta vista estén listas.",
+    "listLabel": "Entradas sin coincidencia en catálogos o sin verificar",
+    "group": "{{label}} ({{count}})",
+    "kind": {
+      "moved": "Desplazado",
+      "brighter": "Más brillante en la época {{epoch}}"
+    },
+    "snr": "S/R {{value}}",
+    "coords": "AR {{ra}} grados, Dec {{dec}} grados",
+    "separation": "Separación entre las dos posiciones: {{value}} arcsec",
+    "match": "{{catalog}} {{id}}, a {{sep}} arcsec",
+    "matchMag": "{{band}} {{mag}} mag",
+    "catalog": {
+      "gaia_dr3": "Gaia DR3",
+      "catwise2020": "CatWISE2020"
+    },
+    "and": "y",
+    "copy": "Copiar coordenadas",
+    "copied": "Copiado",
+    "report": "Reportar",
+    "reportHint": "Abrir el flujo de reporte con esta posición marcada en ambas épocas",
+    "legend": {
+      "title": "Marcadores",
+      "known": "En el objetivo o fuente de catálogo",
+      "moved": "Desplazado: posición en la época {{b}} unida a la posición en la época {{a}}",
+      "selected": "Seleccionado"
+    },
+    "err": {
+      "TOO_FEW_EPOCHS": "Los candidatos requieren dos o más épocas.",
+      "INVALID_EPOCHS": "Este par de épocas no puede compararse. Elija dos épocas distintas.",
+      "NO_FITS": "Los datos necesarios para comparar estas épocas ya no están en el servidor. Genere la vista nuevamente.",
+      "RATE_LIMITED": "Demasiadas solicitudes desde esta conexión. Espere un momento e intente de nuevo.",
+      "NOT_FOUND": "Esta vista ya no está disponible en el servidor. Genérela nuevamente.",
+      "DEMO_UNAVAILABLE": "Los candidatos de este par no están disponibles en los ejemplos guardados. Requieren el servidor en línea.",
+      "network": "No fue posible conectar con el servidor. Verifique la conexión e intente de nuevo.",
+      "generic": "No fue posible calcular los candidatos. Intente de nuevo.",
+      "LOW_COVERAGE_EPOCH": "Los candidatos no se calculan para épocas de cobertura baja. Elija dos épocas de cobertura completa."
+    },
+    "lowPair": "Los candidatos no se calculan para épocas de cobertura baja. Elija dos épocas de cobertura completa."
+  },
+  "results": {
+    "button": "Ficha de resultados",
+    "title": "Ficha de resultados",
+    "desc": "Resumen de esta vista para citarla o adjuntarla a un informe. Contiene únicamente los datos y las mediciones ya cargados en esta vista.",
+    "print": "Imprimir o guardar como PDF",
+    "json": "Descargar JSON",
+    "notReady": "La ficha estará disponible cuando estén listos los primeros cuadros de esta vista.",
+    "partial": "Esta vista todavía se está construyendo. La ficha incluye solo las épocas y los detectores publicados hasta el momento.",
+    "h": {
+      "view": "Vista",
+      "data": "Datos",
+      "frames": "Cuadros mostrados",
+      "measurements": "Mediciones",
+      "trace": "Trazabilidad"
+    },
+    "target": "Objeto",
+    "position": "Centro del campo (ICRS)",
+    "generated": "Generada (UTC)",
+    "services": "Servicios",
+    "epochs": "Épocas de la secuencia",
+    "start": "Inicio (UTC)",
+    "end": "Fin (UTC)",
+    "midMjd": "Tiempo medio (MJD)",
+    "coadds": "Coadiciones",
+    "epochShown": "Época en pantalla",
+    "stretchValue": "{{detector}}: {{method}}, de {{vmin}} a {{vmax}} {{unit}}, común a todas las épocas del detector",
+    "stretchDiff": "No corresponde: una imagen de diferencia no se dibuja con la escala de las coadiciones.",
+    "noMeasurements": "No hay mediciones cargadas en esta vista. Abra el panel Espectro o el panel Medir antes de abrir la ficha para incluir sus resultados.",
+    "measuredAt": "Posición medida",
+    "preset": "Resultado publicado para este objeto",
+    "agreement": "Concordancia con el valor publicado",
+    "significance": "Significancia del cambio",
+    "reasons": "Motivo indicado para cada época sin medición",
+    "waveRange": "Los puntos utilizables cubren {{range}}.",
+    "change": "De E{{from}} a E{{to}} en D{{det}} el flujo cambia {{pct}} por ciento ({{sigma}} sigma).",
+    "changeNoSigma": "De E{{from}} a E{{to}} en D{{det}} el flujo cambia {{pct}} por ciento. No se indica la significancia porque falta una incertidumbre.",
+    "changeAbs": "De E{{from}} a E{{to}} en D{{det}} el flujo cambia {{value}} {{unit}}.",
+    "changeNone": "Menos de dos épocas tienen una medición en D{{det}}, por lo que no se indica ningún cambio.",
+    "candPair": "Época {{a}} menos época {{b}}, diferencias de al menos {{sigma}} sigma.",
+    "candNotLoaded": "Los candidatos a revisar están activados, pero no hay una lista cargada para el par de épocas en pantalla.",
+    "motionMethod": "Épocas {{epochs}} examinadas a lo largo de {{years}} años, picos de al menos {{sigma}} sigma vistos por al menos {{n}} detectores.",
+    "obsIds": "Imágenes de origen (obs_id) de cada coadición, por época y detector"
+  },
+  "partial": {
+    "label": "Incluir revisitas breves",
+    "help": "Las revisitas breves del relevamiento se muestran como épocas adicionales con la etiqueta cobertura baja. Nunca se usan en las mediciones."
+  },
+  "coverage": {
+    "low": "Cobertura baja",
+    "full": "Completa",
+    "lowAria": "Cobertura baja: una revisita breve que no se usa en las mediciones"
+  },
+  "motion": {
+    "title": "Búsqueda de movimiento",
+    "intro": "Busca en las épocas de cobertura completa fuentes que se desplazan en línea recta, y conserva las que dos o más detectores ven moverse de la misma forma.",
+    "run": "Buscar fuentes en movimiento",
+    "waiting": "La búsqueda estará disponible cuando todas las épocas de esta vista estén listas.",
+    "disclaimer": "Cada fuente listada es un candidato a revisar, no la detección de un objeto nuevo. Revísela en el parpadeo y compárela con los catálogos antes de reportarla.",
+    "loading": "Buscando fuentes en movimiento en las épocas. Puede demorar hasta un minuto.",
+    "countsLabel": "Recuentos",
+    "count": {
+      "listed": "Listadas"
+    },
+    "status": {
+      "unmatched": "Sin coincidencia en catálogos",
+      "unchecked": "Sin verificar",
+      "target": "En el objetivo",
+      "known_source": "Fuente de catálogo"
+    },
+    "method": "Se examinaron {{epochs}} épocas de cobertura completa a lo largo de {{years}} años, para movimientos de hasta {{mu}} arcsec/año, conservando picos de al menos {{sigma}} sigma vistos por al menos {{n}} detectores, comparados con Gaia DR3 y CatWISE2020 en la época media dentro de {{radius}} arcsec.",
+    "uncheckedNotice": "Sin respuesta de {{catalogs}}. Las fuentes indicadas como sin verificar no pudieron compararse con todos los catálogos.",
+    "truncated": "La lista fue recortada: solo se muestran las fuentes más significativas.",
+    "empty": "Ninguna fuente se desplaza de forma consistente en dos o más detectores.",
+    "onFrame": "Cada trayectoria se dibuja sobre las imágenes del cielo, con un cuadrado en la época en pantalla. Seleccione una fuente para resaltar su trayectoria.",
+    "listLabel": "Fuentes que se desplazan de forma consistente",
+    "pm": "pmra* {{pmra}}, pmdec {{pmdec}} {{unit}}",
+    "total": "Total {{value}} {{unit}}",
+    "unit": "arcsec/año",
+    "matchPm": "movimiento en el catálogo {{value}} {{unit}}",
+    "agreement": "difiere del catálogo en {{value}} sigma",
+    "parallax": "Paralaje {{value}} ± {{err}} mas",
+    "distance": "Distancia {{value}} ± {{err}} pc",
+    "noDistance": "Paralaje no significativa: no se indica distancia",
+    "matchParallax": "paralaje en el catálogo {{value}} mas, difiere en {{sigma}} sigma",
+    "parallaxFitted": "Las épocas abarcan al menos un año, por lo que la paralaje se ajusta junto con el movimiento; solo se indica una distancia cuando la paralaje alcanza {{sigma}} sigma.",
+    "parallaxFixed": "Con estas épocas la paralaje no puede separarse del movimiento, por lo que no se ajusta.",
+    "tool": "Búsqueda de movimiento",
+    "notRun": "Sin ejecutar",
+    "running": "En curso",
+    "limits": {
+      "title": "Límites de esta búsqueda",
+      "linear": "Solo se encuentran movimientos en línea recta y a velocidad constante a lo largo de las épocas examinadas.",
+      "saturated": "Los píxeles saturados o marcados se excluyen, por lo que las fuentes muy brillantes pueden no encontrarse o medirse con errores mayores.",
+      "parallax": "La paralaje se ajusta solo cuando cuatro o más épocas abarcan al menos un año. Con menos épocas no se modela, y una fuente cercana, que también se desplaza entre pasadas del relevamiento por la órbita terrestre, obtiene errores mayores.",
+      "lowCoverage": "Las épocas de baja cobertura (revisitas breves) no se examinan.",
+      "distant": "Un objeto distante del sistema solar, como un hipotético Planeta X, se desplaza varios minutos de arco entre pasadas del relevamiento, principalmente por la paralaje de la órbita terrestre, muy fuera de los movimientos lineales buscados aquí; este método no permite encontrarlo."
+    },
+    "err": {
+      "TOO_FEW_EPOCHS": "La búsqueda de movimiento necesita tres o más épocas de cobertura completa. Esta vista tiene menos.",
+      "NO_FITS": "No se pudo medir ningún coadd de detector de esta vista, por lo que no se realizó la búsqueda.",
+      "RATE_LIMITED": "Demasiadas búsquedas en poco tiempo. Espere un momento e intente de nuevo.",
+      "NOT_FOUND": "Esta vista ya no está disponible en el servidor. Recargue la página para construirla de nuevo.",
+      "DEMO_UNAVAILABLE": "La búsqueda de movimiento no está guardada en la demostración para esta vista.",
+      "network": "El servidor no respondió. Verifique la conexión e intente de nuevo.",
+      "generic": "La búsqueda de movimiento falló. Intente de nuevo."
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "Destello: mira cómo se mueve el cielo infrarrojo con NASA SPHEREx",
+      "description": "Compara imágenes infrarrojas reales de NASA SPHEREx de cualquier posición del cielo entre épocas del sondeo y destaca objetos en movimiento o variables."
+    },
+    "science": {
+      "description": "Cómo Destello convierte las imágenes infrarrojas de NASA SPHEREx en coadiciones por época, animaciones y diferencias, y qué pueden y qué no pueden mostrar."
+    },
+    "validation": {
+      "description": "Destello frente a valores publicados: movimientos propios, variabilidad y astrometría medidos en imágenes de SPHEREx, con cada prueba aprobada, fallida o no medible."
+    },
+    "about": {
+      "title": "Acerca de",
+      "description": "Destello es una herramienta gratuita y bilingüe creada para el desafío Planet X and SPHEREx del NASA Space Apps Challenge 2026. Qué hace y sus créditos de datos."
+    },
+    "hunt": {
+      "description": "Revisa imágenes reales de SPHEREx de un campo del cielo a la vez y marca lo que cambia entre épocas, en una búsqueda voluntaria de objetos en movimiento."
+    },
+    "story": {
+      "description": "Un recorrido breve por cómo los astrónomos encuentran objetos en movimiento, del hallazgo de Plutón en 1930 con dos placas fotográficas al cielo de SPHEREx."
+    },
+    "comet": {
+      "description": "Sigue al cometa interestelar 3I/ATLAS en imágenes de NASA SPHEREx entre épocas del sondeo, con su movimiento y su espectro infrarrojo medidos de los datos."
+    },
+    "learn": {
+      "description": "Una actividad de aula: encuentra la estrella de Barnard en imágenes reales de SPHEREx, márcala en cada época y calcula su movimiento propio."
+    },
+    "guide": {
+      "description": "Un plan de clase imprimible de 40 minutos: el alumnado mide el movimiento propio de la estrella de Barnard en imágenes de SPHEREx y lo compara con un catálogo."
+    },
+    "developers": {
+      "description": "Usa Destello desde código: la API pública, el reproductor incrustable, el contrato de URL, los límites de uso y los recursos de datos de cada fotograma."
+    },
+    "embed": {
+      "title": "Reproductor incrustado",
+      "description": "Reproductor incrustable de Destello que compara las épocas de NASA SPHEREx de una posición del cielo. Es para otros sitios web y no se indexa."
+    },
+    "report": {
+      "description": "Una fuente en movimiento candidata, marcada por una persona en varias épocas de SPHEREx, con verificaciones automáticas en catálogos. No está confirmada."
+    },
+    "target": {
+      "description": "Compara imágenes infrarrojas reales de NASA SPHEREx de {{name}} entre épocas y observa cómo se mueve o cambia frente a las estrellas fijas."
+    },
+    "error": {
+      "description": "No se pudo mostrar esta página. Vuelve al inicio de Destello para explorar imágenes de NASA SPHEREx de cualquier posición del cielo."
+    },
+    "imageAlt": "Destello: mira cómo se mueve el cielo infrarrojo, con imágenes de NASA SPHEREx"
+  }
+}

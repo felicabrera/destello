@@ -1,0 +1,103 @@
+{
+  "nav": "Developers",
+  "kicker": "Developers",
+  "title": "Use Destello from code",
+  "lead": "The public API, the embeddable player, the URL contract, the rate limits and the data resources behind every frame.",
+  "toc": "On this page",
+  "sections": {
+    "python": "Open in Python",
+    "api": "API endpoints",
+    "embed": "Embed",
+    "url": "URL contract",
+    "limits": "Rate limits",
+    "resources": "Data resources",
+    "credits": "Credits"
+  },
+  "python": {
+    "body": "Every sequence can be downloaded as a Jupyter notebook generated from its manifest. It lists the exact observation identifiers, collections, DOIs and cutout addresses, and follows the SPHEREx tutorial notebooks of IRSA: download, zodiacal light subtraction, flag mask read from the file header, a coadd per epoch, a blink with one shared stretch per detector, Gaia DR3 positions propagated to each epoch, and the citations. It is a simplified reproduction of the Destello pipeline.",
+    "how": "Open a sequence in the explorer, choose Export, then Open in Python. The same file is available from the API:",
+    "endpoint": "GET /api/v1/sequences/{sequence_id}/notebook"
+  },
+  "api": {
+    "body": "The list below is read from the OpenAPI document that the API serves at {{url}}. Descriptions are in English. Interactive documentation: {{docs}}.",
+    "loading": "Loading the API description",
+    "error": "The API description could not be loaded: the service is not reachable from this page. The OpenAPI document is served at {{url}} when the service is running.",
+    "none": "The API description lists no endpoints.",
+    "region": "API endpoints, {{tag}}",
+    "method": "Method",
+    "path": "Path",
+    "summary": "Description",
+    "untagged": "other",
+    "version": "API {{title}}, version {{version}}"
+  },
+  "embed": {
+    "body": "Any view can be placed on another page with an iframe. The route is /embed with the same parameters as the URL contract plus controls (full, minimal or none) and theme (dark or light). Only /embed may be framed by other sites. Optional messages to the parent page: destello:ready and destello:frame.",
+    "snippet": "Embed code",
+    "snippetLabel": "Embed code, read only"
+  },
+  "url": {
+    "body": "Routes: /t/{target} opens a preset (barnard, wise0855, epsindib, rwaur, rdra); / with ra and dec, or name, opens any position. All parameters are optional. Epoch numbers are 1-based.",
+    "example": "Example",
+    "param": "Parameter",
+    "values": "Values",
+    "meaning": "Meaning",
+    "rows": {
+      "ra": "Position, decimal degrees or URL-encoded sexagesimal (ignored on /t/{target})",
+      "name": "Resolve by name: preset names and aliases first, then SIMBAD",
+      "fov": "Field of view in arcmin",
+      "det": "Detector view",
+      "mode": "Display mode",
+      "ref": "Reference epoch for the difference mode, 1-based",
+      "frame": "Epoch shown, 1-based",
+      "rgb": "Three distinct detectors in the order red, green, blue",
+      "track": "Track mode: frames recentered on the predicted position of a known mover",
+      "fps": "Playback speed",
+      "play": "Autoplay (off by default when reduced motion is requested)",
+      "ov": "Overlays",
+      "tab": "Open panel tab",
+      "release": "Data release (collection identifier)",
+      "partial": "Include short revisits as low coverage epochs",
+      "lang": "Interface language",
+      "seq": "Load an existing sequence directly"
+    }
+  },
+  "limits": {
+    "body": "Limits apply per client, identified by a salted hash of the IP address. Responses carry RateLimit-Limit, RateLimit-Remaining and RateLimit-Reset. Exceeding a limit returns 429 with Retry-After.",
+    "scope": "Scope",
+    "limit": "Limit",
+    "rows": {
+      "all": "All API requests",
+      "build": "Requests that start a new build (POST /sequences)",
+      "reports": "POST /reports (a Turnstile check is required)",
+      "checks": "POST /reports/check",
+      "compute": "Astrometry, spectrum and other computed results, including the notebook",
+      "errors": "POST /client-errors (reports over the limit are dropped)"
+    },
+    "perMinute": "{{n}} per minute",
+    "per10Minutes": "{{n}} per 10 minutes",
+    "perHour": "{{n}} per hour"
+  },
+  "resources": {
+    "body": "Every external source, service and tool that Destello uses or draws on, with its licence and the acknowledgement it asks for. The table is generated from docs/17 of the repository and the text is copied as written there, in English. Where the register says not verified, the provider page could not be read or did not state it; nothing has been filled in.",
+    "register": "Register",
+    "terms": "Terms that need attention",
+    "caption": "Data resources register",
+    "name": "Name",
+    "provider": "Provider and agency",
+    "official": "Official challenge resource",
+    "host": "Host",
+    "access": "Access method",
+    "usage": "Where used in Destello",
+    "version": "Data release or version",
+    "licence": "Licence or terms of use",
+    "acknowledgement": "Required acknowledgement and citation",
+    "status": "Status",
+    "unverified": "Contains cells marked not verified"
+  },
+  "credits": {
+    "body": "Destello builds on the work of others.",
+    "spherex": "The SPHEREx Tutorial Notebooks of Caltech/IPAC IRSA: the access patterns for cutouts, the spectral WCS and the TAP queries that the exported notebook and the pipeline follow.",
+    "wiseview": "Inspired by WiseView (Backyard Worlds): the idea of blinking time-ordered images to find moving objects. No data or code is taken from it.",
+    "neossat": "The NEOSSat Data Tutorial of the Canadian Space Agency, as a reference for working with NEOSSat data."
+  }
+}

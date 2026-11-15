@@ -1,0 +1,7 @@
+# Every change needs review from the owner. Workflows, deployment files and security policy are listed
+# explicitly so that they stay protected if the default rule is relaxed later.
+*                       @felicabrera
+/.github/               @felicabrera
+/deploy/                @felicabrera
+/scripts/smoke.sh       @felicabrera
+/SECURITY.md            @felicabrera

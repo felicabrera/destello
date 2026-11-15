@@ -1,0 +1,44 @@
+# Checks that the pull request title and each commit subject follow `tag: summary` (repository rule).
+# Runs on pull_request only, with a read-only token; values from the event reach the shell through env.
+name: conventional
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+permissions: {}
+concurrency:
+  group: conventional-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  subjects:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {fetch-depth: 0, persist-credentials: false}
+      - name: Pull request title and commit subjects
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          set -euo pipefail
+          re='^(feat|fix|chore|refactor|test|docs|ci|perf|build|revert)(\([A-Za-z0-9._/-]+\))?!?: [^ ].*[^.]$'
+          bad=0
+          check() {
+            local subject="$1" origin="$2"
+            if [[ ! "$subject" =~ $re ]]; then
+              echo "::error::${origin} does not match 'tag: summary' (feat, fix, chore, refactor, test, docs, ci, perf, build, revert)"
+              bad=1
+            elif (( ${#subject} > 100 )); then
+              echo "::error::${origin} is longer than 100 characters"
+              bad=1
+            fi
+          }
+          check "$PR_TITLE" "Pull request title"
+          # The checkout is the merge commit: first parent is the base, second parent is the pull request head.
+          while IFS= read -r subject; do
+            [[ -z "$subject" ]] && continue
+            check "$subject" "A commit subject"
+            [[ "$bad" == 1 ]] && printf 'Offending subject: %s\n' "$subject"
+          done < <(git log --no-merges --format='%s' HEAD^1..HEAD^2)
+          exit "$bad"

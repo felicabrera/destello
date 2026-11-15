@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "description": "Strings that exist in the design boards as illustrative placeholders. They must never appear in production code (src outside dev-fixtures). Read by scripts/check_placeholders.py.",
+  "scan_paths": ["src"],
+  "exclude_paths": ["src/dev-fixtures", "src/**/*.test.ts", "src/**/*.test.tsx"],
+  "forbidden": [
+    { "text": "0.3σ", "reason": "design placeholder for agreement" },
+    { "text": "0.2σ", "reason": "design placeholder for agreement" },
+    { "text": "Agrees · ", "reason": "design placeholder badge text with a number baked in" },
+    { "text": "Matches · ", "reason": "design placeholder badge text with a number baked in" },
+    { "text": "~210 images · about 30 s", "reason": "design placeholder for the FoV estimate" },
+    { "text": "illustrative", "reason": "marks illustrative numbers in the boards" },
+    { "text": "placeholder", "reason": "no placeholder copy in production UI strings", "scope": "i18n" },
+    { "text": "Lorem ipsum", "reason": "filler text" },
+    { "text": "DEV FIXTURE", "reason": "development fixture marker, allowed only inside src/dev-fixtures", "allow_in": ["src/dev-fixtures"] },
+    { "text": "dev-fixtures", "reason": "production code must import fixtures only behind import.meta.env.DEV", "allow_in": ["src/lib/api.ts", "src/features/explorer/ExplorerPage.tsx", "src/dev-fixtures"] }
+  ]
+}

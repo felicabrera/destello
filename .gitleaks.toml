@@ -1,0 +1,29 @@
+# gitleaks configuration for Destello. Extends the default rules and lists the known false positives
+# recorded in SECURITY-CHECKS.md (check 7). Keep this list short and specific.
+title = "Destello gitleaks configuration"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Generated data, dependency folders and one intentional fake key used as a test fixture"
+# Generated or third party content. data/ holds build records whose observation identifiers look like
+# generic API keys; it is git ignored and never holds secrets. demo/ is exported from data/.
+paths = [
+	'''(^|/)data/''',
+	'''(^|/)demo/''',
+	'''(^|/)node_modules/''',
+	'''(^|/)\.venv/''',
+	'''(^|/)frontend/dist/''',
+	'''(^|/)frontend/(test-results|playwright-report)/''',
+	'''(^|/)(scratch|qa|\.playwright-mcp)/''',
+	'''(^|/)pnpm-lock\.yaml$''',
+	'''(^|/)uv\.lock$''',
+]
+# The documented example key and the alphabet password used by
+# backend/tests/unit/test_scripts_check_placeholders.py to prove that scripts/check_placeholders.py
+# detects access keys and passwords.
+regexes = [
+	'''AKIAABCDEFGHIJKLMNOP''',
+	'''abcdefghijklmnopqrstuvwxyz0123''',
+]

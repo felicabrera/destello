@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Destello is temporarily unavailable | Destello no está disponible por ahora</title>
+    <!--
+      Static page served by Caddy (handle_errors) for 502, 503 and 504 when the backend is down.
+      It cannot load the app, so it is self-contained: inline styles, no scripts, no external requests.
+      The color values below are copied literally from src/styles/tokens.css (dark theme) on purpose; this
+      file is outside src/, so the raw-color lint does not read it. Update them if the tokens change.
+    -->
+    <style>
+      html { color-scheme: dark; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        box-sizing: border-box;
+        background: #0b1020; /* --bg */
+        color: #c9cedb; /* --text-2 */
+        font: 15px/22px Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      main { max-width: 640px; width: 100%; }
+      svg { width: 40px; height: 40px; display: block; margin-bottom: 16px; }
+      h1 { margin: 0 0 8px; font-size: 28px; line-height: 36px; font-weight: 600; color: #e6e9f2; /* --text */ }
+      p { margin: 0 0 16px; max-width: 60ch; }
+      section + section { margin-top: 32px; padding-top: 24px; border-top: 1px solid #26314f; /* --border */ }
+      a {
+        display: inline-block;
+        padding: 10px 16px;
+        border-radius: 8px;
+        background: #ff8a3d; /* --glint */
+        color: #0b1020; /* --on-glint */
+        font-weight: 600;
+        text-decoration: none;
+      }
+      a:hover { background: #ff9f5f; /* --glint-hover */ }
+      a:focus-visible { outline: 2px solid #e6e9f2; outline-offset: 3px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+        <path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#ff8a3d" />
+      </svg>
+      <section lang="en">
+        <h1>Destello is temporarily unavailable</h1>
+        <p>The service did not respond. This is on our side and usually passes within a few minutes. Please try again shortly.</p>
+        <a href="/">Try again</a>
+      </section>
+      <section lang="es">
+        <h1>Destello no está disponible por ahora</h1>
+        <p>El servicio no respondió. El problema es de nuestra parte y suele resolverse en unos minutos. Intente de nuevo en breve.</p>
+        <a href="/">Intentar de nuevo</a>
+      </section>
+    </main>
+  </body>
+</html>

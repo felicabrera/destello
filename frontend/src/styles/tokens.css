@@ -1,0 +1,161 @@
+/* Destello design tokens. Source of truth: Destello Foundations.dc.html.
+   Tailwind v4: import this file after `@import "tailwindcss";`. The @theme block maps vars to utilities
+   (bg-surface, text-muted, border-border, ring-cyan, rounded-md, duration-base, font-display ...).
+   Never use a raw hex in components; add a token here first. */
+
+:root, [data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0B1020;            /* deep sky, app background */
+  --surface: #141B2E;       /* panels, cards */
+  --surface-2: #1B2440;     /* inputs, menus, raised */
+  --border: #26314F;        /* dividers, control edges (3:1 decorative) */
+  --border-strong: #626E98; /* input and control edges, 3:1 on surface and surface-2 */
+  --text: #E6E9F2;          /* primary text 15.6:1 */
+  --text-2: #C9CEDB;        /* long-form body */
+  --muted: #9AA3B8;         /* secondary text, labels 7.2:1 */
+  --disabled: #5E6882;      /* disabled ink, inactive icons (exempt from 4.5:1) */
+  --glint: #FF8A3D;         /* brand, mover, primary action, +diff */
+  --glint-hover: #FF9F5F;
+  --glint-press: #E8742A;
+  --glint-soft: color-mix(in srgb, #FF8A3D 16%, transparent); /* selected fills */
+  --on-glint: #0B1020;
+  --cyan: #4FD1E8;          /* Gaia overlay, focus ring */
+  --violet: #8F7CFF;        /* CatWISE overlay */
+  --neg: #3D7BFF;           /* negative difference (graphics) */
+  --neg-text: #8FB0FF;      /* negative difference legend text */
+  --success: #3FB68B;
+  --warning: #F2C14E;       /* flags, degraded */
+  --danger: #F0616D;
+  --frame: #05070F;         /* letterbox behind sky frames */
+  --diff-zero: #6E7280;     /* diverging colormap midpoint */
+  --hud-bg: rgba(11, 16, 32, .84);
+  --hud-line: rgba(58, 71, 112, .9);
+}
+
+[data-theme="light"] {       /* embeds and print */
+  color-scheme: light;
+  --bg: #F7F8FB;
+  --surface: #FFFFFF;
+  --surface-2: #EEF1F6;
+  --border: #D3D9E5;
+  --border-strong: #7A849B;
+  --text: #0E1426;
+  --text-2: #3A3F4B;
+  --muted: #545E75;
+  --disabled: #8C96AD;
+  --glint: #B84A00;          /* darkened for 4.5:1 */
+  --glint-hover: #A34200;
+  --glint-press: #8F3A00;
+  --glint-soft: color-mix(in srgb, #B84A00 12%, transparent);
+  --on-glint: #FFFFFF;
+  --cyan: #0B7A8F;
+  --violet: #5B46D9;
+  --neg: #1F5FDB;
+  --neg-text: #1F5FDB;
+  --success: #1A7F5A;
+  --warning: #8A6100;
+  --danger: #C42B3A;
+  --frame: #05070F;          /* sky frames stay dark in light theme */
+  --diff-zero: #6E7280;
+  --hud-bg: rgba(11, 16, 32, .84);
+  --hud-line: rgba(58, 71, 112, .9);
+}
+
+/* Brand-only (logo files, not UI): glint on light #D9631A. */
+
+/* Epoch series: Okabe-Ito, always paired with a shape (E1 circle, E2 square, E3 triangle,
+   E4 diamond, E5 triangle-down, E6 plus, E7 hexagon). */
+:root {
+  --epoch-1: #56B4E9; --epoch-2: #CC79A7; --epoch-3: #009E73; --epoch-4: #F0E442;
+  --epoch-5: #0072B2; --epoch-6: #E69F00; --epoch-7: #D55E00;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-muted: var(--muted);
+  --color-disabled: var(--disabled);
+  --color-glint: var(--glint);
+  --color-glint-hover: var(--glint-hover);
+  --color-glint-press: var(--glint-press);
+  --color-glint-soft: var(--glint-soft);
+  --color-on-glint: var(--on-glint);
+  --color-cyan: var(--cyan);
+  --color-violet: var(--violet);
+  --color-neg: var(--neg);
+  --color-neg-text: var(--neg-text);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-frame: var(--frame);
+  --color-hud: var(--hud-bg);
+  --color-hud-line: var(--hud-line);
+  --color-epoch-1: var(--epoch-1); --color-epoch-2: var(--epoch-2); --color-epoch-3: var(--epoch-3);
+  --color-epoch-4: var(--epoch-4); --color-epoch-5: var(--epoch-5); --color-epoch-6: var(--epoch-6);
+  --color-epoch-7: var(--epoch-7);
+
+  /* shadcn/ui aliases so generated primitives pick up Destello colors */
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-card: var(--surface);
+  --color-popover: var(--surface-2);
+  --color-primary: var(--glint);
+  --color-primary-foreground: var(--on-glint);
+  --color-secondary: var(--surface-2);
+  --color-muted-foreground: var(--muted);
+  --color-accent: var(--glint-soft);
+  --color-destructive: var(--danger);
+  --color-input: var(--border-strong);
+  --color-ring: var(--cyan);
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;  /* headings only */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;  /* every number, tabular-nums */
+
+  /* type scale: size / line-height / tracking */
+  --text-display-48: 48px; --text-display-48--line-height: 56px; --text-display-48--letter-spacing: -0.025em;
+  --text-display-32: 32px; --text-display-32--line-height: 40px; --text-display-32--letter-spacing: -0.015em;
+  --text-heading-24: 24px; --text-heading-24--line-height: 32px; --text-heading-24--letter-spacing: -0.01em;
+  --text-title-20: 20px;   --text-title-20--line-height: 28px;
+  --text-body-15: 15px;    --text-body-15--line-height: 22px;
+  --text-body-14: 14px;    --text-body-14--line-height: 20px;
+  --text-label-13: 13px;   --text-label-13--line-height: 18px;
+  --text-caption-12: 12px; --text-caption-12--line-height: 16px;  /* floor: nothing below 12px */
+
+  /* spacing: 4-px grid, Tailwind default numeric scale already matches (1 = 4px) */
+  --spacing: 4px;
+
+  --radius-sm: 4px;   /* badges, chips in tables */
+  --radius-md: 6px;   /* HUD, tooltips, small controls */
+  --radius-lg: 8px;   /* buttons, inputs, chips */
+  --radius-xl: 10px;  /* cards, panels */
+  --radius-2xl: 12px; /* dialogs, sheets */
+
+  --shadow-pop: 0 8px 24px rgba(0, 0, 0, .45), 0 0 0 1px var(--border);
+  --shadow-focus: 0 0 0 2px var(--bg), 0 0 0 4px var(--cyan);
+
+  --ease-standard: cubic-bezier(.2, 0, 0, 1);
+  --duration-fast: 120ms;  /* hover, press */
+  --duration-base: 200ms;  /* toggles, tabs, tooltips */
+  --duration-slow: 320ms;  /* panels, sheets, dialogs */
+
+  --breakpoint-sm: 360px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --duration-fast: 0ms; --duration-base: 0ms; --duration-slow: 0ms; }
+}
+
+:root { --hit-min: 32px; }
+@media (pointer: coarse) {
+  :root { --hit-min: 44px; }
+}
