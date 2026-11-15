@@ -1,0 +1,160 @@
+@import 'tailwindcss';
+@import './motion-defaults.css';
+@import './tokens.css';
+
+/* Space kept for the compact hunt totals on the home page until they load (see HuntCounters). */
+:root {
+  --hunt-compact-h: 6.0625rem;
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 20px;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+  button {
+    font-family: inherit;
+    cursor: pointer;
+  }
+  button:disabled,
+  [aria-disabled='true'] {
+    cursor: not-allowed;
+  }
+  canvas {
+    display: block;
+  }
+  :focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--bg),
+      0 0 0 4px var(--cyan);
+  }
+  input::placeholder {
+    color: var(--muted);
+  }
+  ::selection {
+    background: var(--glint-soft);
+  }
+}
+
+@layer utilities {
+  /* Artwork with one file per theme: the dark file is the default. */
+  .only-light {
+    display: none;
+  }
+  [data-theme='light'] .only-light {
+    display: block;
+  }
+  [data-theme='light'] .only-dark {
+    display: none;
+  }
+  .tnum {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+  .hud-chip {
+    background: var(--hud-bg);
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-md);
+  }
+  .halo {
+    text-shadow:
+      0 0 3px var(--bg),
+      0 0 3px var(--bg),
+      0 0 2px var(--bg);
+  }
+  .sr-live {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .scroll-x-hide {
+    scrollbar-width: none;
+  }
+  .scroll-x-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Plotly modebar: buttons meet the 24 by 24 px minimum target size (WCAG 2.5.8). */
+.js-plotly-plot .plotly .modebar-btn {
+  min-width: 24px;
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* F-30 results sheet. While the sheet is open (class set on the root element), printing shows only the sheet,
+   as dark ink on a white page. Its dialog is a direct child of the body. */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  html.sheet-print,
+  html.sheet-print body {
+    background: none;
+    min-width: 0;
+    height: auto;
+    overflow: visible !important;
+  }
+  html.sheet-print body > :not([data-sheet-dialog]) {
+    display: none !important;
+  }
+  html.sheet-print [data-sheet-dialog] {
+    position: static;
+    width: auto;
+    max-width: none;
+    max-height: none;
+    translate: none;
+    transform: none;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
+  html.sheet-print [data-sheet-noprint] {
+    display: none !important;
+  }
+  html.sheet-print [data-sheet] {
+    --text: black;
+    --text-2: black;
+    --cyan: black;
+    --surface: white;
+    background: none;
+  }
+}

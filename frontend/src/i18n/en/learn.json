@@ -1,0 +1,175 @@
+{
+  "nav": "Learn",
+  "title": "Measure it yourself",
+  "subtitle": "Find Barnard's Star in real SPHEREx images, click it in each epoch and calculate how fast it moves across the sky. Then compare your result with the one Destello and the Gaia catalog give.",
+  "guideLink": "Teacher guide (printable)",
+  "loading": "Loading the images",
+  "error": "The images could not be loaded. Try again in a moment.",
+  "unavailable": "The Barnard's Star images are not available on this server, so the activity cannot start.",
+  "fewEpochs": "This detector has fewer than two epochs with an image, so a motion cannot be measured here.",
+  "mission": {
+    "spherex": "SPHEREx"
+  },
+  "units": {
+    "arcsec": "arcsec"
+  },
+  "compass": {
+    "N": "north",
+    "NE": "north-east",
+    "E": "east",
+    "SE": "south-east",
+    "S": "south",
+    "SW": "south-west",
+    "W": "west",
+    "NW": "north-west"
+  },
+  "player": {
+    "how": "How it works",
+    "how1": "Look for Barnard's Star in the image. It is the star that is not in the same place in every epoch. Click its centre, or focus the image and move the crosshair with the arrow keys (Shift moves five pixels at a time).",
+    "how2": "Press Confirm, or Enter, to keep the click. You can redo a click at any time.",
+    "how3": "Repeat for every epoch. When you have clicked two or more, the calculation appears below.",
+    "orientation": "North is up and East is to the left. All epochs of the same detector use the same brightness scale.",
+    "progress": "{{done}} of {{total}} epochs clicked",
+    "epochs": "Epochs",
+    "epochName": "Epoch {{n}} ({{mission}})",
+    "at": "Click: RA {{ra}}, Dec {{dec}}",
+    "notYet": "No click yet",
+    "confirm": "Confirm click",
+    "redo": "Redo click",
+    "prev": "Previous epoch",
+    "next": "Next epoch",
+    "pending": "Crosshair at RA {{ra}}, Dec {{dec}}. Press Confirm or Enter to keep it.",
+    "savedState": "Click saved for this epoch. Click the image again, or press Redo, to change it.",
+    "waiting": "Click the star in this epoch.",
+    "placed": "Crosshair at RA {{ra}}, Dec {{dec}}.",
+    "saved": "Click saved for epoch {{n}}.",
+    "redone": "Click removed for epoch {{n}}.",
+    "provenance": "{{mission}}, observed {{date}}. Detector {{det}}, {{band}}, {{n}} images combined.",
+    "noBand": "band not given",
+    "doi": "Data DOI: {{doi}}."
+  },
+  "steps": {
+    "title": "Your measurement, step by step",
+    "usesEnds": "You clicked {{n}} epochs. To keep the arithmetic simple, the calculation uses only the first and the last of them.",
+    "needTwo": "Click the star in at least two epochs. So far: {{n}} of {{total}}.",
+    "noTime": "The epochs you clicked have the same observation time, so no speed can be calculated.",
+    "s1": {
+      "title": "Positions",
+      "body": "Each click was turned into a position on the sky with the map of the image. RA (right ascension) works like longitude and Dec (declination) like latitude. Both are in degrees.",
+      "epoch": "Epoch",
+      "date": "Date",
+      "ra": "RA",
+      "dec": "Dec",
+      "epochName": "Epoch {{n}} ({{mission}})"
+    },
+    "s2": {
+      "title": "How far it moved",
+      "body": "Subtract the first position from the last one, then change degrees into arcseconds (1 degree is 3600 arcseconds).",
+      "dra": "RA: {{ra2}} - {{ra1}} = {{deg}}° = {{arcsec}} {{unit}}",
+      "cos": "RA lines get closer together away from the equator, so a step in RA is shorter on the sky by the cosine of the declination ({{dec}}°, cosine {{cos}}), and we multiply by it.",
+      "product": "{{arcsec}} × {{cos}} = {{result}} {{unit}}",
+      "ddec": "Dec: {{dec2}} - {{dec1}} = {{deg}}° = {{arcsec}} {{unit}}"
+    },
+    "s3": {
+      "title": "How long it took",
+      "body": "The time between the two epochs comes from the observation times of the frames: {{first}} and {{last}}.",
+      "eq": "{{days}} days ÷ {{dpy}} days per year = {{years}} years"
+    },
+    "s4": {
+      "title": "Divide distance by time",
+      "body": "Dividing each distance by the time gives the speed across the sky in arcseconds per year.",
+      "ra": "East-west: {{num}} {{sec}} ÷ {{years}} years = {{result}} {{unit}}",
+      "dec": "North-south: {{num}} {{sec}} ÷ {{years}} years = {{result}} {{unit}}"
+    },
+    "s5": {
+      "title": "Total speed and direction",
+      "body": "The east-west and north-south parts are at right angles, so the total follows from Pythagoras: the square root of the sum of their squares.",
+      "eq": "√({{ra}}² + {{dec}}²) = {{total}} {{unit}}",
+      "result": "Your proper motion: {{total}} {{unit}}",
+      "direction": "The star moved toward the {{compass}}, {{angle}}° measured from north toward east."
+    }
+  },
+  "compare": {
+    "title": "How does it compare?",
+    "caption": "Your proper motion next to Destello's own fit and the catalog value",
+    "value": "Value",
+    "total": "Total ({{unit}})",
+    "direction": "Direction",
+    "diff": "Your result against it",
+    "rows": {
+      "mine": "Your measurement",
+      "destello": "Destello's fit",
+      "gaia": "Gaia DR3 catalog"
+    },
+    "self": "Reference for the others",
+    "na": "not available",
+    "angle": "{{angle}}° ({{apart}}° from yours)",
+    "loading": "Looking for Destello's fit.",
+    "why": "A click and a fit differ because SPHEREx pixels are about 6 arcsec wide, so a click can be off by a good part of a pixel, and this simple calculation ignores parallax, the small yearly shift in position caused by the motion of the Earth."
+  },
+  "guide": {
+    "kicker": "Teacher guide",
+    "title": "Measure the proper motion of Barnard's Star",
+    "lead": "A 40 minute lesson in which students measure how fast a star moves across the sky using real SPHEREx images, and compare the result with a catalog value. It needs one computer or tablet for each pair of students.",
+    "print": "Print this guide",
+    "open": "Open the activity",
+    "objectives": "Objectives",
+    "objectiveList": [
+      "Read a real astronomical image: orientation, brightness scale and observation dates.",
+      "Turn positions in an image into sky coordinates and calculate a speed from a difference in position and a time.",
+      "Compare a measurement with a reference value and explain why they are not identical."
+    ],
+    "timeline": "Timeline ({{minutes}} minutes)",
+    "minutesCol": "Time",
+    "partCol": "Part",
+    "minutes": "{{n}} min",
+    "parts": {
+      "intro": {
+        "title": "Introduction",
+        "body": "Explain that stars drift across the sky very slowly and that Barnard's Star is the fastest known. Ask how this could be measured."
+      },
+      "look": {
+        "title": "Look at the images",
+        "body": "In pairs, open the activity and step through the epochs. Ask what changes and what stays the same."
+      },
+      "click": {
+        "title": "Click the star",
+        "body": "Each pair clicks the star in every epoch, by mouse or with the keyboard, and confirms each click."
+      },
+      "calc": {
+        "title": "Follow the calculation",
+        "body": "Read the five steps together. Pairs check one number by hand with a calculator."
+      },
+      "compare": {
+        "title": "Compare and discuss",
+        "body": "Pairs write down their result and the comparison table, then discuss the questions below."
+      }
+    },
+    "materials": "Materials",
+    "materialList": [
+      "One computer or tablet with a web browser for each pair of students.",
+      "A calculator for each pair (optional, to check one step by hand).",
+      "Paper and a pencil to write down the result."
+    ],
+    "steps": "Steps for the teacher",
+    "stepList": [
+      "Open the Measure it yourself page and choose the language of the class.",
+      "Show the first image and explain that north is up and east is to the left.",
+      "Ask each pair to click the star in every epoch and to confirm each click.",
+      "Ask them to read the steps under the images and to write down their total proper motion and its direction.",
+      "Ask them to read the comparison table and to find the percentage difference with Destello's fit and the catalog value."
+    ],
+    "questions": "Discussion questions",
+    "questionList": [
+      "Why does the position of the star change between epochs while the faint background stars stay in place?",
+      "What would happen to your result if one click were off by one pixel? Is a longer time between epochs better?",
+      "Why is a result from a click different from a fit made by a program?",
+      "Why do we multiply the change in RA by the cosine of the declination?",
+      "What other measurements could improve the result?"
+    ],
+    "answer": "What to expect",
+    "range": "A careful class should find a total proper motion of about {{center}} {{unit}}, within a range of {{low}} to {{high}} {{unit}}.",
+    "rangeWhy": "The centre is the catalog value. The range is the effect of a click error of one image pixel ({{px}} arcsec) at each end, over the {{years}} years between the first and last epoch.",
+    "rangeMissing": "The expected range could not be calculated because the reference data are not available on this server."
+  }
+}

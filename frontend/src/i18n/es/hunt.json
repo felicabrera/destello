@@ -1,0 +1,139 @@
+{
+  "nav": "Caza",
+  "title": "Caza de objetos en movimiento",
+  "subtitle": "Observe imágenes reales de SPHEREx, un campo a la vez, e indique qué cambia entre épocas.",
+  "privacy": "Los votos son anónimos. Destello guarda un código aleatorio en este navegador, nunca un nombre ni una cuenta. Con cada voto se guarda un hash con sal de la dirección de red, solo para limitar votos duplicados.",
+  "loading": "Cargando un campo",
+  "field": {
+    "heading": "Campo {{n}}",
+    "reviewed": "{{n}} revisados por usted",
+    "remaining": "{{n}} restantes",
+    "epochs": "{{n}} épocas"
+  },
+  "empty": {
+    "title": "Aún no hay campos disponibles",
+    "body": "El banco de campos de la Caza todavía no se ha construido en este servidor. Vuelva más tarde, o explore los objetos predefinidos en la vista principal."
+  },
+  "done": {
+    "title": "Ha visto todos los campos",
+    "body": "Gracias. Aparecerán campos nuevos cuando el banco crezca."
+  },
+  "error": {
+    "title": "La Caza no está disponible",
+    "body": "El servidor no respondió. Sus votos anteriores se conservan.",
+    "retry": "Reintentar"
+  },
+  "rate": {
+    "title": "Espere un momento",
+    "body": "Demasiados votos en poco tiempo. Espere {{seconds}} segundos e inténtelo de nuevo."
+  },
+  "turnstile": {
+    "needed": "Se requiere una verificación rápida antes de aceptar más votos. Complétela y vote de nuevo."
+  },
+  "classify": {
+    "label": "Su clasificación",
+    "keys": "Pulse de 1 a 5 para votar",
+    "pending": "Enviando",
+    "recorded": "Voto registrado.",
+    "next": "Siguiente campo"
+  },
+  "labels": {
+    "mover": {
+      "name": "En movimiento",
+      "hint": "Una fuente cambia de posición entre épocas."
+    },
+    "brightness_change": {
+      "name": "Cambio de brillo",
+      "hint": "Una fuente permanece en su lugar pero se hace más brillante o más tenue."
+    },
+    "artifact": {
+      "name": "Artefacto",
+      "hint": "Estelas, espículas de difracción, bordes, defectos o cualquier cosa que no sea una fuente real."
+    },
+    "nothing": {
+      "name": "Nada",
+      "hint": "Las estrellas permanecen quietas; los pequeños cambios de brillo compartidos por todas las estrellas no cuentan."
+    },
+    "not_sure": {
+      "name": "No estoy seguro",
+      "hint": "No puede decidirlo."
+    }
+  },
+  "streak": {
+    "title": "Estelas y satélites",
+    "body": "Algunos píxeles de este campo llevan la marca STREAK: un satélite u otra traza brillante cruzó la imagen. Una línea recta que aparece en una sola época es un artefacto, no un objeto en movimiento. Los objetos reales son compactos y se desplazan poco entre épocas. Un asteroide cruza el campo en horas y puede aparecer como puntos tenues en una sola época."
+  },
+  "mark": {
+    "hint": "Opcional: haga clic en la imagen para marcar dónde está el cambio. Pulse X para quitar la marca.",
+    "set": "Marca en AR {{ra}}, Dec {{dec}}",
+    "clear": "Quitar marca"
+  },
+  "tools": {
+    "label": "Vista",
+    "blink": "Parpadeo",
+    "diff": "Diferencia",
+    "diffNeedsTwo": "La diferencia necesita al menos dos épocas.",
+    "contrast": "Contraste",
+    "zoom": "Ampliación",
+    "zoomValue": "{{z}}x",
+    "reset": "Restablecer vista",
+    "keys": "Las flechas izquierda y derecha recorren las épocas. Espacio reproduce o pausa. B parpadeo, D diferencia, Z ampliación, más y menos cambian la velocidad."
+  },
+  "gold": {
+    "title": "Campo de control",
+    "right": "Correcto. Su respuesta coincide con la respuesta conocida.",
+    "wrong": "La respuesta conocida de este campo era: {{answer}}.",
+    "answer": "Respuesta conocida: {{answer}}",
+    "why": "Los campos de control tienen una respuesta conocida y sirven para ponderar los votos. Se mezclan sin aviso.",
+    "continue": "Continuar"
+  },
+  "counters": {
+    "title": "Comunidad hasta ahora",
+    "fieldsReviewed": "Campos revisados",
+    "classifications": "Clasificaciones",
+    "goldAccuracy": "Acierto en campos de control",
+    "countries": "Países",
+    "none": "aún no hay",
+    "open": "Abrir la Caza",
+    "note": "Son solo totales. Nunca identifican a una persona."
+  },
+  "tutorial": {
+    "title": "Cómo funciona la Caza",
+    "count": "Paso {{n}} de {{total}}",
+    "next": "Siguiente",
+    "back": "Atrás",
+    "skip": "Omitir",
+    "finish": "Comenzar",
+    "replay": "Tutorial",
+    "steps": {
+      "look": {
+        "title": "Observe un campo",
+        "body": "Cada campo muestra la misma zona del cielo captada por SPHEREx en momentos distintos. El reproductor alterna entre épocas. La mayoría de las estrellas permanece en su lugar. Una estrella cercana puede desplazarse cerca de un píxel; en Diferencia aparece como un par de una mancha clara y otra oscura."
+      },
+      "controls": {
+        "title": "Use el teclado",
+        "body": "Recorra las épocas con las flechas, o pulse Espacio para reproducir. Cambie a Diferencia para ver solo lo que cambió. La ampliación y el contraste se aplican por igual a todas las épocas."
+      },
+      "classify": {
+        "title": "Clasifique lo que ve",
+        "body": "Elija una de las cinco respuestas, o pulse de 1 a 5. Artefacto incluye estelas de satélites y otros defectos. Nada y No estoy seguro son respuestas válidas. Si lo desea, haga clic en la imagen para marcar la posición."
+      },
+      "trust": {
+        "title": "Qué significa su voto",
+        "body": "Algunos campos tienen una respuesta conocida y se le muestra después de votar. El acuerdo entre voluntarios es solo un candidato para revisión. Nunca es un descubrimiento."
+      }
+    }
+  },
+  "consensus": "consenso de voluntarios, sin confirmar",
+  "candidates": {
+    "title": "Candidatos de los voluntarios",
+    "note": "Un candidato es un acuerdo entre voluntarios, no una detección confirmada. Cada uno es un campo que conviene revisar. Significa acuerdo entre voluntarios ponderados, no una detección estadística. Un voluntario cuenta solo después de responder al menos 2 campos de control. Por cada campo cuentan como máximo 2 voluntarios de la misma dirección de red.",
+    "empty": "Aún no hay candidatos.",
+    "field": "Campo",
+    "label": "Respuesta principal",
+    "votes": "Votos",
+    "share": "Proporción",
+    "open": "Abrir en el explorador",
+    "openField": "Abrir en el explorador: campo {{n}}"
+  }
+}

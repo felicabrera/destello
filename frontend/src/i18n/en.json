@@ -1,0 +1,1756 @@
+{
+  "app": {
+    "name": "Destello",
+    "skip": "Skip to content",
+    "nav": {
+      "science": "Science",
+      "validation": "Validation",
+      "about": "About"
+    },
+    "more": "More",
+    "menu": "Menu",
+    "language": "Language",
+    "footer": "A NASA Space Apps Challenge 2026 project. Uses NASA SPHEREx data from NASA/IPAC IRSA. Not an official NASA product.",
+    "loading": "Loading",
+    "close": "Close",
+    "apiStatus": "Server status",
+    "apiOk": "online",
+    "apiDown": "unreachable",
+    "version": "version"
+  },
+  "hero": {
+    "title": "Watch the infrared sky move",
+    "subtitle": "Real images from NASA's SPHEREx, taken months apart. Spot what changed.",
+    "pick": "Pick a target"
+  },
+  "search": {
+    "label": "Search object or position",
+    "placeholder": "Object name or RA Dec (e.g. 08h55m10.8s -07d14m42s)",
+    "button": "Search",
+    "parsedSexa": "Read as sexagesimal, ICRS",
+    "parsedDec": "Read as decimal degrees, ICRS",
+    "near": "Close to <b>{{name}}</b> ({{separation}}). Its position will be propagated to each epoch.",
+    "far": "No preset nearby. Press Enter to build a 6 arcmin view.",
+    "enter": "Enter",
+    "kChoose": "↑ ↓ choose",
+    "kBuild": "Enter build",
+    "kClose": "Esc close",
+    "preset": "Preset",
+    "simbad": "resolved by SIMBAD",
+    "decRange": "Dec must be between -90 and +90. You typed {{value}}.",
+    "raRange": "RA must be between 0 and 360 degrees, or 0h and 24h. You typed {{value}}.",
+    "minRange": "Minutes and seconds must be below 60.",
+    "keepTyping": "Keep typing: we read names and coordinates.",
+    "formats": "Formats that work:",
+    "notFound": "\"{{query}}\" was not found",
+    "resolverDown": "The name service is not available",
+    "resolverDownSub": "The name resolver cannot be reached at the moment, so the name could not be looked up. Enter coordinates instead, for example 08h55m10.8s -07d14m42s, or open one of the examples.",
+    "notFoundSub": "SIMBAD has no object by that name. Try a catalog name or coordinates.",
+    "tryPreset": "Or open a preset:",
+    "lookup": "Press Enter to look up \"{{query}}\" in SIMBAD",
+    "resolving": "Looking up",
+    "demoOff": "Search is off in demo mode",
+    "demoOffWhy": "New views need our live server, which is unreachable right now. The five presets are saved real SPHEREx data: blink, diff, overlays, spectra and measurements all work.",
+    "invalidFormat": "We could not read those coordinates.",
+    "raLabel": "RA",
+    "propagated": "Position propagated to {{date}}",
+    "recent": "Recent searches"
+  },
+  "presets": {
+    "label": "Presets",
+    "showPresets": "Presets",
+    "how": "How it works",
+    "step1": "SPHEREx maps the whole sky in the infrared, again every six months.",
+    "step2": "Destello lines up the images of one patch of sky, epoch by epoch.",
+    "step3": "Play them in turn. What jumps between frames is moving.",
+    "result": "Result",
+    "lookFor": "What to look for",
+    "measured": "What we measured",
+    "limit": "Honest limit",
+    "open": "Open in Explorer",
+    "noMeasurement": "The server has not published a measurement for this object yet.",
+    "reference": "Reference",
+    "agrees": "Agrees",
+    "differs": "Differs",
+    "variable": "Variable",
+    "labelMotion": "Total proper motion, μ",
+    "labelMag": "Magnitude change between epochs",
+    "notMeasurable": "Destello could not measure this object in the current data. The limits below explain why."
+  },
+  "notice": {
+    "propTitle": "Position propagated to each epoch.",
+    "propBody": "{{name}} is now {{offset}}. Catalog: {{catalog}}.",
+    "propDate": "Mean date of the data: {{date}}.",
+    "propSource": "Reference position epoch: {{epoch}}.",
+    "details": "Details",
+    "dismiss": "Dismiss"
+  },
+  "player": {
+    "play": "Play",
+    "pause": "Pause",
+    "first": "First epoch",
+    "prev": "Previous epoch",
+    "next": "Next epoch",
+    "last": "Last epoch",
+    "speed": "Speed",
+    "loop": "Loop",
+    "playback": "Playback",
+    "fps": "{{fps}} fps",
+    "rmTitle": "Autoplay is off",
+    "rmBody": "Your device asks for reduced motion. Press Play, or step through the epochs.",
+    "rmPlay_one": "Play {{count}} epoch",
+    "rmPlay_other": "Play {{count}} epochs",
+    "playMotionReduced": "Play (motion reduced)",
+    "aria": "Epoch {{epoch}} of {{total}}, {{date}}, {{detector}}, {{band}}. {{name}} near the center.",
+    "ariaNoName": "Epoch {{epoch}} of {{total}}, {{date}}, {{detector}}, {{band}}.",
+    "diffAlt": "Difference against epoch 1: orange where it is now, blue where it was.",
+    "diffTag": "minus E1",
+    "epochLine": "E{{epoch}} of {{total}} · {{detector}} · {{band}}",
+    "flaggedLine": "Flagged pixels {{fraction}}",
+    "diffEq": "Epoch {{a}} − Epoch {{b}}",
+    "now": "now",
+    "was": "before",
+    "epoch": "Epoch",
+    "of": "of",
+    "img": "img",
+    "nEpochs_one": "{{count}} epoch",
+    "nEpochs_other": "{{count}} epochs",
+    "stackTag_one": "stack of {{count}} epoch",
+    "stackTag_other": "stack of {{count}} epochs",
+    "timeline": "Epoch timeline",
+    "timelineNode": "Epoch {{epoch}}: {{start}} to {{end}}, {{images}} images",
+    "missingInDetector": "No data in this detector",
+    "hoverReadout": "RA {{ra}} Dec {{dec}}",
+    "pixelValue": "value {{value}}",
+    "oneArcmin": "1′",
+    "hoverMag": "mag {{mag}}",
+    "hoverPm": "pm {{pmra}}, {{pmdec}} mas/yr",
+    "zeroDiff": "This is the reference epoch",
+    "zeroDiffBody": "The difference of an epoch with itself is zero. Pick another epoch.",
+    "diffLoading": "Computing the difference",
+    "diffFailed": "The difference could not be computed",
+    "diffScale": "Scale factor {{scale}} from {{stars}} stars",
+    "diffScaleLabel": "Scale factor",
+    "diffLegendNote": "Orange: where something is now. Blue: where it was.",
+    "northUp": "North up, East left",
+    "preloading": "Loading frames {{done}} of {{total}}",
+    "frameError": "A frame could not be loaded",
+    "canvasHelp": "Use the left and right arrow keys to change epoch.",
+    "mjd": "MJD",
+    "to": "to",
+    "motionLabel": "{{value}}″/yr {{dir}}",
+    "dir": {
+      "N": "N",
+      "NE": "NE",
+      "E": "E",
+      "SE": "SE",
+      "S": "S",
+      "SW": "SW",
+      "W": "W",
+      "NW": "NW"
+    },
+    "trackTag": "Track mode: target fixed, background moves",
+    "trackStackTag": "Stack along the track of the target",
+    "trackCoords": "Frame aligned on the target: sky coordinates differ between epochs",
+    "lowMissing": "Epoch {{epoch}} is a short revisit that did not observe {{detector}}. Choose another detector to see it.",
+    "lowMissingShort": "Short revisit without data in this detector",
+    "noPairTitle": "Nothing to subtract",
+    "noPairRef": "The reference epoch {{n}} has no data in {{detector}}. Choose another reference epoch.",
+    "noPairPrev": "No earlier epoch has data in {{detector}}.",
+    "pairLow": "Epoch {{n}} is a low coverage epoch."
+  },
+  "mode": {
+    "label": "Mode",
+    "blink": "Blink",
+    "diff": "Diff",
+    "diffseq": "Diff seq",
+    "stack": "Stack",
+    "rgb": "RGB",
+    "rgbWhy": "Color needs three detectors with data",
+    "reference": "Reference epoch",
+    "refOption": "Epoch {{n}}",
+    "needsTwo": "Diff, Diff seq and Stack need two or more epochs.",
+    "stackNote": "Mean of the frames of all epochs for the same detector.",
+    "channel": {
+      "r": "Red",
+      "g": "Green",
+      "b": "Blue"
+    },
+    "rgbLegend": "Color composite: red {{r}}, green {{g}}, blue {{b}}",
+    "track": "Track",
+    "trackHint": "Recenter every epoch on the predicted position of the target",
+    "trackDiff": "Track mode does not apply to differences, which are computed on the sky grid.",
+    "refOptionLow": "Epoch {{n}} (low coverage)"
+  },
+  "detector": {
+    "label": "Detector",
+    "all": "All",
+    "broadband": "broadband",
+    "allDet": "All detectors",
+    "range": "{{min}} to {{max}} µm",
+    "noData": "No data in this detector",
+    "noDataWhy": "This detector has no frame for this field. You can still select it.",
+    "unknownRange": "range pending",
+    "noDataShort": "no data"
+  },
+  "fov": {
+    "label": "Field of view",
+    "arcmin": "{{value}} arcmin",
+    "estimate": "~{{images}} images · {{megabytes}} MB · about {{seconds}} s",
+    "estimateNone": "No estimate",
+    "fastMover": "This object leaves the field before the last epoch. Try {{next}} arcmin.",
+    "confirm": "Rebuilding will take more than a minute. Press again to confirm."
+  },
+  "overlays": {
+    "label": "Overlays",
+    "gaia": "Gaia",
+    "catwise": "CatWISE",
+    "flags": "Flags",
+    "hiddenInDiff": "Not available in Diff mode",
+    "gaiaLegend": "Cyan circle: Gaia DR3",
+    "catwiseLegend": "Violet square: CatWISE2020",
+    "flagsLegend": "Warning hatch: flagged pixels",
+    "count": "{{count}} sources",
+    "loading": "Loading layer",
+    "unavailable": "Catalog temporarily unavailable",
+    "retry": "Retry",
+    "failed": "The layer could not be loaded",
+    "hoverMag": "Magnitude",
+    "hoverPm": "Proper motion",
+    "hoverAt": "Position at this epoch",
+    "flagsNone": "Flagged pixels are not available for this frame.",
+    "flagsLegendTitle": "Flagged pixels",
+    "flagsLegendBody": "Hatched: pixels without valid data in this frame ({{fraction}}), masked in every input exposure or not covered by any.",
+    "flagsLegendBodyNoFraction": "Hatched: pixels without valid data in this frame, masked in every input exposure or not covered by any.",
+    "flagsLegendNames": "Masking flags found in the inputs, read from the FLAGS headers:",
+    "flagsLegendNoNames": "No masking flag was set in the input exposures of this frame.",
+    "flagsLegendUnknown": "The flag names are not recorded for this sequence.",
+    "path": "Path",
+    "pathLegend": "Reddish purple line: predicted path",
+    "pathOffDemo": "The predicted path needs the live server and is not available in demo mode.",
+    "pathOffNoMotion": "The predicted path needs a catalog proper motion and reference epoch for the target.",
+    "pathLegendTitle": "Predicted path",
+    "pathLegendBody": "Line: catalog position propagated from {{epoch}} with its proper motion and the yearly parallax shift. Diamonds: predicted position at each epoch; the filled one is the epoch shown.",
+    "pathEllipse": "Parallax ellipse: semi-major axis {{major}} arcsec ({{majorPx}} px), semi-minor axis {{minor}} arcsec ({{minorPx}} px).",
+    "pathEllipseInset": "The inset is enlarged to be visible; at frame scale the loop spans less than three pixels and is not drawn on the frame.",
+    "pathEllipseOnFrame": "The inset is enlarged; the loop is also drawn on the frame at true scale as a dashed outline.",
+    "pathNoParallax": "No catalog parallax: the path shows the proper motion only and no ellipse is drawn.",
+    "pathObserver": "Computed for a geocentric observer. SPHEREx is in low Earth orbit; the difference is below one ten thousandth of the parallax."
+  },
+  "panel": {
+    "info": "Info",
+    "spectrum": "Spectrum",
+    "measure": "Measure",
+    "context": "Context",
+    "specEmpty": "Click a source in the frame to plot its spectrum for each epoch.",
+    "measEmpty": "Click a source in the frame to measure its position in each epoch.",
+    "ctxEmpty": "The sky around this field from 2MASS and AllWISE. Loads when you open this tab."
+  },
+  "info": {
+    "frame": "Frame",
+    "release": "Release",
+    "collection": "Collection",
+    "observed": "Observed",
+    "mid": "Mid-time",
+    "band": "Band at target",
+    "nimg": "Images combined",
+    "stretch": "Stretch",
+    "stretchValue_one": "asinh, shared by {{count}} epoch",
+    "stretchValue_other": "asinh, shared by {{count}} epochs",
+    "unitNormalized": "normalized units",
+    "pipeline": "Pipeline",
+    "flagged": "Flagged pixels",
+    "flagNote": "Excluded from the coadd. Bit meanings are read from the FLAGS header.",
+    "normal": "normal",
+    "src": "Source images",
+    "showAll": "Show all",
+    "hide": "Hide",
+    "srcSum_one": "{{count}} image from {{from}} to {{to}} · {{detectors}}",
+    "srcSum_other": "{{count}} images from {{from}} to {{to}} · {{detectors}}",
+    "oneDet": "one detector",
+    "manyDet_one": "{{count}} detector",
+    "manyDet_other": "{{count}} detectors",
+    "copyList": "Copy list",
+    "downloads": "Downloads",
+    "fits": "FITS coadd",
+    "manifest": "JSON manifest",
+    "allEp": "all epochs",
+    "doi": "DOI",
+    "cite": "Copy citation",
+    "dataAsOf": "data as of",
+    "unit": "Unit",
+    "detector": "Detector",
+    "epoch": "Epoch",
+    "kind": "Type",
+    "unavailable": "Not available",
+    "copied": "Copied",
+    "warn": {
+      "EPOCH_PARTIAL_SKIPPED": "A partial revisit of {{count}} images around MJD {{mjd}} was not used: it is too small to coadd and compare.",
+      "partialOne": "SPHEREx also passed over this position on one more date, with too few images to build a comparable epoch, so they were not used: {{item}}.",
+      "partialMany": "SPHEREx also passed over this position on {{count}} more dates, each with too few images to build a comparable epoch, so they were not used: {{list}}.",
+      "partialItem": "{{n}} images around {{date}} (MJD {{mjd}})",
+      "QUICK_RELEASE_CALIBRATION": "SPHEREx Quick Release calibration is preliminary; absolute fluxes can carry systematic errors.",
+      "WAVELENGTH_MIXTURE": "Each coadd mixes exposures at different wavelengths; epochs of one detector can differ in wavelength sampling.",
+      "SATURATION_RISK": "The target is bright and may saturate in some detectors; flagged pixels are excluded from centroids and photometry.",
+      "SATURATED_CORE": "The core of the target is saturated in {{n}} of {{total}} coadds (detectors {{detectors}}); saturated pixels are excluded from centroids and photometry.",
+      "FAST_MOVER_NEAR_EDGE": "The moving target comes near or past the field edge in at least one epoch; a larger field of view keeps it inside.",
+      "SINGLE_EPOCH": "Only one epoch is available; no time-lapse possible.",
+      "UNRESOLVED_PAIR": "The target is an unresolved pair (separation below 1 arcsec; SPHEREx pixels are about 6.2 arcsec).",
+      "EPOCH_LOW_COVERAGE": "A short revisit is shown as a low coverage epoch. It is not used in measurements.",
+      "MOVING_TARGET": "Frames follow the moving target: each exposure is centered on the JPL Horizons position at its own mid time, so the stars move between frames and trail in the stacks.",
+      "NO_APERTURE_CORRECTION": "The brightness of the coma is an aperture sum without an aperture correction, so absolute values are lower limits of the total.",
+      "NO_SPACECRAFT_POSITION": "The spacecraft position was not available for some exposures, so their positions are geocentric, without the topocentric correction.",
+      "IMAGES_FAILED": "Some images could not be processed and are missing from the sequence.",
+      "lowOne": "A short revisit is shown as a low coverage epoch and is not used in measurements: {{item}}.",
+      "lowMany": "{{count}} short revisits are shown as low coverage epochs and are not used in measurements: {{list}}."
+    },
+    "warnings": "Warnings",
+    "dataNotes": "About these data",
+    "noFrame": "No frame loaded yet.",
+    "sequence": "Sequence",
+    "coverage": "Coverage",
+    "coverageFull": "Every epoch is a full survey pass.",
+    "coverageLowBody": "Low coverage epochs are short revisits with few images. They share the stretch of their detector and are excluded from astrometry, photometry, spectra, candidates and validation."
+  },
+  "build": {
+    "title": "Building this view",
+    "step": "Step {{n}} of 4",
+    "stage": {
+      "query": "Finding images",
+      "cutouts": "Downloading",
+      "coadd": "Combining",
+      "render": "Rendering",
+      "photometry": "Photometry"
+    },
+    "queryDesc": "Asking NASA IRSA which SPHEREx images cover this patch.",
+    "cutoutsDesc": "E1 comes first, so you can see a frame sooner.",
+    "count": "{{done}} of {{total}}",
+    "found": "Found {{images}} images in {{epochs}} epochs",
+    "downloading": "Downloading {{done}} of {{total}}",
+    "queued": "Queued, position {{position}}",
+    "queuedNoPos": "Queued",
+    "eta": "About {{seconds}} s",
+    "epochsHeading": "Epochs",
+    "epochReady": "ready",
+    "epochPending": "loading",
+    "playableAt": "Blinking starts when E2 is ready.",
+    "locked": "Mode, detector and overlays unlock when the first epoch is ready.",
+    "complete": "View complete",
+    "announceEpoch": "Epoch {{n}} ready",
+    "announceDone": "The view is complete",
+    "leaveHint": "The build keeps running if this view is closed. It stays listed in the header, one click away.",
+    "estimateBody": "{{images}} images, {{mb}} MB, about {{seconds}} s",
+    "statusDone": "done",
+    "statusRunning": "in progress",
+    "statusWaiting": "waiting",
+    "statusFailed": "failed",
+    "skeleton": "Preparing the first frame",
+    "foundImages": "Found {{images}} images",
+    "detectorsHeading": "Detectors",
+    "announceDetector": "Detector D{{n}} ready",
+    "showingDetector": "Showing D{{n}} while the other detectors finish.",
+    "downloadDesc": "Downloading the SPHEREx images that cover this patch, one detector at a time.",
+    "combineDesc": "Combining the images of each epoch into one frame per detector."
+  },
+  "states": {
+    "singleTitle": "Only one epoch here so far",
+    "singleBody": "Seeing motion needs two or more epochs. {{release}} has imaged this patch once. SPHEREx returns about every six months, so a second epoch should arrive in a later release.",
+    "singleStill": "Still works",
+    "singleStillBody": "Info, detectors, overlays, Spectrum and Context",
+    "singleNeeds": "Needs two epochs",
+    "singleNeedsBody": "Blink, Diff, Stack, Measure and Report",
+    "singleSuggest": "Try a preset with several epochs:",
+    "noDataTitle": "No SPHEREx images here yet",
+    "noDataBody": "{{release}} has no images covering this position in a {{fov}} arcmin field. Possible reasons:",
+    "noDataR1": "SPHEREx has not imaged this patch in a released epoch yet.",
+    "noDataR2": "New images take weeks to reach NASA IRSA. Data here is as of {{date}}.",
+    "noDataNote": "Nothing was downloaded. Searching an empty patch does not count toward your build limit.",
+    "noDataTry": "Try a preset",
+    "noDataIrsa": "Check coverage at NASA IRSA",
+    "irsaTitle": "NASA IRSA is slow right now.",
+    "irsaBody": "Presets and saved links work. New views may take several minutes.",
+    "irsaBadge": "IRSA degraded",
+    "irsaDownTitle": "NASA IRSA is unavailable.",
+    "irsaDownBody": "Presets and saved links still work. New views cannot be built right now.",
+    "demoBadge": "DEMO",
+    "demoBanner": "Live data is temporarily unavailable. Showing saved examples.",
+    "demoReportOff": "Reports need the live server.",
+    "rateTitle": "You can start a new view in {{time}}",
+    "rateBody": "Each visitor can start 6 new views every 10 minutes, so NASA IRSA stays fast for everyone. Presets and links to views already built work now.",
+    "rateButton": "Build at {{time}}",
+    "errorTitle": "Something went wrong",
+    "errorBody": "We could not build this view. You can retry or open a preset.",
+    "errorCode": "Error code",
+    "retry": "Retry",
+    "emptyTitle": "Pick an object or type a position",
+    "emptyBody": "The presets above open real SPHEREx data instantly.",
+    "emptySlot": "Frames will appear here",
+    "thisPosition": "This position",
+    "dataAsOf": "data as of {{date}}",
+    "refreshBadge": "New data",
+    "refreshBanner": "NASA has published newer SPHEREx images for this field. This view is being rebuilt with them; reload in a few minutes to see the update."
+  },
+  "errors": {
+    "INVALID_COORDINATES": "The coordinates are not valid.",
+    "NOT_FOUND": "The requested item was not found.",
+    "NO_COVERAGE": "SPHEREx does not cover this position in the current release.",
+    "POSITION_OUTSIDE_FIELD": "This position is outside the field of this sequence. Select a point inside the image.",
+    "RATE_LIMITED": "Too many requests.",
+    "IRSA_UNAVAILABLE": "NASA IRSA is unavailable.",
+    "RESOLVER_UNAVAILABLE": "The name service is not reachable at the moment. Enter coordinates instead or open an example.",
+    "RESOLVE_FAILED": "The name could not be resolved.",
+    "UNKNOWN": "Unexpected error.",
+    "NETWORK": "No connection to the server."
+  },
+  "actions": {
+    "more": "More actions"
+  },
+  "share": {
+    "title": "Share this view",
+    "button": "Share",
+    "report": "Report",
+    "link": "Link to this view",
+    "copyLink": "Copy link",
+    "copied": "Copied",
+    "linkNote": "Anyone with the link sees this view.",
+    "linkDone": "Link copied. It opens this exact view.",
+    "embed": "Embed on your site",
+    "size": "Size",
+    "controls": "Controls",
+    "ctlFull": "Full",
+    "ctlMin": "Minimal",
+    "ctlNone": "None",
+    "theme": "Theme",
+    "dark": "Dark",
+    "light": "Light",
+    "playOnLoad": "Play on load",
+    "playOnLoadNote": "Off for readers who prefer reduced motion.",
+    "copyCode": "Copy embed code",
+    "codeDone": "Embed code copied.",
+    "sizeCompact": "Compact",
+    "sizeStandard": "Standard",
+    "sizeLarge": "Large",
+    "embedTitle": "Destello: {{name}} seen by NASA SPHEREx",
+    "buildingNote": "This view is still being built. The link already points to it: anyone who opens it sees the same view, finished or still in progress."
+  },
+  "shortcuts": {
+    "title": "Shortcuts",
+    "hint": "Shortcuts are off while you type in a text field.",
+    "playPause": "Play or pause",
+    "step": "Previous or next epoch",
+    "firstLast": "First or last epoch",
+    "speed": "Faster or slower",
+    "detectors": "Detector D1 to D6, 0 for All",
+    "modes": "Blink, Difference, Stack, Color",
+    "overlays": "Toggle Gaia, CatWISE, Flags",
+    "measure": "Measure at cursor",
+    "help": "Open this help",
+    "track": "Track mode (known movers)"
+  },
+  "pages": {
+    "science": "Science",
+    "validation": "Validation",
+    "about": "About",
+    "pending": "This page is completed in a later block.",
+    "back": "Back to Explorer",
+    "ackTitle": "Data acknowledgements",
+    "ackIntro": "If you use images or numbers from Destello in a publication, cite the original data below, not Destello.",
+    "ack": {
+      "spherex": {
+        "t": "SPHEREx and IRSA",
+        "d": "This publication makes use of data products from SPHEREx, a joint project of the Jet Propulsion Laboratory and the California Institute of Technology, funded by NASA. Data from the NASA/IPAC Infrared Science Archive, operated by Caltech/IPAC under contract with NASA."
+      },
+      "gaia": {
+        "t": "Gaia (ESA/Gaia/DPAC)",
+        "d": "This work has made use of data from the European Space Agency mission Gaia, processed by the Gaia Data Processing and Analysis Consortium (DPAC). Gaia DR3 is read through the NASA copy hosted by the Mikulski Archive for Space Telescopes (MAST) at STScI. The data owner is ESA/Gaia/DPAC."
+      },
+      "wise": {
+        "t": "WISE and CatWISE",
+        "d": "Makes use of data products from the Wide-field Infrared Survey Explorer, a joint project of UCLA and JPL/Caltech, funded by NASA, and the CatWISE2020 catalog."
+      },
+      "cds": {
+        "t": "CDS",
+        "d": "This research has made use of the SIMBAD database, the Sesame name resolver, Aladin Lite and HiPS services, operated at CDS, Strasbourg, France. Credits: CDS/SIMBAD, CDS/VizieR, CDS/Aladin."
+      },
+      "jpl": {
+        "t": "JPL",
+        "d": "Known small bodies are checked with the JPL Solar System Dynamics Small-Body Identification API."
+      },
+      "software": {
+        "t": "Software",
+        "d": "Astropy, astroquery, pyvo, photutils, reproject, FastAPI, React, Aladin Lite and Plotly. Inspired by Backyard Worlds: Planet 9 and its volunteers."
+      }
+    },
+    "privTitle": "Privacy",
+    "priv": {
+      "accounts": {
+        "t": "No accounts, trackers or ads.",
+        "d": "You can use every feature without signing in."
+      },
+      "ip": {
+        "t": "IP addresses are never stored in clear.",
+        "d": "We keep a salted hash for rate limits and logs, and delete logs after 30 days."
+      },
+      "hosting": {
+        "t": "Fonts and code are self-hosted.",
+        "d": "The sky tiles of the Context panel are also served through this site, from NASA/IPAC IRSA, so your browser contacts no third-party host."
+      },
+      "reports": {
+        "t": "Reports are public.",
+        "d": "The contact field is optional and never published. To delete a report, write to {{addr}} with its link.",
+        "dNoAddr": "The contact field is optional and never published. Reports can be deleted on request to the site operator; include the report link."
+      },
+      "embeds": {
+        "t": "Embeds behave the same.",
+        "d": "An embedded player sets no cookies and sends nothing to the host page beyond the documented ready and frame events."
+      }
+    }
+  },
+  "embed": {
+    "open": "Open in Destello"
+  },
+  "sheet": {
+    "label": "Panel",
+    "hint": "Drag, or press to resize",
+    "state": {
+      "peek": "collapsed",
+      "half": "half open",
+      "full": "open"
+    },
+    "overlaysBtn": "Overlays",
+    "modeBtn": "Mode"
+  },
+  "loupe": "×8 · grid = 1 SPHEREx pixel",
+  "pixel": "pixel",
+  "predicted": "predicted",
+  "presetCopy": {
+    "barnard": {
+      "name": "Barnard's Star",
+      "chip": "Barnard's Star",
+      "kind": "Red dwarf · 6 light-years",
+      "headline": "The fastest-moving star in our sky, seen moving by SPHEREx",
+      "look": "A bright dot stepping north, about one pixel every six months, while every other star stays put.",
+      "measuredLabel": "Proper motion Dec, μδ",
+      "unit": "arcsec/yr",
+      "limit": "Core saturated in all six detectors. Centroids come from a PSF-wing fit in D5 and D6, core masked.",
+      "caption": "The dot moving up is Barnard's Star. It crosses about one pixel between epochs, six months apart."
+    },
+    "wise0855": {
+      "name": "WISE 0855-0714",
+      "chip": "WISE 0855",
+      "kind": "Brown dwarf · about 250 K · 7.4 light-years",
+      "headline": "The coldest known brown dwarf crossing the infrared sky",
+      "look": "A faint dot stepping west in D5 and D6. Switch to D1 and it disappears: it gives off almost no light below 3 µm.",
+      "measuredLabel": "Proper motion RA, μα*",
+      "unit": "arcsec/yr",
+      "limit": "Too faint to see below 3 µm. With three epochs, parallax is fixed to the published value.",
+      "caption": "The faint dot moving right is WISE 0855-0714, the coldest known brown dwarf. It only shows up at 4 to 5 µm."
+    },
+    "epsindib": {
+      "name": "Epsilon Indi B",
+      "chip": "Eps Indi B",
+      "kind": "Two brown dwarfs · 12 light-years",
+      "headline": "Two brown dwarfs travelling together, seen as one point",
+      "look": "One dot moving down and to the left, south-east. It is really two objects less than 1 arcsec apart.",
+      "measuredLabel": "Total proper motion, μ",
+      "unit": "arcsec/yr",
+      "limit": "SPHEREx pixels are 6.2 arcsec, so the pair cannot be split. Bright ε Indi A, 400 arcsec away, adds scattered light.",
+      "caption": "The dot moving down and left is Epsilon Indi B: two brown dwarfs too close together for SPHEREx to separate."
+    },
+    "rwaur": {
+      "name": "RW Aurigae",
+      "chip": "RW Aur",
+      "kind": "Young star · about 450 light-years",
+      "headline": "A young star that flickers as dust passes in front of it",
+      "look": "The dot at the center stays put but fades and recovers. Neighbouring stars keep a steady brightness.",
+      "measuredLabel": "D3 flux change, E2 vs E1",
+      "unit": "percent",
+      "limit": "Its companion 1.5 arcsec away is blended in. Quick Release fluxes are preliminary.",
+      "caption": "RW Aurigae stays in place but fades and recovers between epochs, as clouds of dust pass in front of it."
+    },
+    "rdra": {
+      "name": "R Draconis",
+      "chip": "R Dra",
+      "kind": "Pulsating giant · Mira variable",
+      "headline": "A pulsating giant star that changes brightness over months",
+      "look": "The bright star at the center swells and fades. Open Spectrum to see its water bands change too.",
+      "measuredLabel": "Broadband flux change, E2 vs E1",
+      "unit": "percent",
+      "limit": "Bright enough to saturate D1 in some exposures. Spectral shape changes with pulsation phase.",
+      "caption": "R Draconis is a giant star that pulses. Watch it dim and brighten between epochs, about six months apart."
+    }
+  },
+  "caption": {
+    "blink": "Each frame is the same patch of sky at a different time. Objects that jump between frames are moving.",
+    "diff": "Orange shows where something is now, blue where it was."
+  },
+  "spec": {
+    "title": "Spectrum",
+    "count": "{{points}} points, {{epochs}} epochs",
+    "sub": "Forced aperture photometry on each single image at {{pos}}.",
+    "aperture": "Aperture radius {{r}} arcsec.",
+    "legendAria": "Epochs shown",
+    "scale": "Flux scale",
+    "linear": "Linear",
+    "log": "Log",
+    "xTitle": "Wavelength (µm)",
+    "yTitle": "Flux density ({{unit}})",
+    "plotAria": "Flux density against wavelength. Each epoch has its own color and marker shape, detector boundaries are dashed lines. The same values are listed in the table below.",
+    "loading": "Measuring the flux in every image",
+    "waiting": "The spectrum is measured when the view is complete.",
+    "failed": "The spectrum could not be computed.",
+    "noPoints": "No usable points at this position. Try clicking a brighter source.",
+    "satTitle": "Saturated pixels.",
+    "satBody": "Some points include saturated pixels, so their flux is a lower limit. Prefer a detector where the source is not saturated.",
+    "satShort": "saturated",
+    "flagged_one": "{{count}} flagged point is not plotted.",
+    "flagged_other": "{{count}} flagged points are not plotted.",
+    "photTitle": "Broadband photometry by epoch",
+    "colDate": "Mid date",
+    "colFlux": "Flux ({{unit}})",
+    "colChange": "Change vs E1",
+    "baseline": "reference",
+    "nSigma": "{{n}} sigma",
+    "verdict": "From E1 to E{{n}} in D{{det}} the flux changes by {{pct}} percent ({{sigma}} sigma).",
+    "verdictSingle": "Only one epoch has a measurement, so no change can be computed.",
+    "csvSub_one": "{{count}} point",
+    "csvSub_other": "{{count}} points"
+  },
+  "meas": {
+    "title": "Position and motion",
+    "measuring": "Measuring the position in each epoch",
+    "waiting": "The view is still being built. The position is measured as soon as every epoch is ready.",
+    "failed": "The measurement could not be completed.",
+    "tooFewTitle": "Two epochs are needed",
+    "tooFewBody": "Motion is measured between epochs. This view has only one, so Measure is unavailable.",
+    "blendTitle": "Blended source.",
+    "blendBody": "Another source lies within one SPHEREx pixel. The centroid and the motion are less certain than their error bars suggest.",
+    "fitTitle": "Fitted proper motion",
+    "verdict": {
+      "agrees": "Agrees",
+      "marginal": "Marginal",
+      "differs": "Differs"
+    },
+    "unit": "arcsec/yr",
+    "parallax": "Parallax",
+    "fixed": "(fixed to catalog)",
+    "fitted": "(fitted)",
+    "refTitle": "Published value",
+    "source": "Source",
+    "noRef": "No published value is available for this position.",
+    "centroids": "Centroid in each epoch",
+    "err": "Error (arcsec)",
+    "residuals": "Residuals after the fit",
+    "residualsAria": "Residual position in right ascension and declination for each epoch, in arcsec, after the fit.",
+    "residualsNote": "Points close to zero mean the straight-line motion describes the data.",
+    "resX": "Epoch",
+    "resY": "Residual (arcsec)"
+  },
+  "ctx": {
+    "title": "Sky around this field",
+    "survey": "Survey",
+    "s2mass": "2MASS",
+    "sAllwise": "AllWISE",
+    "sSpherex": "SPHEREx",
+    "loading": "Loading the sky map",
+    "failed": "The sky map could not be loaded. Check your connection and try again.",
+    "intro": "A wider view of the same sky from earlier all-sky surveys (2MASS near infrared, AllWISE mid infrared), not SPHEREx data. Use it to see what surrounds the field. Drag to pan and use the zoom buttons or the mouse wheel.",
+    "note": "The cyan square marks the {{fov}} arcmin field of the current view.",
+    "creditMirror": "Sky tiles are served by NASA/IPAC IRSA through Aladin Lite."
+  },
+  "buildSky": {
+    "title": "Sky at the requested position",
+    "badge": "Not SPHEREx data",
+    "label": "Context survey image shown while the SPHEREx frames are prepared. The player replaces it when the first frames are ready."
+  },
+  "panel2": {
+    "demoOff": "This panel needs the live server, which is unreachable right now."
+  },
+  "sci": {
+    "kicker": "Science",
+    "title": "Seeing the sky move",
+    "lead": "In 1930 a young astronomer found Pluto by flipping between two photographs of the same stars. Destello does the same thing with NASA's SPHEREx infrared survey, for any patch of the sky.",
+    "toc": "On this page",
+    "s1": {
+      "t": "1930: a blink at Lowell Observatory",
+      "p1": "At Lowell Observatory in Flagstaff, Arizona, Clyde Tombaugh was searching for a planet beyond Neptune. He photographed the same region of sky a few nights apart, then put the two glass plates in a blink comparator: a viewer that flips quickly between them.",
+      "p2": "Hundreds of thousands of stars stayed still. One faint dot jumped back and forth. It was Pluto. Destello applies the same idea to SPHEREx images taken months apart."
+    },
+    "s2": {
+      "t": "What SPHEREx is",
+      "p1": "SPHEREx is a NASA space telescope that maps the entire sky in infrared light. It was built to study how the universe began, how galaxies grew, and where the water and ice in planet-forming clouds come from.",
+      "p2": "To do that it photographs every part of the sky again roughly every six months. Those repeat visits are what Destello uses: each visit is one epoch, and comparing epochs shows what moved or changed."
+    },
+    "s3": {
+      "t": "Six detectors, 102 colors",
+      "p1": "SPHEREx has six detectors, D1 to D6. Each sits behind a filter whose color changes smoothly across its surface, so a single image is not one color. Together the detectors cover 0.75 to 5.0 micrometers, all of it invisible to our eyes.",
+      "p2": "In Destello you can watch any one detector, or All of them combined. The band edges below are the nominal design values.",
+      "thDet": "Detector",
+      "thFrom": "From (µm)",
+      "thTo": "To (µm)",
+      "caption": "Nominal wavelength coverage of each detector. The exact band seen at a given pixel is read from the image headers."
+    },
+    "s4": {
+      "t": "One clean image per detector",
+      "p1": "During one visit SPHEREx photographs a patch many times over one to a few weeks, each time at a slightly different color. A single exposure is noisy, so Destello sorts the exposures by detector and combines each group into one coadd.",
+      "p2": "Before combining, it subtracts the glow of zodiacal dust, masks flagged pixels and aligns everything to one grid. One brightness scale is shared by all epochs of a detector, so a star that looks fainter really is fainter."
+    },
+    "s5": {
+      "t": "Subtracting epochs to find movers",
+      "p1": "A difference image subtracts one epoch from another. First Destello scales the two so steady stars match in brightness, since each coadd samples a slightly different mix of colors. Then it subtracts, pixel by pixel.",
+      "p2": "Anything steady cancels to gray. A moving object leaves a pair: blue where it was, orange where it is now. An object that only changes brightness leaves one color and no pair."
+    },
+    "s6": {
+      "t": "What Destello cannot tell you",
+      "p1": "SPHEREx was built to map the whole sky in many colors, not to take sharp pictures. These limits are shown in the Explorer too, next to the data they affect.",
+      "l1": {
+        "t": "Pixels are large",
+        "d": "A SPHEREx pixel is about 6.2 arcsec. Close pairs cannot be split and crowded fields blend."
+      },
+      "l2": {
+        "t": "Few epochs",
+        "d": "Motion needs at least two epochs, and the current release has only a few. Fits with three epochs are uncertain."
+      },
+      "l3": {
+        "t": "Bright stars saturate",
+        "d": "Very bright stars saturate some detectors. Their centroids use the unsaturated wings or another detector."
+      },
+      "l4": {
+        "t": "Faint objects need the right detector",
+        "d": "Cold brown dwarfs are almost invisible below 3 micrometers. Choose D5 or D6 for them."
+      },
+      "l5": {
+        "t": "Quick Release calibration",
+        "d": "Quick Release fluxes are preliminary and may change in later releases."
+      },
+      "l6": {
+        "t": "Positions need an epoch",
+        "d": "Catalog positions are propagated to each frame time with proper motion. A coordinate without a stated epoch can be off by many pixels."
+      }
+    },
+    "s7": {
+      "t": "Credits",
+      "p1": "Destello uses data from NASA SPHEREx served by NASA/IPAC IRSA, Gaia DR3 (ESA), CatWISE2020, SIMBAD and Sesame (CDS) and JPL Small-Body Identification. The full acknowledgements are on the About page.",
+      "link": "Data acknowledgements"
+    },
+    "play": "Play it in the Explorer"
+  },
+  "val": {
+    "kicker": "Validation",
+    "title": "Destello against published values",
+    "lead": "Destello finds the same source in every SPHEREx epoch, centroids it and fits a linear motion. We compare the result with values from the literature and from Gaia. Every row below is read from the latest validation run, nothing is typed by hand.",
+    "run": "Run: {{date}} · pipeline {{version}} · {{release}}",
+    "summary": "{{pass}} of {{total}} tests pass",
+    "loading": "Loading the validation results",
+    "unavailTitle": "Validation results are not available yet",
+    "unavailBody": "The server has not published a validation run. This page shows results only when they exist, so nothing is displayed in their place.",
+    "errorBody": "The validation results could not be loaded. Try again in a moment.",
+    "retry": "Try again",
+    "tableTitle": "Tests",
+    "caption": "Tolerance is the largest accepted difference between Destello and the published value, in units of the combined 1 sigma uncertainty.",
+    "colTest": "Test",
+    "colTarget": "Target",
+    "colMeasured": "Destello",
+    "colReference": "Published",
+    "colSource": "Source",
+    "colSigma": "Difference",
+    "colTol": "Tolerance",
+    "colResult": "Result",
+    "colEpochs": "Epochs",
+    "status": {
+      "pass": "Pass",
+      "fail": "Fail",
+      "not_measurable": "Not measurable"
+    },
+    "sigma": "{{n}} sigma",
+    "resTitle": "Residuals after the fit",
+    "resAria": "Residual position of {{name}} in right ascension and declination in each epoch, in arcsec.",
+    "resNote": "Residuals are the distance of each epoch centroid from the fitted straight-line motion.",
+    "limitsTitle": "Limits and how Destello handles them",
+    "limitsIntro": "These limits come from the instrument and from the data releases. Each one states what Destello does about it and what was measured on the test targets of this report.",
+    "limitsDoes": "What Destello does",
+    "limitsMeasured": "Measured in this report",
+    "rulesTitle": "Rules of the comparison",
+    "limits": {
+      "l1": {
+        "t": "Few epochs",
+        "b": "SPHEREx returns to a position about every six months, so a field has only a few epochs and a fitted motion carries a large uncertainty.",
+        "d": "Every image of every public release is used, a sequence is rebuilt when IRSA publishes new data, and each fit reports its uncertainty and the number of epochs behind it.",
+        "mEpochs": "{{min}} to {{max}} epochs per test target.",
+        "mMotion": "Fitted proper motions differ from the published values by {{min}} to {{max}} percent."
+      },
+      "l2": {
+        "t": "Large pixels",
+        "b": "A pixel covers about 6.2 arcsec. Sources closer than that are not resolved, and no processing separates them.",
+        "d": "Centroids are measured to a fraction of a pixel and compared with catalog positions propagated to each epoch. A pair that cannot be resolved is stated as unresolved.",
+        "mCentroid": "Observed positions lie a median of {{median}} arcsec ({{fraction}} of a pixel) from the propagated catalog position, and at most {{max}} arcsec."
+      },
+      "l3": {
+        "t": "Quick Release calibration",
+        "b": "The astrometry and photometry of a Quick Release are preliminary and may change in later releases.",
+        "d": "Each epoch is tied again to Gaia DR3 field stars before measuring, the flux scale is checked against 2MASS, and every result records the release it came from.",
+        "mAstrometry": "Median offset from Gaia DR3: {{before}} arcsec as delivered, {{after}} arcsec after recalibration.",
+        "mFlux": "Flux scale between {{min}} and {{max}} of 2MASS, on {{stars}} field stars per band."
+      },
+      "l4": {
+        "t": "A test that cannot be run is not a pass",
+        "b": "A target that cannot be measured is reported as not measurable with the reason, never as a pass."
+      },
+      "l5": {
+        "t": "Published values have errors too",
+        "b": "Differences are computed against the combined uncertainty of Destello and the published value."
+      }
+    },
+    "methodsTitle": "Methods",
+    "methods": {
+      "m1": {
+        "t": "Find and combine images",
+        "b": "Every SPHEREx image that covers the position is grouped into epochs by observation time and combined per detector."
+      },
+      "m2": {
+        "t": "Calibrate the astrometry",
+        "b": "Each epoch is aligned to Gaia DR3 stars in the same field, after propagating them to the observation time."
+      },
+      "m3": {
+        "t": "Centroid the source",
+        "b": "A point-spread-function fit gives a position and an uncertainty for every epoch. Flagged pixels are excluded."
+      },
+      "m4": {
+        "t": "Fit linear motion",
+        "b": "A straight line in position against time gives the proper motion. Parallax is fixed to the catalog value."
+      },
+      "m5": {
+        "t": "Compare",
+        "b": "The difference to the published value is divided by the combined uncertainty. A test passes when it is below its tolerance."
+      }
+    },
+    "data": "Data: SPHEREx spectral images via NASA IRSA. Astrometric reference: Gaia DR3 (ESA/Gaia/DPAC), read through the NASA MAST copy.",
+    "summaryAll": "{{fail}} fail, {{nm}} not measurable",
+    "failNote": "Failing tests are shown as they are, with the measured values and the reason for each result.",
+    "resTwo": "Targets with fewer than three epochs have no residual plot: a straight line fits two points exactly.",
+    "colCriterion": "Acceptance criterion",
+    "noRelease": "release not stated",
+    "sourceForced": "SPHEREx forced photometry (this work)",
+    "sourceWing": "SPHEREx PSF wing photometry (this work)",
+    "targets": {
+      "field_stars": "Field stars (all presets)"
+    },
+    "units": {
+      "arcsec": "arcsec",
+      "sigma": "sigma",
+      "masyr": "mas/yr",
+      "arcsecyr": "arcsec/yr",
+      "percent": "percent",
+      "count": "count",
+      "index": "index"
+    },
+    "catalogs": {
+      "gaia_dr3": "Gaia DR3",
+      "catwise2020": "CatWISE2020",
+      "twomass_psc": "2MASS Point Source Catalog",
+      "field_stars_gaia": "Gaia DR3 field stars measured with SPHEREx (this work)"
+    },
+    "warnNames": {
+      "TOO_FEW_EPOCHS": "Too few epochs",
+      "PARALLAX_FIXED": "Parallax fixed"
+    },
+    "testNames": {
+      "V-01": "Astrometric recalibration residuals",
+      "V-02": "Barnard's Star proper motion",
+      "V-03": "WISE 0855-0714 proper motion",
+      "V-04": "Epsilon Indi B proper motion",
+      "V-05": "Observed position versus propagated prediction",
+      "V-06": "R Dra change between epochs",
+      "V-07": "RW Aur change between epochs",
+      "V-08": "Spectrum flux scale versus 2MASS (field stars)",
+      "V-09": "Null test on stationary field stars",
+      "V-10": "Difference image dipoles",
+      "V-11": "Blind motion search recovers the target",
+      "V-12": "Methane absorption of Epsilon Indi B (3.3 µm index)"
+    },
+    "tol": {
+      "median_offset_below": "Median reference star offset below {{value}} {{unit}} after recalibration",
+      "within_sigma_and_relative_error": "Within {{value}} combined sigma per axis of the reference; relative error below {{rel}} percent",
+      "within_sigma": "Within {{value}} combined sigma per axis of the reference",
+      "max_separation_below": "Within {{value}} {{unit}} (one native pixel) in every epoch where detected",
+      "change_above_sigma_consistent_sign": "Change above {{value}} sigma with a consistent sign across detectors, or documented as not sampled",
+      "change_above_sigma_or_no_change": "Change detected above {{value}} sigma, or an honest statement of no change",
+      "within_percent_per_band": "Within {{value}} percent in each 2MASS band (J, H, Ks)",
+      "no_unexplained_dipoles": "No dipoles except at known movers or variables ({{sigma}} sigma lobes within {{sep}} grid pixels; sigma includes the measured static-source residual; a dipole with a lobe next to a pixel without valid exposures is reported as not measurable)",
+      "blind_search_within_sigma": "Listed by the blind motion search in {{n}} or more detectors, with a motion within {{value}} combined sigma per axis of the reference",
+      "methane_index_below_field": "Methane index below the field-star median by more than {{value}} sigma (its error and the robust star-to-star scatter in quadrature), with at least {{n}} field stars measured"
+    },
+    "r": {
+      "warnings": "Warnings: {{list}}.",
+      "recalibration_residuals": "Per epoch, median offset before recalibration: {{before}} arcsec; after: {{after}} arcsec; robust scatter: {{scatter}} arcsec; stars used: {{stars}} ({{catalog}}).",
+      "motionFit": "Fitted motion: pmra* {{pmra}} ± {{pmraErr}}, pmdec {{pmdec}} ± {{pmdecErr}} {{unit}}.",
+      "onDetector": "Measured on {{detector}} from {{n}} epochs.",
+      "chi2": "Reduced chi squared: {{chi2}}.",
+      "motionRef": "Reference: pmra* {{pmra}}, pmdec {{pmdec}} {{unit}}.",
+      "relErr": "Relative error: {{rel}}.",
+      "parallaxFixed": "Parallax fixed at {{plx}} mas.",
+      "recalStars": "Recalibrated against {{catalog}} with {{stars}} stars per epoch.",
+      "unverified": "The unverified literature value ({{pmra}}, {{pmdec}}) is not used as reference.",
+      "crossFit": "Cross-check on {{detector}}: pmra* {{pmra}} ± {{pmraErr}}, pmdec {{pmdec}} ± {{pmdecErr}} {{unit}}, {{sigma}} sigma.",
+      "crossNone": "Cross-check on {{detector}}: measured in {{measured}} of {{total}} epochs, not fitted.",
+      "no_reference_motion": "No reference motion available.",
+      "position_separations": "Separation from the predicted position per epoch: {{seps}} arcsec on {{detector}}.",
+      "missingEpochs": "Not detected in epochs {{epochs}}.",
+      "not_detected_any_epoch": "The source was not measured in any epoch.",
+      "too_few_epochs": "The source was measured in {{measured}} of {{total}} epochs on {{detector}}. At least two are needed to fit a motion.",
+      "science_error": "The measurement could not be made (code {{code}}).",
+      "no_reference_stars": "No epoch had three or more reference stars.",
+      "gaia_unavailable": "Gaia DR3 is unavailable for this field.",
+      "no_suitable_star": "No suitable star could be measured.",
+      "no_suitable_star_n_one": "No suitable star could be measured ({{n}} candidate tried).",
+      "no_suitable_star_n_other": "No suitable star could be measured ({{n}} candidates tried).",
+      "null_test_stars_one": "{{n}} star, each left out of its own recalibration, on {{detector}}.",
+      "null_test_stars_other": "{{n}} stars, each left out of its own recalibration, on {{detector}}.",
+      "nullFirst": "First star: Gaia DR3 {{id}} (G {{g}}), pmra* {{pmra}} ± {{pmraErr}}, pmdec {{pmdec}} ± {{pmdecErr}} {{unit}}, {{sigma}} sigma.",
+      "nullWorst": "The table value is the first star; sigma is the worst of all ({{sigma}}).",
+      "fewer_than_two_epochs": "Fewer than two epochs with unflagged photometry.",
+      "no_shared_wavelengths": "No detector sampled the same wavelengths in two epochs.",
+      "noSignificant": "No significant change detected.",
+      "changeLargest": "Largest change between epochs {{a}} and {{b}}: per detector {{dets}} (magnitudes, positive means fainter).",
+      "signYes": "Sign consistent across significant detectors: yes.",
+      "signNo": "Sign consistent across significant detectors: no.",
+      "pairItem": "{{a}} to {{b}}: {{dmag}} ± {{err}} mag",
+      "pairsAll": "All pairs: {{pairs}}. Saturated or flagged exposures are excluded.",
+      "pairsAllWing": "All pairs: {{pairs}}.",
+      "wingMethod": "The core is saturated in all {{total}} exposures, so the change is measured on the flux of the PSF wings between {{r0}} and {{r1}} arcsec ({{used}} exposures used), per detector and wavelength bin. Errors include a per-detector systematic from the same measurement on {{control}}, a non-variable control: {{sys}} mag.",
+      "pairsNote": "The largest of {{n}} pairs is reported, so the significance is not corrected for the number of pairs.",
+      "no_coadd_pair": "No pair of epoch coadds.",
+      "dipole_count": "{{n}} difference images (consecutive epochs, every detector).",
+      "dipoleLobes": "Lobes of {{sigma}} sigma within {{sep}} grid pixels.",
+      "regShift": "Registration shift median {{median}} arcsec (max {{max}}), applied on {{applied}} of {{n}}.",
+      "regNone": "Registration not measurable (too few field stars), applied on {{applied}} of {{n}}.",
+      "resFraction": "Static-source residual fraction {{min}} to {{max}} ({{measured}} of {{n}} images).",
+      "resNone": "Static-source residual not measurable (pixel noise only).",
+      "dipoleBlank": "Dipoles with a lobe next to a pixel without valid exposures (not measurable): {{n}}.",
+      "dipoleCounts": "Dipoles at the preset target: {{target}}. Unexplained: {{unexplained}}.",
+      "measurement_error": "The measurement failed ({{exception}}).",
+      "irsa_tool_interactive": "The IRSA SPHEREx Spectrophotometry Tool is an interactive service. No machine readable comparison was available in this run, so the comparison was not made.",
+      "too_few_flux_stars": "Fewer than two qualifying field stars in at least one 2MASS band.",
+      "motion_search_recovery": "Listed without using the target position in {{count}} detectors ({{detectors}}) from {{n}} epochs over {{baseline}} years, {{sep}} arcsec from the propagated target.",
+      "motion_search_listed": "Sources listed in the field: {{n}}.",
+      "motion_search_not_found": "The target is not among the sources listed by the motion search ({{n}} listed; {{epochs}} epochs over {{baseline}} years).",
+      "fluxMethod": "Spectrum tool output (single-exposure aperture photometry, {{aperture}} arcsec radius, no aperture correction) for isolated, unsaturated field stars with 2MASS quality AAA and a Gaia DR3 counterpart, fitted per band with a power law and evaluated at the 2MASS isophotal wavelength.",
+      "fluxBands": "Median SPHEREx to 2MASS ratio: {{bands}}.",
+      "fluxBand": "{{band}} {{ratio}} ± {{err}} (N = {{n}})",
+      "fluxBandNone": "{{band}} no star",
+      "fluxPresets": "Stars per preset: {{list}}.",
+      "fluxRdra": "R Draconis is saturated in every exposure and its field holds no qualifying star, so the field stars of all presets are used.",
+      "fluxReference": "The IRSA Spectrophotometry Tool offers no programmatic access, so 2MASS is the independent reference.",
+      "methane_index_vs_field": "Index: flux in the 3.20-3.45 µm band over a continuum interpolated in log-log from 2.90-3.10 and 3.85-4.10 µm, single exposures, per survey pass. Epsilon Indi B: {{index}} ± {{err}}. {{n}} field stars: median {{median}}, robust scatter {{scatter}}. Depth below the field: {{depth}} sigma. Epsilon Indi Ba and Bb are unresolved, so this is their combined light.",
+      "methane_not_measurable_stars": "Not measurable: {{n}} field stars measured (at least {{min}} needed).",
+      "methane_not_measurable_target": "Not measurable: no epoch of the target has all three wavelength windows measured.",
+      "window_not_measurable": "Not measurable: the CO2 band window (4.23 to 4.27 µm) and its two continuum windows hold {{band}}, {{blue}} and {{red}} usable points (band, blue and red; at least 2 are needed in each). No detection is claimed.",
+      "window_below_snr": "Not measurable: the CO2 band window (4.23 to 4.27 µm) and its two continuum windows each hold the 2 points required (band {{nBand}}, blue {{nBlue}}, red {{nRed}}), but at least one window mean is detected below 3 sigma (S/N: band {{snrBand}}, blue {{snrBlue}}, red {{snrRed}}). No detection is claimed.",
+      "band_excess_continuum_undetected": "CO2 band flux {{bandFlux}} ± {{bandErr}} Jy against a continuum of {{cont}} ± {{contErr}} Jy, which is not detected (S/N: blue {{snrBlue}}, red {{snrRed}}) and is interpolated linearly in flux. Band minus continuum: {{sig}} sigma; {{sigUpper}} sigma above the continuum 3 sigma upper limit of {{upper}} Jy. No ratio is reported for an undetected continuum. Usable points in the blue, band and red windows: {{blue}}, {{band}}, {{red}}.",
+      "band_excess": "CO2 band flux {{bandFlux}} Jy against a continuum of {{cont}} Jy: excess {{excess}} ± {{err}} (band over continuum, minus 1), {{sig}} sigma. Usable points in the blue, band and red windows: {{blue}}, {{band}}, {{red}}.",
+      "ephemeris_check": "{{within}} of {{measured}} measured exposures lie within their position bound of the JPL Horizons position ({{total}} exposures in the campaign). Median offset {{median}} arcsec, largest {{max}} arcsec.",
+      "ephemeris_check_neighbours": "{{current}} The centroid fits the Gaia DR3 stars in the fit box together with the comet (method changed on 2026-11-15, after the earlier result was known). With a single Gaussian, the earlier method: {{within}} of {{measured}} measured exposures within the bound.",
+      "recalibration_catalog_not_gaia": "Not measurable by rule: the recalibration catalog is not Gaia DR3, which the long-baseline fit requires.",
+      "no_wise_companion": "Not measurable: no WISE companion sequence has been built for this target.",
+      "too_few_epochs_per_mission": "Not measurable: {{wise}} WISE and NEOWISE epochs and {{spherex}} SPHEREx epochs were measured, and at least 2 are required from each mission.",
+      "long_baseline_fit": "Combined fit of {{total}} epochs ({{wise}} WISE and NEOWISE, {{spherex}} SPHEREx): proper motion {{pmra}} ± {{pmraErr}} mas/yr in right ascension (times cos declination) and {{pmdec}} ± {{pmdecErr}} mas/yr in declination, at epoch J{{epoch}}.",
+      "long_baseline_chi2": "Reduced chi-squared {{chi2}}."
+    },
+    "colFieldMedian": "Field-star median"
+  },
+  "pages2": {
+    "aboutKicker": "About",
+    "aboutTitle": "Watch the infrared sky move",
+    "aboutP1": "Destello is a free, bilingual web tool that turns NASA SPHEREx all-sky infrared images into time-lapses of any patch of sky. Type a name or a position and it finds every SPHEREx image of that spot, combines them by epoch and plays them in turn.",
+    "aboutP2": "It is made for students, teachers and citizen scientists first, with enough provenance for astronomers to trust what they see. Destello is Spanish for a flash or a glint: the moment a moving star catches your eye.",
+    "challengeTitle": "NASA Space Apps Challenge 2026",
+    "challengeBody": "Destello was built in 48 hours for the challenge Planet X and SPHEREx. The challenge asked for a way to blink SPHEREx images, query any position by URL, overlay Gaia and WISE catalogs, and make the result embeddable.",
+    "teamTitle": "Team and licence",
+    "teamBody": "Destello is built by team Never be Frog. The sole member is Felipe Cabrera Bisio, from Montevideo, Uruguay. It was made for the NASA Space Apps Challenge 2026, challenge Planet X and SPHEREx.",
+    "licenceBody": "The source code is released under the MIT licence.",
+    "sourceLink": "Source code on GitHub",
+    "nonEndorseTitle": "Not an official product",
+    "nonEndorse": "Destello is an independent project built by team Never be Frog (Felipe Cabrera Bisio) for the NASA Space Apps Challenge 2026. It is not an official product of NASA, Caltech/IPAC or JPL, and their names do not imply endorsement.",
+    "toc": "On this page",
+    "scienceIntro": "How the images are made and what they can and cannot show is explained on the Science page.",
+    "scienceLink": "Read the Science page"
+  },
+  "share2": {
+    "lang": "Language",
+    "ctlNoteFull": "Playback, speed, loop and epoch timeline.",
+    "ctlNoteMinimal": "Play, step and epoch label.",
+    "ctlNoteNone": "Image only, with attribution.",
+    "preview": "Live preview",
+    "previewNote": "{{w}} by {{h}} pixels",
+    "embedCode": "Embed code",
+    "sizeCompactDesc": "360 px wide",
+    "sizeStandardDesc": "480 px wide",
+    "sizeLargeDesc": "720 px wide"
+  },
+  "embed2": {
+    "attribution": "Data: NASA SPHEREx via IRSA",
+    "loading": "Loading frames",
+    "unavailable": "This view is not available."
+  },
+  "mobile": {
+    "tools": "View tools",
+    "player": "Player",
+    "none": "None",
+    "frameSummary": "E{{epoch}} of {{total}} · {{images}} img · {{flagged}} flagged"
+  },
+  "sheet2": {
+    "grab": "Resize panel",
+    "closeSearch": "Close search"
+  },
+  "pixel2": {
+    "value": "Pixel value"
+  },
+  "sciWarn": {
+    "title": "Measurement warnings",
+    "codes": {
+      "SATURATION": {
+        "t": "Saturation.",
+        "b": "Saturated or flagged pixels fall inside the measurement aperture. Those exposures carry no flux value, and a centroid relies on the faint outer part of the star."
+      },
+      "PSF_WINGS_CENTROID": {
+        "t": "Position from the outer profile.",
+        "b": "The star is saturated at its center in every epoch. Each position comes from fits to the unflagged outer part of the star on single exposures, averaged per epoch."
+      },
+      "BLENDED_SOURCE": {
+        "t": "Blended source.",
+        "b": "Another source lies within about one SPHEREx pixel of the target. Positions and motion are less certain than their error bars suggest."
+      },
+      "EPSILON_INDI_UNRESOLVED": {
+        "t": "Unresolved pair.",
+        "b": "Epsilon Indi Ba and Bb are separated by less than 1 arcsec and SPHEREx pixels are about 6.2 arcsec, so the pair is unresolved and the measurement refers to both together."
+      },
+      "NO_REDUNDANCY": {
+        "t": "Two epochs only.",
+        "b": "Two epochs determine the motion exactly. There is no chi-square, and the uncertainty rests on the per-epoch errors alone."
+      },
+      "PARALLAX_UNKNOWN": {
+        "t": "Parallax unknown.",
+        "b": "No parallax is known for this position, so it is fixed to zero."
+      },
+      "QUICK_RELEASE_CALIBRATION": {
+        "t": "Preliminary calibration.",
+        "b": "SPHEREx Quick Release calibration is preliminary and can carry systematic errors."
+      },
+      "RECALIBRATION_UNAVAILABLE": {
+        "t": "Reduced recalibration.",
+        "b": "Fewer than three reference stars were available in at least one epoch, so the archive coordinates were used there without a local correction."
+      },
+      "NO_APERTURE_CORRECTION": {
+        "t": "No aperture correction.",
+        "b": "Fluxes are sums inside the aperture and miss the faint wings of the star, so they are lower limits of the total flux."
+      },
+      "PRESET_ASTROMETRY_USED": {
+        "t": "Catalog motion applied.",
+        "b": "The position was moved to the time of each exposure with the catalog proper motion of this target."
+      },
+      "POSITION_NOT_PROPAGATED": {
+        "t": "Position not propagated.",
+        "b": "No proper motion was given, so the same position is used for every exposure."
+      },
+      "OVERFLOW_PIXELS_USED": {
+        "t": "Bright core pixels kept.",
+        "b": "Some unflagged points include core pixels that reached the onboard overflow threshold, about half of full well. Their values come from the samples taken before the threshold and are kept, following the SPHEREx Explanatory Supplement."
+      },
+      "PARALLAX_FIXED": {
+        "t": "Parallax fixed.",
+        "b": "Fitting the parallax needs four or more epochs over at least one year, so it was fixed to the reference value."
+      },
+      "TOO_FEW_EPOCHS": {
+        "t": "Too few epochs.",
+        "b": "The source was measured in fewer than two epochs in this detector, so no motion can be fitted."
+      }
+    },
+    "other": "Note."
+  },
+  "spec2": {
+    "loadingLong": "Measuring the flux in every exposure. The first time this can take up to two minutes; the result is then stored.",
+    "elapsed": "{{s}} s elapsed",
+    "satNoneTitle": "No flux values at this position.",
+    "satNoneBody": "Every exposure has saturated or flagged pixels in the aperture, so Destello withholds the flux instead of showing a wrong number. This is a measurement limit, not an error.",
+    "emptyPlot": "No usable flux values",
+    "usable": "{{n}} of {{total}} exposures usable",
+    "noFlux": "no flux",
+    "flaggedHint": "{{count}} of {{total}} exposures are flagged and have no plotted flux.",
+    "retryHint": "Try again. The server may be busy or restarting.",
+    "rateLimited": "Too many measurements in a short time. Wait a moment and try again.",
+    "colExp": "Usable",
+    "ch4Short": "CH4",
+    "ch4Title": "Methane band index (3.3 µm)",
+    "ch4Value_one": "Index {{index}} ± {{err}}, from {{n}} survey pass.",
+    "ch4Value_other": "Index {{index}} ± {{err}}, combined over {{n}} survey passes.",
+    "ch4Below": "Below 1 by {{sigma}} standard errors: the flux in the band is depressed relative to the continuum, as methane absorption in T and Y dwarfs produces.",
+    "ch4Flat": "Consistent with a continuum without a 3.3 µm absorption band (index 1), within 3 standard errors.",
+    "ch4None": "Not measurable at this position: no survey pass has enough unflagged exposures with signal in all three windows.",
+    "ch4Method": "Flux in the band ({{band}} µm) divided by the continuum interpolated in log-log from {{blue}} and {{red}} µm (shaded in the plot). A smooth stellar continuum gives 1."
+  },
+  "meas2": {
+    "notMeasurableTitle": "The source could not be measured",
+    "notMeasurableBody": "The source was not measured in any epoch on the selected detector. It is usually saturated, so no reliable centroid exists. Try another detector if one has an unsaturated image.",
+    "notMeasurableCount": "The source was measured in {{measured}} of {{total}} epochs on detector D{{detector}}. At least two are needed to fit a motion.",
+    "suggestDetector": "Try detector D{{detector}}",
+    "tooFewMeasured_one": "The source was measured in only {{count}} epoch on this detector. At least two are needed to fit a motion.",
+    "tooFewMeasured_other": "The source was measured in only {{count}} epochs on this detector. At least two are needed to fit a motion.",
+    "detectorUsed": "Detector used",
+    "recalCatalog": "Recalibrated against",
+    "refEpoch": "Reference epoch",
+    "colN": "Images",
+    "colSnr": "S/N",
+    "colSat": "Saturated",
+    "colStars": "Stars",
+    "notMeasured": "not measured",
+    "unresolvedNote": "Epsilon Indi Ba and Bb are unresolved at the SPHEREx pixel scale, so this is the motion of the pair.",
+    "twoEpochsNote": "With two epochs the line passes exactly through both points, so residuals are zero by construction and are not plotted.",
+    "chi2": "Reduced chi-square",
+    "rateLimited": "Too many measurements in a short time. Wait a moment and try again.",
+    "retryHint": "Try again. The server may be busy or restarting.",
+    "epochsLabel": "Epochs measured",
+    "epochsValue": "{{n}} of {{total}}",
+    "csv": "Download epochs and residuals (CSV)"
+  },
+  "builds": {
+    "button_one": "{{count}} build in progress",
+    "button_other": "{{count}} builds in progress",
+    "buttonReady_one": "{{count}} build ready",
+    "buttonReady_other": "{{count}} builds ready",
+    "short": "building",
+    "shortReady": "ready",
+    "heading": "Builds",
+    "building": "Building",
+    "queued": "Queued",
+    "downloading": "Downloading {{done}} of {{total}}",
+    "detectors": "{{n}} of 6 detectors ready",
+    "ready": "Ready to view",
+    "open": "View progress",
+    "openReady": "Open",
+    "dismiss": "Remove from list",
+    "fov": "{{fov}} arcmin field",
+    "hint": "A build keeps running on the server while other views are open."
+  },
+  "options": {
+    "title": "Data options",
+    "summaryAll": "all releases",
+    "summaryPartial": "with short revisits"
+  },
+  "release": {
+    "label": "Data release",
+    "default": "{{label}} (default)",
+    "all": "All releases, newest version of each image"
+  },
+  "tour": {
+    "take": "Take the tour",
+    "replay": "Guided tour",
+    "count": "{{n}} of {{total}}",
+    "skip": "Skip tour",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "keysLabel": "Keyboard shortcuts",
+    "keyPlay": "play",
+    "keyStep": "step",
+    "keyDetector": "detector",
+    "keyDiff": "difference",
+    "keyGaia": "Gaia",
+    "keyCatwise": "CatWISE",
+    "keyMeasure": "measure",
+    "steps": {
+      "player": {
+        "title": "The blink player",
+        "body": "The same patch of sky, imaged by SPHEREx on each survey pass, about six months apart. Each square is one image pixel at its real resolution, never smoothed. Steady stars stay in place; an object that moves jumps between frames."
+      },
+      "search": {
+        "title": "Choose a sky position",
+        "body": "Type coordinates (RA and Dec) or an object name in the search box, or open one of the presets. Each preset is a known object chosen to show motion or variability."
+      },
+      "transport": {
+        "title": "Play and step through the epochs",
+        "body": "Play the sequence, or step through it one epoch at a time. The timeline lists every epoch with its date; select one to go straight to it. All epochs of a detector share one brightness scale, so a change between frames is in the data, not in the display."
+      },
+      "detector": {
+        "title": "Choose a detector",
+        "body": "SPHEREx observes with six detectors, each covering its own range of infrared wavelengths. Switch detectors to compare how the field looks at different wavelengths."
+      },
+      "mode": {
+        "title": "Difference mode",
+        "body": "Difference mode subtracts a reference epoch from the epoch on screen. Steady sources cancel out, and a source that moved leaves a pair of opposite residuals."
+      },
+      "overlays": {
+        "title": "Catalog overlays",
+        "body": "Turn on Gaia and CatWISE to mark known sources where each catalog places them on the date of the epoch on screen. A moving source without a marker deserves a closer look."
+      },
+      "results": {
+        "title": "Results, measurements and spectrum",
+        "body": "For a preset, the result card compares the motion measured in SPHEREx with the published value. The Measure tab measures the selected source in each epoch, and the Spectrum tab shows its spectrum and light curve."
+      },
+      "motion": {
+        "title": "Motion search",
+        "body": "Motion search looks for sources that move consistently across all epochs of the sequence. It runs only on request. Each entry is a candidate to review, to be checked against catalogs and the images before any conclusion."
+      },
+      "share": {
+        "title": "Share and export",
+        "body": "Share copies a link that reopens this exact view, or a code to embed it in another page. Export saves the sequence as an animated GIF with its data credits. The tour can be replayed from Guided tour at the top of the page."
+      }
+    }
+  },
+  "report": {
+    "title": "Report a candidate",
+    "stepsLabel": "Report steps",
+    "step": {
+      "mark": "Mark",
+      "check": "Check",
+      "results": "Results",
+      "notes": "Notes",
+      "done": "Done"
+    },
+    "markIntro": "Click the source in the player, in at least two epochs. Step with ← and →. Each mark is saved for the epoch on screen.",
+    "marksLabel": "Marks per epoch",
+    "marked": "Marked",
+    "notMarked": "Optional",
+    "show": "Show {{e}}",
+    "clear": "Clear {{e}}",
+    "keyboardTitle": "Mark with the keyboard",
+    "keyboardHelp": "Place a mark in the epoch on screen, then move it one pixel at a time. North is up, east is left.",
+    "place": "Place mark in this epoch",
+    "placed": "Marked in this epoch",
+    "nudge": {
+      "n": "Move the mark one pixel north",
+      "s": "Move the mark one pixel south",
+      "e": "Move the mark one pixel east",
+      "w": "Move the mark one pixel west"
+    },
+    "dir": {
+      "n": "N",
+      "s": "S",
+      "e": "E",
+      "w": "W"
+    },
+    "needMarks": "Mark the source in at least two epochs to run the checks. Marks still needed: {{n}}.",
+    "thirdOptional": "A mark in a third epoch is optional. It lets the checks test a straight-line track.",
+    "runChecks": "Run checks",
+    "running": "Running…",
+    "checking": "Searching four catalogs around each mark. Positions are propagated to each mark's date, so known movers are caught too.",
+    "checkingTime": "Usually under 20 seconds.",
+    "searching": "Searching",
+    "geocentric": "SBIdent assumes a geocentric observer while SPHEREx is in low Earth orbit, so very near objects are matched only approximately. Its positions are computed at the mid time of each epoch coadd, which spans about two weeks.",
+    "addNotes": "Add notes",
+    "notesLabel": "What did you notice?",
+    "notesCount": "{{n}} / {{max}} · shown publicly",
+    "contactLabel": "Contact (optional)",
+    "contactPlaceholder": "Email, only if you want a reply",
+    "contactHelp": "Kept private. Never shown on the report page.",
+    "contactInvalid": "Enter a valid email address, or leave the field empty.",
+    "publicNotice": "The report page is public. It shows your marks, the check results and your notes, and states that the candidate is unconfirmed.",
+    "turnstileNote": "A Cloudflare Turnstile check confirms that a person is sending this report. It sets no tracking cookies.",
+    "turnstileError": "The Turnstile check could not load. Reload the page and try again; if it keeps failing, try again later.",
+    "submit": "Submit report",
+    "submitting": "Submitting…",
+    "saved": "Report saved",
+    "permalink": "Permanent link",
+    "copy": "Copy",
+    "copied": "Copied",
+    "alsoFiles": "Also:",
+    "back": "Back",
+    "cancel": "Cancel",
+    "close": "Close",
+    "openPage": "Open report page",
+    "needTwoEpochs": "Reporting needs a finished view with two or more epochs.",
+    "err": {
+      "RATE_LIMITED": "Too many reports or checks from this connection. Wait a few minutes and try again.",
+      "TURNSTILE_FAILED": "The Turnstile check did not pass. Complete it again and resubmit.",
+      "TURNSTILE_UNAVAILABLE": "The Turnstile check is not available right now. Try again later.",
+      "REPORTS_UNAVAILABLE": "Reports are not available right now. Your marks are kept on this page; try again later.",
+      "INVALID_MARKS": "The marks are not valid: use one mark per epoch, in at least two epochs.",
+      "POSITION_OUTSIDE_FIELD": "A mark is outside the field of this view. Clear it and mark again.",
+      "VALIDATION_ERROR": "The report could not be read. Check the notes and the contact field.",
+      "NOT_FOUND": "This view is no longer available on the server. Build it again, then report.",
+      "network": "The server could not be reached. Check the connection and try again.",
+      "generic": "Something went wrong on our side. Your marks are kept; try again.",
+      "demo": "Reports need the live server. Back when it is."
+    },
+    "verdict": {
+      "match": {
+        "t": "Matches a known source.",
+        "d": "A catalog lists a source at every marked position. The marked object is most likely that source."
+      },
+      "partial": {
+        "t": "Partly matches a known source.",
+        "d": "A catalog source lies at some of the marks but not all. Check the marks: the source may be known but moving differently."
+      },
+      "incomplete": {
+        "t": "The checks are incomplete.",
+        "d": "At least one catalog could not be searched, so the result is not final. Run the checks again later."
+      },
+      "no_match": {
+        "t": "No catalog match. Worth a closer look.",
+        "d": "That alone does not make it a real object. It may be an image artifact, a source these catalogs miss, or an unlisted asteroid."
+      }
+    },
+    "motion": {
+      "line": "Estimated motion {{rate}} ± {{sigma}} ″/yr, PA {{pa}}° ({{dir}}) · from {{n}} marks over {{days}} days",
+      "parallaxFitted": "Parallax is fitted together with the motion.",
+      "noParallax": "Parallax is not fitted, so the true motion can differ."
+    },
+    "compass": {
+      "n": "north",
+      "ne": "northeast",
+      "e": "east",
+      "se": "southeast",
+      "s": "south",
+      "sw": "southwest",
+      "w": "west",
+      "nw": "northwest"
+    },
+    "radius": {
+      "cone": "cone {{r}}″ per mark",
+      "box": "{{r}}″ at each mark date"
+    },
+    "cat": {
+      "gaia_dr3": "Gaia DR3",
+      "catwise2020": "CatWISE2020",
+      "simbad": "SIMBAD",
+      "sbident": "JPL SBIdent"
+    },
+    "scope": {
+      "gaia_dr3": "propagated to each mark",
+      "catwise2020": "propagated to each mark",
+      "simbad": "propagated to each mark",
+      "sbident": "known small bodies at each mark date"
+    },
+    "status": {
+      "match": "Match",
+      "partial": "Partial match",
+      "no_match": "No match",
+      "unavailable": "Unavailable"
+    },
+    "res": {
+      "unavailable": "This catalog could not be searched.",
+      "none": "Nothing within {{r}}″",
+      "body": "{{name}} · {{sep}}″ · V {{vmag}}",
+      "source": "Nearest {{sep}}″ from {{mark}}{{mag}} · {{id}}"
+    },
+    "note": {
+      "match": "A listed source lies within the search radius at every mark.",
+      "partial": "A listed source lies within the search radius at some marks only.",
+      "no_match": "No listed source within the search radius follows the marks.",
+      "unavailable": "Try the checks again later.",
+      "incomplete": "Part of the search failed, so this result may be incomplete.",
+      "sbident": "Approximate for very near objects."
+    },
+    "next": {
+      "title": "What next",
+      "noReview": "Destello does not review reports or send them anywhere. People who can vet a candidate:",
+      "byw": {
+        "name": "Backyard Worlds: Planet 9",
+        "text": "Volunteers who vet moving candidates in WISE images. Share your link in their forum."
+      },
+      "mpc": {
+        "name": "Minor Planet Center",
+        "text": "If it moves like an asteroid, positions can be submitted there, following their rules. Destello does not submit for you."
+      }
+    },
+    "page": {
+      "kicker": "Candidate report · {{id}}",
+      "unconfirmed": "Unconfirmed",
+      "notFound": "This report does not exist or was removed.",
+      "loadError": "The report could not be loaded. Try again later.",
+      "loading": "Loading the report…",
+      "title": {
+        "match": "A marked source that matches a catalog entry",
+        "partial": "A marked source with a partial catalog match",
+        "incomplete": "A marked source with incomplete catalog checks",
+        "no_match": "A possible moving source with no catalog match"
+      },
+      "meta": "Reported {{date}} UTC · {{collections}} · detector {{det}} · sequence {{seq}} · pipeline {{pipeline}}",
+      "whatTitle": "What this page is",
+      "what": "A visitor marked this source in {{n}} SPHEREx epochs. Automated checks searched Gaia DR3, CatWISE2020, SIMBAD and the JPL list of known small bodies around each mark. It is an unconfirmed candidate.",
+      "cropsCaption": "{{size}}″ crops of the {{det}} coadds, north up, east left, one shared stretch. Orange crosshairs: the reporter's marks.",
+      "cropAlt": "Crop of {{e}} with the reporter's mark at the center",
+      "cropLoading": "Loading frame…",
+      "cropGone": "This frame is no longer kept on the server. Positions and checks below are unchanged.",
+      "motionTitle": "Estimated motion, from {{n}} marks",
+      "marksCaption": "Marked positions",
+      "colMark": "Mark",
+      "colPos": "Position (ICRS)",
+      "colDate": "Mid date",
+      "checksTitle": "Automated checks",
+      "propagated": "Catalog positions are propagated to each mark's mid date with their own proper motions before matching.",
+      "notesTitle": "Notes from the reporter",
+      "noNotes": "The reporter left no notes.",
+      "notesCaption": "Shown as written. Contact details are never published.",
+      "filesTitle": "Files",
+      "openExplorer": "Open in Explorer",
+      "obsIds": "frames listed by obs_id in report.json",
+      "laterTitle": "Check again later.",
+      "later": "A mark in another epoch, or a later epoch in a future release, tests whether the track is a straight line."
+    }
+  },
+  "surprise": {
+    "button": "Surprise me",
+    "hint": "Open a random field from a curated list of real objects",
+    "demoOff": "Surprise me needs the live server, which is unreachable right now.",
+    "why": "Why it is interesting",
+    "position": "Position",
+    "refEpoch": "reference epoch {{epoch}}",
+    "pm": "Catalog proper motion: {{value}} arcsec/yr, propagated to each epoch.",
+    "noPm": "No proper motion: the position is fixed on the sky.",
+    "coverage": "Coverage depends on the data release. Bright stars can saturate some detectors.",
+    "another": "Another field",
+    "kind": {
+      "mover": "High proper motion star",
+      "variable": "Variable young star",
+      "transient": "Supernova"
+    },
+    "items": {
+      "proxima": {
+        "name": "Proxima Centauri",
+        "why": "The closest known star to the Sun, about 4.2 light years away. It crosses about 3.9 arcsec of sky per year."
+      },
+      "teegarden": {
+        "name": "Teegarden's Star",
+        "why": "A faint red dwarf about 12.5 light years away, only identified in 2003 by searching archival survey data for fast movers. It moves about 5.1 arcsec per year."
+      },
+      "vanmaanen": {
+        "name": "Van Maanen 2",
+        "why": "The closest known solitary white dwarf, about 14 light years away, discovered in 1917 through its motion of about 3 arcsec per year."
+      },
+      "wolf359": {
+        "name": "Wolf 359",
+        "why": "One of the nearest stars, a red dwarf about 7.9 light years away moving about 4.7 arcsec per year."
+      },
+      "kapteyn": {
+        "name": "Kapteyn's Star",
+        "why": "An old halo subdwarf about 12.8 light years away. Its motion of about 8.6 arcsec per year is the second largest known, after Barnard's Star."
+      },
+      "groombridge1830": {
+        "name": "Groombridge 1830",
+        "why": "A metal-poor star from the Galactic halo crossing the solar neighbourhood at high speed, about 7 arcsec per year."
+      },
+      "lacaille9352": {
+        "name": "Lacaille 9352",
+        "why": "A red dwarf about 10.7 light years away moving about 6.9 arcsec per year."
+      },
+      "trappist1": {
+        "name": "TRAPPIST-1",
+        "why": "An ultracool dwarf about 41 light years away with seven known Earth-sized planets. It moves about 1 arcsec per year, less than one SPHEREx pixel per decade."
+      },
+      "ross128": {
+        "name": "Ross 128",
+        "why": "A quiet red dwarf about 11 light years away that hosts a temperate planet. It moves about 1.4 arcsec per year."
+      },
+      "v1647ori": {
+        "name": "V1647 Orionis",
+        "why": "A young star whose accretion outbursts lit up McNeil's Nebula in 2004 and again in 2008. Its infrared brightness changes over months."
+      },
+      "fuori": {
+        "name": "FU Orionis",
+        "why": "The prototype of FU Orionis outbursts: it brightened by about six magnitudes in 1937 and is still fading slowly."
+      },
+      "ttau": {
+        "name": "T Tauri",
+        "why": "The prototype of young, still contracting T Tauri stars, with irregular brightness changes."
+      },
+      "boyajian": {
+        "name": "Boyajian's Star",
+        "why": "A star whose irregular dimming, up to about 22 percent, was found in Kepler data and is still debated."
+      },
+      "sn2023ixf": {
+        "name": "SN 2023ixf",
+        "why": "A Type II supernova in the Pinwheel Galaxy (M101), discovered in May 2023 and one of the nearest of the decade. By the SPHEREx epochs it may have faded below detection."
+      }
+    }
+  },
+  "lc": {
+    "title": "Light curve",
+    "detector": "Detector of the light curve",
+    "xTitle": "Epoch mid date (UTC)",
+    "plotAria": "Flux density of the target against time in detector D{{det}}, one marker per epoch with its error bar. The same values are listed in the table below.",
+    "note": "Aperture photometry at the target position on each epoch coadd, radius {{r}} arcsec, without aperture correction. A coadd mixes the wavelengths that covered the target during that epoch (column Band), so part of a change between epochs can come from a different wavelength mixture.",
+    "colBand": "Band",
+    "loading": "Loading the photometry of this sequence",
+    "waiting": "The light curve is available when the view is complete.",
+    "unavailable": "This sequence has no photometry file, so no light curve can be drawn.",
+    "failed": "The photometry of this sequence could not be loaded.",
+    "emptyPlot": "No epoch has a usable measurement in this detector",
+    "missingHint": "Epochs without a value were not measured; the reason is given in the table.",
+    "reason": {
+      "off_image": "Not measurable: the aperture falls outside the frame",
+      "saturated_core": "Not measurable: saturated core",
+      "no_valid_pixels": "Not measurable: no valid pixels",
+      "no_background": "Not measurable: too few background pixels",
+      "core_masked": "Not measurable: flagged pixels in the core",
+      "aperture_masked": "Not measurable: aperture mostly flagged",
+      "unknown": "Not measurable"
+    },
+    "csv": "Download light curve (CSV)",
+    "emptyAll": "No detector has a usable coadd measurement",
+    "emptyAllHint": "No epoch coadd of any detector can be measured at this position (the reason is given in the table). The single-exposure photometry under the spectrum uses the exposures that remain unflagged."
+  },
+  "export": {
+    "python": "Open in Python",
+    "pythonTitle": "Jupyter notebook",
+    "pythonDesc": "Downloads a notebook that rebuilds this sequence from its manifest: the exact observation identifiers and cutout addresses, the zodiacal light subtraction, the flag mask, a coadd per epoch, a blink with one shared stretch, Gaia DR3 positions propagated to each epoch, and the citations. It is a simplified reproduction. The data are downloaded from IRSA when you run it.",
+    "pythonDemo": "The notebook needs the live service and is not available in the offline demo.",
+    "pythonNotReady": "The notebook is available once this sequence has finished building.",
+    "title": "Export animation",
+    "button": "Export",
+    "desc": "Creates an animated GIF of the frames shown in the player: same frames, same shared stretch, the overlays that are on, and a caption with the target, detector, epoch dates, data release and DOI. The file is made in your browser.",
+    "frames": "Frames",
+    "detector": "Detector",
+    "speed": "Speed",
+    "speedValue": "{{fps}} frames per second",
+    "overlays": "Overlays",
+    "none": "None",
+    "create": "Create GIF",
+    "download": "Download GIF",
+    "drawing": "Drawing frame {{done}} of {{total}}",
+    "encoding": "Encoding the GIF",
+    "done": "GIF ready ({{size}} KB).",
+    "failed": "The GIF could not be created. Please try again.",
+    "notReady": "The frames are still loading. The export is available when every frame of the sequence is ready.",
+    "noFrames": "There is no frame to export for this detector and mode.",
+    "previewAlt": "Animated preview of the exported GIF",
+    "stillAlt": "First frame of the exported GIF",
+    "stillNote": "Reduced motion is on, so the preview shows only the first frame. The downloaded file is animated.",
+    "field": "Sky field",
+    "capEpoch": "Epoch {{epoch}} of {{total}} · {{date}} (MJD {{mjd}})",
+    "capStack": "Mean of {{total}} epochs",
+    "capSpan": "{{mode}} · epochs from {{first}} to {{last}}",
+    "capRelease": "{{release}} · DOI {{doi}}",
+    "capCredit": "SPHEREx data from NASA/IPAC IRSA · Destello",
+    "capScale": "North up, east left · 1 pixel = {{scale}} arcsec"
+  },
+  "cand": {
+    "toggle": "Candidates",
+    "toggleHint": "List the places where the two epochs differ and mark them on the image",
+    "on": "On",
+    "off": "Off",
+    "title": "Candidates to review",
+    "pair": "Epoch {{a}} ({{dateA}}) minus epoch {{b}} ({{dateB}})",
+    "disclaimer": "A candidate is a place where two epochs differ. It is not a detection of a new object. Review it in the blink and in several detectors before reporting.",
+    "method": "Differences of at least {{sigma}} sigma between the two epochs, seen by at least {{n}} detectors unless the entry is a dipole (a negative and a positive part side by side), and compared with Gaia DR3 and CatWISE2020 at the epoch within {{radius}} arcsec.",
+    "causes": "Usual causes of an entry without a catalog match: optical reflections and diffraction structure of bright stars, which change with the telescope orientation between epochs; variable sources absent from the catalogs; and moving objects.",
+    "countsLabel": "Counts",
+    "count": {
+      "listed": "Listed"
+    },
+    "status": {
+      "unmatched": "No catalog match",
+      "unchecked": "Not checked",
+      "target": "At the target",
+      "known_source": "Catalog source",
+      "not_measurable": "Not measurable"
+    },
+    "statusHelp": {
+      "unmatched": "No Gaia DR3 or CatWISE2020 source within {{radius}} arcsec at the epoch.",
+      "unchecked": "A catalog did not answer, so the entry could not be compared with it.",
+      "target": "At the position of the target of this view, where a change is expected.",
+      "known_source": "A catalog source at this position explains the difference.",
+      "not_measurable": "Next to pixels without valid exposures."
+    },
+    "uncheckedNotice": "No answer from {{catalogs}}. Entries labeled as not checked could not be compared with every catalog.",
+    "truncated": "The list was cut: only the most significant entries are shown.",
+    "dropped": "Not listed: {{single}} seen by a single detector, {{extended}} in extended structure.",
+    "empty": "No candidates in this pair",
+    "emptyPrimary": "No entry without a catalog match in this pair. The groups below hold the entries that are explained.",
+    "loading": "Comparing the two epochs",
+    "needPair": "This epoch is the reference, so there is no difference to search. Choose another epoch.",
+    "waiting": "Candidates are available once all epochs of this view are ready.",
+    "listLabel": "Entries without a catalog match or not checked",
+    "group": "{{label}} ({{count}})",
+    "kind": {
+      "moved": "Moved",
+      "brighter": "Brighter in epoch {{epoch}}"
+    },
+    "snr": "S/N {{value}}",
+    "coords": "RA {{ra}} deg, Dec {{dec}} deg",
+    "separation": "Separation between the two positions: {{value}} arcsec",
+    "match": "{{catalog}} {{id}}, at {{sep}} arcsec",
+    "matchMag": "{{band}} {{mag}} mag",
+    "catalog": {
+      "gaia_dr3": "Gaia DR3",
+      "catwise2020": "CatWISE2020"
+    },
+    "and": "and",
+    "copy": "Copy coordinates",
+    "copied": "Copied",
+    "report": "Report",
+    "reportHint": "Open the report flow with this position marked in both epochs",
+    "legend": {
+      "title": "Markers",
+      "known": "At the target or catalog source",
+      "moved": "Moved: position in epoch {{b}} joined to position in epoch {{a}}",
+      "selected": "Selected"
+    },
+    "err": {
+      "TOO_FEW_EPOCHS": "Candidates need two or more epochs.",
+      "INVALID_EPOCHS": "This pair of epochs cannot be compared. Choose two different epochs.",
+      "NO_FITS": "The data needed to compare these epochs is no longer on the server. Build the view again.",
+      "RATE_LIMITED": "Too many requests from this connection. Wait a moment and try again.",
+      "NOT_FOUND": "This view is no longer available on the server. Build it again.",
+      "DEMO_UNAVAILABLE": "Candidates for this pair are not available in the saved examples. They need the live server.",
+      "network": "The server could not be reached. Check the connection and try again.",
+      "generic": "The candidates could not be computed. Try again.",
+      "LOW_COVERAGE_EPOCH": "Candidates are not computed for low coverage epochs. Choose two full coverage epochs."
+    },
+    "lowPair": "Candidates are not computed for low coverage epochs. Choose two full coverage epochs."
+  },
+  "results": {
+    "button": "Results sheet",
+    "title": "Results sheet",
+    "desc": "A summary of this view for citing or attaching to a report. It contains only the data and the measurements already loaded in this view.",
+    "print": "Print or save as PDF",
+    "json": "Download JSON",
+    "notReady": "The sheet is available once the first frames of this view are ready.",
+    "partial": "This view is still being built. The sheet lists only the epochs and detectors published so far.",
+    "h": {
+      "view": "View",
+      "data": "Data",
+      "frames": "Frames shown",
+      "measurements": "Measurements",
+      "trace": "Traceability"
+    },
+    "target": "Target",
+    "position": "Field center (ICRS)",
+    "generated": "Generated (UTC)",
+    "services": "Services",
+    "epochs": "Epochs of the sequence",
+    "start": "Start (UTC)",
+    "end": "End (UTC)",
+    "midMjd": "Mid-time (MJD)",
+    "coadds": "Coadds",
+    "epochShown": "Epoch on screen",
+    "stretchValue": "{{detector}}: {{method}}, {{vmin}} to {{vmax}} {{unit}}, shared by all epochs of the detector",
+    "stretchDiff": "Not applicable: a difference image is not drawn with the stretch of the coadds.",
+    "noMeasurements": "No measurement is loaded in this view. Open the Spectrum or the Measure panel before opening the sheet to include its results.",
+    "measuredAt": "Measured position",
+    "preset": "Result published for this target",
+    "agreement": "Agreement with the published value",
+    "significance": "Significance of the change",
+    "reasons": "Reason given for each epoch without a measurement",
+    "waveRange": "Usable points cover {{range}}.",
+    "change": "From E{{from}} to E{{to}} in D{{det}} the flux changes by {{pct}} percent ({{sigma}} sigma).",
+    "changeNoSigma": "From E{{from}} to E{{to}} in D{{det}} the flux changes by {{pct}} percent. No significance is stated because an uncertainty is missing.",
+    "changeAbs": "From E{{from}} to E{{to}} in D{{det}} the flux changes by {{value}} {{unit}}.",
+    "changeNone": "Fewer than two epochs have a measurement in D{{det}}, so no change is stated.",
+    "candPair": "Epoch {{a}} minus epoch {{b}}, differences of at least {{sigma}} sigma.",
+    "candNotLoaded": "Candidates to review are switched on, but no list is loaded for the pair of epochs on screen.",
+    "motionMethod": "Epochs {{epochs}} searched over {{years}} years, peaks of at least {{sigma}} sigma seen by at least {{n}} detectors.",
+    "obsIds": "Source images (obs_id) of each coadd, by epoch and detector"
+  },
+  "partial": {
+    "label": "Include short revisits",
+    "help": "Short survey revisits are shown as extra epochs labelled low coverage. They are never used in measurements."
+  },
+  "coverage": {
+    "low": "Low coverage",
+    "full": "Full",
+    "lowAria": "Low coverage: a short revisit that is not used in measurements"
+  },
+  "motion": {
+    "title": "Motion search",
+    "intro": "Searches the full coverage epochs for sources that move in a straight line, and keeps those that two or more detectors see moving the same way.",
+    "run": "Search for moving sources",
+    "waiting": "The search is available once all epochs of this view are ready.",
+    "disclaimer": "Each listed source is a candidate to review, not a detection of a new object. Check it in the blink and against the catalogs before reporting.",
+    "loading": "Searching the epochs for moving sources. This can take up to a minute.",
+    "countsLabel": "Counts",
+    "count": {
+      "listed": "Listed"
+    },
+    "status": {
+      "unmatched": "No catalog match",
+      "unchecked": "Not checked",
+      "target": "At the target",
+      "known_source": "Catalog source"
+    },
+    "method": "Searched {{epochs}} full coverage epochs over {{years}} years, for motions up to {{mu}} arcsec/yr, keeping peaks of at least {{sigma}} sigma seen by at least {{n}} detectors, compared with Gaia DR3 and CatWISE2020 at the mean epoch within {{radius}} arcsec.",
+    "uncheckedNotice": "No answer from {{catalogs}}. Sources labeled as not checked could not be compared with every catalog.",
+    "truncated": "The list was cut: only the most significant sources are shown.",
+    "empty": "No source moves consistently in two or more detectors.",
+    "onFrame": "Each track is drawn on the sky frames, with a square at the epoch on screen. Select a source to highlight its track.",
+    "listLabel": "Sources that move consistently",
+    "pm": "pmra* {{pmra}}, pmdec {{pmdec}} {{unit}}",
+    "total": "Total {{value}} {{unit}}",
+    "unit": "arcsec/yr",
+    "matchPm": "catalog motion {{value}} {{unit}}",
+    "agreement": "differs from the catalog by {{value}} sigma",
+    "parallax": "Parallax {{value}} ± {{err}} mas",
+    "distance": "Distance {{value}} ± {{err}} pc",
+    "noDistance": "Parallax not significant: no distance given",
+    "matchParallax": "catalog parallax {{value}} mas, differs by {{sigma}} sigma",
+    "parallaxFitted": "The epochs span at least a year, so the parallax is fitted with the motion; a distance is given only when the parallax reaches {{sigma}} sigma.",
+    "parallaxFixed": "With these epochs the parallax cannot be separated from the motion, so it is not fitted.",
+    "tool": "Motion search",
+    "notRun": "Not run",
+    "running": "Running",
+    "limits": {
+      "title": "Limits of this search",
+      "linear": "Only motion in a straight line at constant speed across the searched epochs is found.",
+      "saturated": "Saturated and flagged pixels are excluded, so very bright sources can be missed or measured with larger errors.",
+      "parallax": "Parallax is fitted only when four or more epochs span at least a year. With fewer epochs it is not modeled, and a nearby source, which also shifts between survey passes because of the orbit of the Earth, gets larger errors.",
+      "lowCoverage": "Low coverage epochs (short revisits) are not searched.",
+      "distant": "A distant solar system object, such as a hypothetical Planet X, shifts by arcminutes between survey passes, mostly from the parallax of the orbit of the Earth, far outside the linear motions searched here; it cannot be found this way."
+    },
+    "err": {
+      "TOO_FEW_EPOCHS": "The motion search needs three or more full coverage epochs. This view has fewer.",
+      "NO_FITS": "No detector coadd of this view could be measured, so no search was made.",
+      "RATE_LIMITED": "Too many searches in a short time. Wait a moment and try again.",
+      "NOT_FOUND": "This view is no longer available on the server. Reload the page to build it again.",
+      "DEMO_UNAVAILABLE": "The motion search is not cached in the demo for this view.",
+      "network": "The server did not answer. Check the connection and try again.",
+      "generic": "The motion search failed. Try again."
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "Destello: watch the infrared sky move with NASA SPHEREx",
+      "description": "Blink real NASA SPHEREx infrared images of any sky position across survey epochs, so that moving and variable objects such as stars and comets stand out."
+    },
+    "science": {
+      "description": "How Destello turns NASA SPHEREx infrared images into epoch coadds, blink time-lapses and difference images, and what the images can and cannot show."
+    },
+    "validation": {
+      "description": "Destello compared with published values: proper motions, variability and astrometry measured in SPHEREx images, with every pass, failure and unmeasurable test."
+    },
+    "about": {
+      "title": "About",
+      "description": "Destello is a free, bilingual tool built for the NASA Space Apps Challenge 2026 challenge Planet X and SPHEREx. What it does, who it is for and its data credits."
+    },
+    "hunt": {
+      "description": "Review real SPHEREx images of one sky field at a time and mark what changes between epochs, as a volunteer search for moving objects in the infrared sky."
+    },
+    "story": {
+      "description": "A short tour of how astronomers find moving objects, from the 1930 discovery of Pluto with two photographic plates to the infrared sky of NASA SPHEREx."
+    },
+    "comet": {
+      "description": "Follow the interstellar comet 3I/ATLAS in NASA SPHEREx images across survey epochs, with its motion and infrared spectrum measured from the data."
+    },
+    "learn": {
+      "description": "A classroom activity: find Barnard's Star in real SPHEREx images, mark it in each epoch, calculate its proper motion and compare it with the Gaia catalog value."
+    },
+    "guide": {
+      "description": "A printable 40 minute lesson plan for teachers: students measure the proper motion of Barnard's Star in SPHEREx images and compare it with a catalog value."
+    },
+    "developers": {
+      "description": "Use Destello from code: the public API, the embeddable player, the URL contract, the rate limits and the data resources behind every frame of the time-lapse."
+    },
+    "embed": {
+      "title": "Embedded player",
+      "description": "Embeddable Destello player that blinks the NASA SPHEREx epochs of one sky position. It is meant for other websites and is not indexed by search engines."
+    },
+    "report": {
+      "description": "A candidate moving source marked by a visitor in several SPHEREx epochs, with automated checks against catalogs. The candidate is unconfirmed."
+    },
+    "target": {
+      "description": "Blink real NASA SPHEREx infrared images of {{name}} across survey epochs and see how it moves or changes against the fixed background stars."
+    },
+    "error": {
+      "description": "This page could not be shown. Return to the Destello home page to explore NASA SPHEREx images of any sky position."
+    },
+    "imageAlt": "Destello: watch the infrared sky move, with NASA SPHEREx images"
+  }
+}

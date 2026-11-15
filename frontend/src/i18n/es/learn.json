@@ -1,0 +1,175 @@
+{
+  "nav": "Aprender",
+  "title": "Mida usted mismo",
+  "subtitle": "Encuentre la estrella de Barnard en imágenes reales de SPHEREx, haga clic en ella en cada época y calcule con qué rapidez se desplaza por el cielo. Después compare el resultado con el de Destello y el del catálogo Gaia.",
+  "guideLink": "Guía para docentes (imprimible)",
+  "loading": "Cargando las imágenes",
+  "error": "No se pudieron cargar las imágenes. Inténtelo de nuevo en un momento.",
+  "unavailable": "Las imágenes de la estrella de Barnard no están disponibles en este servidor, por lo que la actividad no puede comenzar.",
+  "fewEpochs": "Este detector tiene menos de dos épocas con imagen, por lo que aquí no se puede medir un movimiento.",
+  "mission": {
+    "spherex": "SPHEREx"
+  },
+  "units": {
+    "arcsec": "arcsec"
+  },
+  "compass": {
+    "N": "norte",
+    "NE": "noreste",
+    "E": "este",
+    "SE": "sureste",
+    "S": "sur",
+    "SW": "suroeste",
+    "W": "oeste",
+    "NW": "noroeste"
+  },
+  "player": {
+    "how": "Cómo funciona",
+    "how1": "Busque la estrella de Barnard en la imagen: es la estrella que no está en el mismo lugar en todas las épocas. Haga clic en su centro, o enfoque la imagen y mueva la mira con las teclas de flecha (con Mayús se mueve cinco píxeles cada vez).",
+    "how2": "Pulse Confirmar, o Intro, para conservar el clic. Puede repetir un clic en cualquier momento.",
+    "how3": "Repita en cada época. Cuando haya hecho clic en dos o más, el cálculo aparece más abajo.",
+    "orientation": "El norte está arriba y el este a la izquierda. Todas las épocas del mismo detector usan la misma escala de brillo.",
+    "progress": "{{done}} de {{total}} épocas con clic",
+    "epochs": "Épocas",
+    "epochName": "Época {{n}} ({{mission}})",
+    "at": "Clic: AR {{ra}}, Dec {{dec}}",
+    "notYet": "Aún sin clic",
+    "confirm": "Confirmar clic",
+    "redo": "Repetir clic",
+    "prev": "Época anterior",
+    "next": "Época siguiente",
+    "pending": "Mira en AR {{ra}}, Dec {{dec}}. Pulse Confirmar o Intro para conservarla.",
+    "savedState": "Clic guardado para esta época. Haga clic de nuevo en la imagen, o pulse Repetir, para cambiarlo.",
+    "waiting": "Haga clic en la estrella en esta época.",
+    "placed": "Mira en AR {{ra}}, Dec {{dec}}.",
+    "saved": "Clic guardado para la época {{n}}.",
+    "redone": "Clic eliminado para la época {{n}}.",
+    "provenance": "{{mission}}, observada el {{date}}. Detector {{det}}, {{band}}, {{n}} imágenes combinadas.",
+    "noBand": "banda no indicada",
+    "doi": "DOI de los datos: {{doi}}."
+  },
+  "steps": {
+    "title": "Su medición, paso a paso",
+    "usesEnds": "Hizo clic en {{n}} épocas. Para que la aritmética sea sencilla, el cálculo usa solo la primera y la última.",
+    "needTwo": "Haga clic en la estrella en al menos dos épocas. Hasta ahora: {{n}} de {{total}}.",
+    "noTime": "Las épocas elegidas tienen el mismo tiempo de observación, por lo que no se puede calcular una velocidad.",
+    "s1": {
+      "title": "Posiciones",
+      "body": "Cada clic se convirtió en una posición del cielo con el mapa de la imagen. La AR (ascensión recta) funciona como la longitud y la Dec (declinación) como la latitud. Ambas están en grados.",
+      "epoch": "Época",
+      "date": "Fecha",
+      "ra": "AR",
+      "dec": "Dec",
+      "epochName": "Época {{n}} ({{mission}})"
+    },
+    "s2": {
+      "title": "Cuánto se movió",
+      "body": "Reste la primera posición de la última y convierta los grados en segundos de arco (1 grado son 3600 segundos de arco).",
+      "dra": "AR: {{ra2}} - {{ra1}} = {{deg}}° = {{arcsec}} {{unit}}",
+      "cos": "Las líneas de AR se acercan entre sí al alejarse del ecuador, así que un paso en AR es más corto en el cielo según el coseno de la declinación ({{dec}}°, coseno {{cos}}), y por eso se multiplica por él.",
+      "product": "{{arcsec}} × {{cos}} = {{result}} {{unit}}",
+      "ddec": "Dec: {{dec2}} - {{dec1}} = {{deg}}° = {{arcsec}} {{unit}}"
+    },
+    "s3": {
+      "title": "Cuánto tiempo pasó",
+      "body": "El tiempo entre las dos épocas sale de los tiempos de observación de las imágenes: {{first}} y {{last}}.",
+      "eq": "{{days}} días ÷ {{dpy}} días por año = {{years}} años"
+    },
+    "s4": {
+      "title": "Dividir la distancia entre el tiempo",
+      "body": "Al dividir cada distancia entre el tiempo se obtiene la velocidad en el cielo, en segundos de arco por año.",
+      "ra": "Este-oeste: {{num}} {{sec}} ÷ {{years}} años = {{result}} {{unit}}",
+      "dec": "Norte-sur: {{num}} {{sec}} ÷ {{years}} años = {{result}} {{unit}}"
+    },
+    "s5": {
+      "title": "Velocidad total y dirección",
+      "body": "Las partes este-oeste y norte-sur forman un ángulo recto, así que el total sale de Pitágoras: la raíz cuadrada de la suma de sus cuadrados.",
+      "eq": "√({{ra}}² + {{dec}}²) = {{total}} {{unit}}",
+      "result": "Su movimiento propio: {{total}} {{unit}}",
+      "direction": "La estrella se movió hacia el {{compass}}, {{angle}}° medidos desde el norte hacia el este."
+    }
+  },
+  "compare": {
+    "title": "¿Cómo se compara?",
+    "caption": "Su movimiento propio junto al ajuste propio de Destello y el valor del catálogo",
+    "value": "Valor",
+    "total": "Total ({{unit}})",
+    "direction": "Dirección",
+    "diff": "Su resultado frente a este",
+    "rows": {
+      "mine": "Su medición",
+      "destello": "Ajuste de Destello",
+      "gaia": "Catálogo Gaia DR3"
+    },
+    "self": "Referencia para los demás",
+    "na": "no disponible",
+    "angle": "{{angle}}° ({{apart}}° de la suya)",
+    "loading": "Buscando el ajuste de Destello.",
+    "why": "Un clic y un ajuste difieren porque los píxeles de SPHEREx miden unos 6 segundos de arco, de modo que un clic puede errar por buena parte de un píxel, y este cálculo sencillo ignora la paralaje, el pequeño desplazamiento anual de la posición causado por el movimiento de la Tierra."
+  },
+  "guide": {
+    "kicker": "Guía para docentes",
+    "title": "Medir el movimiento propio de la estrella de Barnard",
+    "lead": "Una clase de 40 minutos en la que el alumnado mide con qué rapidez se mueve una estrella por el cielo usando imágenes reales de SPHEREx, y compara el resultado con un valor de catálogo. Se necesita un computador o una tableta por cada pareja.",
+    "print": "Imprimir esta guía",
+    "open": "Abrir la actividad",
+    "objectives": "Objetivos",
+    "objectiveList": [
+      "Leer una imagen astronómica real: orientación, escala de brillo y fechas de observación.",
+      "Convertir posiciones de una imagen en coordenadas del cielo y calcular una velocidad a partir de una diferencia de posición y un tiempo.",
+      "Comparar una medición con un valor de referencia y explicar por qué no son idénticos."
+    ],
+    "timeline": "Cronograma ({{minutes}} minutos)",
+    "minutesCol": "Tiempo",
+    "partCol": "Parte",
+    "minutes": "{{n}} min",
+    "parts": {
+      "intro": {
+        "title": "Introducción",
+        "body": "Explique que las estrellas se desplazan muy lentamente por el cielo y que la estrella de Barnard es la más rápida conocida. Pregunte cómo se podría medir."
+      },
+      "look": {
+        "title": "Observar las imágenes",
+        "body": "En parejas, abran la actividad y recorran las épocas. Pregunte qué cambia y qué permanece igual."
+      },
+      "click": {
+        "title": "Hacer clic en la estrella",
+        "body": "Cada pareja hace clic en la estrella en todas las épocas, con el ratón o con el teclado, y confirma cada clic."
+      },
+      "calc": {
+        "title": "Seguir el cálculo",
+        "body": "Lean juntos los cinco pasos. Las parejas comprueban un número a mano con una calculadora."
+      },
+      "compare": {
+        "title": "Comparar y conversar",
+        "body": "Las parejas anotan su resultado y la tabla de comparación, y conversan sobre las preguntas siguientes."
+      }
+    },
+    "materials": "Materiales",
+    "materialList": [
+      "Un computador o una tableta con navegador web por cada pareja.",
+      "Una calculadora por pareja (opcional, para comprobar un paso a mano).",
+      "Papel y lápiz para anotar el resultado."
+    ],
+    "steps": "Pasos para el docente",
+    "stepList": [
+      "Abra la página Mida usted mismo y elija el idioma de la clase.",
+      "Muestre la primera imagen y explique que el norte está arriba y el este a la izquierda.",
+      "Pida a cada pareja que haga clic en la estrella en todas las épocas y que confirme cada clic.",
+      "Pídales que lean los pasos bajo las imágenes y anoten su movimiento propio total y su dirección.",
+      "Pídales que lean la tabla de comparación y hallen la diferencia porcentual con el ajuste de Destello y con el valor del catálogo."
+    ],
+    "questions": "Preguntas para conversar",
+    "questionList": [
+      "¿Por qué cambia la posición de la estrella entre épocas mientras las estrellas débiles del fondo permanecen en su lugar?",
+      "¿Qué pasaría con el resultado si un clic errara por un píxel? ¿Es mejor un tiempo más largo entre épocas?",
+      "¿Por qué el resultado de un clic es distinto del ajuste hecho por un programa?",
+      "¿Por qué se multiplica el cambio en AR por el coseno de la declinación?",
+      "¿Qué otras mediciones podrían mejorar el resultado?"
+    ],
+    "answer": "Qué esperar",
+    "range": "Una clase cuidadosa debería hallar un movimiento propio total de unos {{center}} {{unit}}, dentro de un rango de {{low}} a {{high}} {{unit}}.",
+    "rangeWhy": "El centro es el valor del catálogo. El rango es el efecto de un error de clic de un píxel de la imagen ({{px}} segundos de arco) en cada extremo, durante los {{years}} años entre la primera y la última época.",
+    "rangeMissing": "No se pudo calcular el rango esperado porque los datos de referencia no están disponibles en este servidor."
+  }
+}

@@ -1,0 +1,367 @@
+{
+ "schema_version": 1,
+ "sequence_id": "9e2430a33e56af09",
+ "pipeline_version": "0.3.0",
+ "created_at": "2026-11-12T16:07:10Z",
+ "request": {
+  "ra_deg": 269.454,
+  "dec_deg": 4.69663,
+  "fov_arcmin": 6.0,
+  "detectors": [
+   2,
+   6
+  ],
+  "release": "all",
+  "target_id": null
+ },
+ "grid": {
+  "projection": "TAN",
+  "crval_deg": [
+   269.454,
+   4.69663
+  ],
+  "pixel_scale_arcsec": 3.1,
+  "naxis": [
+   116,
+   116
+  ],
+  "orientation": "north_up_east_left"
+ },
+ "epochs": [
+  {
+   "index": 0,
+   "t_start": "2025-08-15T20:46:08Z",
+   "t_end": "2025-09-05T02:35:19Z",
+   "t_mid_mjd": 60913.12399,
+   "n_images": 4,
+   "frames": [
+    {
+     "detector": 2,
+     "kind": "coadd",
+     "url": "/frames/c5562cb87027b1a5.webp",
+     "fits_url": "/frames/c5562cb87027b1a5.fits",
+     "wavelength_um": [
+      1.08616691563517,
+      1.6622826281715841
+     ],
+     "n_images": 2,
+     "flagged_fraction": 0.0003,
+     "obs_ids": [
+      "level2_2025W34_2B_0090_4D2_spx_l2b-v20-2025-267",
+      "level2_2025W34_2B_0557_4D2_spx_l2b-v20-2025-267"
+     ],
+     "collections": [
+      "spherex_qr2"
+     ],
+     "dois": [
+      "10.26131/IRSA652"
+     ],
+     "t_start": "2025-08-21T23:33:58Z",
+     "t_end": "2025-08-30T16:12:23Z",
+     "t_mid_mjd": 60913.78259,
+     "normalization": null,
+     "cutout_sources": {
+      "level2_2025W34_2B_0090_4D2_spx_l2b-v20-2025-267": "s3",
+      "level2_2025W34_2B_0557_4D2_spx_l2b-v20-2025-267": "s3"
+     },
+     "flags_url": "/frames/7824422f22a57899.png",
+     "mask_flags": [
+      "COLD",
+      "NONFUNC",
+      "OUTLIER",
+      "OVERFLOW",
+      "PERSIST",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ]
+    },
+    {
+     "detector": 6,
+     "kind": "coadd",
+     "url": "/frames/0990d710dbbb61bd.webp",
+     "fits_url": "/frames/0990d710dbbb61bd.fits",
+     "wavelength_um": [
+      4.396426371032116,
+      4.992965025060317
+     ],
+     "n_images": 2,
+     "flagged_fraction": 0.0,
+     "obs_ids": [
+      "level2_2025W33_2C_0321_1D6_spx_l2b-v20-2025-266",
+      "level2_2025W33_2C_0386_4D6_spx_l2b-v20-2025-266"
+     ],
+     "collections": [
+      "spherex_qr2"
+     ],
+     "dois": [
+      "10.26131/IRSA652"
+     ],
+     "t_start": "2025-08-15T20:45:11Z",
+     "t_end": "2025-08-27T11:39:00Z",
+     "t_mid_mjd": 60908.00734,
+     "normalization": null,
+     "cutout_sources": {
+      "level2_2025W33_2C_0321_1D6_spx_l2b-v20-2025-266": "s3",
+      "level2_2025W33_2C_0386_4D6_spx_l2b-v20-2025-266": "s3"
+     },
+     "flags_url": "/frames/b3d0d2340a678fc2.png",
+     "mask_flags": [
+      "COLD",
+      "NONFUNC",
+      "OUTLIER",
+      "OVERFLOW",
+      "PERSIST",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ]
+    }
+   ],
+   "coverage": "full"
+  },
+  {
+   "index": 1,
+   "t_start": "2026-03-11T02:12:34Z",
+   "t_end": "2026-04-10T00:44:14Z",
+   "t_mid_mjd": 61116.21207,
+   "n_images": 4,
+   "frames": [
+    {
+     "detector": 2,
+     "kind": "coadd",
+     "url": "/frames/6363c4ba97d833ef.webp",
+     "fits_url": "/frames/6363c4ba97d833ef.fits",
+     "wavelength_um": [
+      1.093637270085952,
+      1.6508474420098698
+     ],
+     "n_images": 2,
+     "flagged_fraction": 0.0,
+     "obs_ids": [
+      "level2_2026W11_2A_0501_1D2_spx_l2b-v24-2026-094",
+      "level2_2026W11_2A_0513_1D2_spx_l2b-v24-2026-094"
+     ],
+     "collections": [
+      "spherex_qr2"
+     ],
+     "dois": [
+      "10.26131/IRSA652"
+     ],
+     "t_start": "2026-03-15T00:46:05Z",
+     "t_end": "2026-03-22T05:30:32Z",
+     "t_mid_mjd": 61116.38577,
+     "normalization": null,
+     "cutout_sources": {
+      "level2_2026W11_2A_0501_1D2_spx_l2b-v24-2026-094": "s3",
+      "level2_2026W11_2A_0513_1D2_spx_l2b-v24-2026-094": "s3"
+     },
+     "flags_url": "/frames/e74653d8f0498e8e.png",
+     "mask_flags": [
+      "COLD",
+      "NONFUNC",
+      "OUTLIER",
+      "OVERFLOW",
+      "PERSIST",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ]
+    },
+    {
+     "detector": 6,
+     "kind": "coadd",
+     "url": "/frames/590dca0720975ceb.webp",
+     "fits_url": "/frames/590dca0720975ceb.fits",
+     "wavelength_um": [
+      4.407463577120912,
+      4.984132466908374
+     ],
+     "n_images": 2,
+     "flagged_fraction": 0.0,
+     "obs_ids": [
+      "level2_2026W12_1A_0598_1D6_spx_l2b-v24-2026-082",
+      "level2_2026W12_1A_0610_1D6_spx_l2b-v24-2026-082"
+     ],
+     "collections": [
+      "spherex_qr2"
+     ],
+     "dois": [
+      "10.26131/IRSA652"
+     ],
+     "t_start": "2026-03-19T07:25:17Z",
+     "t_end": "2026-04-10T00:45:12Z",
+     "t_mid_mjd": 61121.47734,
+     "normalization": null,
+     "cutout_sources": {
+      "level2_2026W12_1A_0598_1D6_spx_l2b-v24-2026-082": "s3",
+      "level2_2026W12_1A_0610_1D6_spx_l2b-v24-2026-082": "s3"
+     },
+     "flags_url": "/frames/5f8abce9dfb5b5a2.png",
+     "mask_flags": [
+      "COLD",
+      "NONFUNC",
+      "OUTLIER",
+      "OVERFLOW",
+      "PERSIST",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ]
+    }
+   ],
+   "coverage": "full"
+  },
+  {
+   "index": 2,
+   "t_start": "2026-08-16T15:09:19Z",
+   "t_end": "2026-09-22T15:05:18Z",
+   "t_mid_mjd": 61275.05841,
+   "n_images": 4,
+   "frames": [
+    {
+     "detector": 2,
+     "kind": "coadd",
+     "url": "/frames/8bfcf0e8d43369e0.webp",
+     "fits_url": "/frames/8bfcf0e8d43369e0.fits",
+     "wavelength_um": [
+      1.0966035896931552,
+      1.65909132976708
+     ],
+     "n_images": 2,
+     "flagged_fraction": 0.0,
+     "obs_ids": [
+      "level2_2026W34_1A_0363_1D2_spx_l2b-v27-2026-243",
+      "level2_2026W34_1A_0456_2D2_spx_l2b-v27-2026-243"
+     ],
+     "collections": [
+      "spherex_qr3"
+     ],
+     "dois": [
+      "10.26131/IRSA662"
+     ],
+     "t_start": "2026-08-18T20:48:38Z",
+     "t_end": "2026-09-22T15:06:16Z",
+     "t_mid_mjd": 61274.91169,
+     "normalization": null,
+     "cutout_sources": {
+      "level2_2026W34_1A_0363_1D2_spx_l2b-v27-2026-243": "s3",
+      "level2_2026W34_1A_0456_2D2_spx_l2b-v27-2026-243": "s3"
+     },
+     "flags_url": "/frames/ccc0ca5c7f5e71a0.png",
+     "mask_flags": [
+      "COLD",
+      "NONFUNC",
+      "OVERFLOW",
+      "PERSIST",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ]
+    },
+    {
+     "detector": 6,
+     "kind": "coadd",
+     "url": "/frames/d63bb42e94be9b28.webp",
+     "fits_url": "/frames/d63bb42e94be9b28.fits",
+     "wavelength_um": [
+      4.412418028667586,
+      5.010734025169821
+     ],
+     "n_images": 2,
+     "flagged_fraction": 0.0,
+     "obs_ids": [
+      "level2_2026W33_2A_0594_4D6_spx_l2b-v27-2026-241",
+      "level2_2026W34_1A_0007_4D6_spx_l2b-v27-2026-243"
+     ],
+     "collections": [
+      "spherex_qr3"
+     ],
+     "dois": [
+      "10.26131/IRSA662"
+     ],
+     "t_start": "2026-08-16T15:08:22Z",
+     "t_end": "2026-09-20T04:28:59Z",
+     "t_mid_mjd": 61272.00938,
+     "normalization": null,
+     "cutout_sources": {
+      "level2_2026W33_2A_0594_4D6_spx_l2b-v27-2026-241": "s3",
+      "level2_2026W34_1A_0007_4D6_spx_l2b-v27-2026-243": "s3"
+     },
+     "flags_url": "/frames/4f6d087da68de463.png",
+     "mask_flags": [
+      "COLD",
+      "NONFUNC",
+      "OVERFLOW",
+      "PERSIST",
+      "STREAK",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ]
+    }
+   ],
+   "coverage": "full"
+  }
+ ],
+ "stretch": {
+  "2": {
+   "method": "asinh",
+   "vmin": 0.06965730339288712,
+   "vmax": 16.9331421127321,
+   "softening": 0.1,
+   "unit": "MJy/sr"
+  },
+  "6": {
+   "method": "asinh",
+   "vmin": 0.029172925278544426,
+   "vmax": 2.615818273782745,
+   "softening": 0.1,
+   "unit": "MJy/sr"
+  }
+ },
+ "photometry_url": null,
+ "provenance": {
+  "collections": [
+   "spherex_qr2",
+   "spherex_qr3"
+  ],
+  "dois": [
+   "10.26131/IRSA652",
+   "10.26131/IRSA662"
+  ],
+  "services": [
+   "IRSA TAP",
+   "IRSA SIA (cloud_access)",
+   "AWS Open Data SPHEREx copy (s3://nasa-irsa-spherex)",
+   "IRSA solid angle pixel maps"
+  ],
+  "data_release_dates": [],
+  "solid_angle_maps": [
+   "sapm_spherex_qr2_D1.fits",
+   "sapm_spherex_qr2_D2.fits",
+   "sapm_spherex_qr2_D3.fits",
+   "sapm_spherex_qr2_D4.fits",
+   "sapm_spherex_qr2_D5.fits",
+   "sapm_spherex_qr2_D6.fits",
+   "sapm_spherex_qr3_D1.fits",
+   "sapm_spherex_qr3_D2.fits",
+   "sapm_spherex_qr3_D3.fits",
+   "sapm_spherex_qr3_D4.fits",
+   "sapm_spherex_qr3_D5.fits",
+   "sapm_spherex_qr3_D6.fits"
+  ]
+ },
+ "warnings": [
+  {
+   "code": "EPOCH_PARTIAL_SKIPPED",
+   "detail": "A partial revisit of 10 images around MJD 60948.9 was not used: it is too small to coadd and compare."
+  },
+  {
+   "code": "EPOCH_PARTIAL_SKIPPED",
+   "detail": "A partial revisit of 8 images around MJD 61164.7 was not used: it is too small to coadd and compare."
+  },
+  {
+   "code": "QUICK_RELEASE_CALIBRATION",
+   "detail": "SPHEREx Quick Release calibration is preliminary; absolute fluxes can carry systematic errors."
+  },
+  {
+   "code": "WAVELENGTH_MIXTURE",
+   "detail": "Each coadd mixes exposures at different wavelengths; epochs of one detector can differ in wavelength sampling."
+  }
+ ]
+}

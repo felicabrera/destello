@@ -1,0 +1,9 @@
+# Local override for hosts where the bind mounted data directory is owned by root (for example
+# Docker Desktop on Windows, where one-off containers of the dev image write as root).
+# Usage: docker compose -f deploy/docker-compose.yml -f deploy/docker-compose.local-root.yml up -d
+# Not for production: the production stack keeps the unprivileged user 10001.
+services:
+  api:
+    user: "0:0"
+  worker:
+    user: "0:0"

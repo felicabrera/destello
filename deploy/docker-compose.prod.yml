@@ -1,0 +1,130 @@
+# Destello production stack (Docker Compose on a private application host, behind an NGINX web application firewall and Cloudflare).
+# Standalone file, not an override. Requires Docker inside the LXC container (security.nesting=true).
+# Usage (on the server only):
+#   TAG=<image tag> docker compose --env-file .env -f docker-compose.prod.yml up -d
+# Never executed from a development machine. All variables come from .env (see env.example).
+name: destello
+
+x-backend: &backend
+  image: ghcr.io/${DESTELLO_GHCR_OWNER:?set DESTELLO_GHCR_OWNER}/destello-backend:${TAG:?set TAG}
+  env_file: [.env]
+  environment:
+    DESTELLO_ENV: production
+    DESTELLO_DATA_DIR: /data
+    DESTELLO_REDIS_URL: redis://redis:6379/0
+    DESTELLO_DB_URL: sqlite:////data/db/destello.sqlite
+    DESTELLO_TURNSTILE_DISABLED: "false"
+    DESTELLO_PREWARM_MEASUREMENTS: "true"
+  volumes:
+    - ${DESTELLO_DATA_HOST_DIR:-/srv/destello/data}:/data
+  read_only: true
+  tmpfs:
+    - /tmp:size=512m,mode=1777
+  user: "10001:10001"
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  logging: &logging
+    driver: json-file
+    options: {max-size: "50m", max-file: "5"}
+  restart: unless-stopped
+
+services:
+  caddy:
+    # Caddy with the Caddyfile and the frontend build baked in (deploy/frontend.Dockerfile), tagged like the backend.
+    image: ghcr.io/${DESTELLO_GHCR_OWNER:?set DESTELLO_GHCR_OWNER}/destello-frontend:${TAG:?set TAG}
+    user: "10002:10002"
+    ports:
+      # Plain HTTP for the edge proxy only. Bind to the private address of the application host (never 0.0.0.0 on a public
+      # interface) and restrict the source to the edge proxy in the host firewall.
+      - "${DESTELLO_BIND_ADDR:-127.0.0.1}:${DESTELLO_HTTP_PORT:-8080}:8080"
+    environment:
+      XDG_CONFIG_HOME: /tmp/caddy-config
+      XDG_DATA_HOME: /data-caddy
+    volumes:
+      - ${DESTELLO_DATA_HOST_DIR:-/srv/destello/data}:/data:ro
+      # Static demo bundle, same origin fallback when the API is down (scripts/export_demo.py).
+      - ${DESTELLO_DEMO_DIR:-/srv/destello/demo}:/srv/demo:ro
+      - caddy_data:/data-caddy
+    read_only: true
+    tmpfs: ["/tmp:size=64m"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    deploy:
+      resources:
+        limits: {cpus: "1.0", memory: 512m, pids: 256}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8081/healthz"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+    depends_on:
+      api: {condition: service_healthy}
+    networks: [edge, backend]
+    logging: *logging
+    restart: unless-stopped
+
+  api:
+    <<: *backend
+    command: ["uvicorn", "destello.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "3", "--proxy-headers", "--forwarded-allow-ips", "*"]
+    deploy:
+      resources:
+        limits: {cpus: "2.0", memory: 3g, pids: 512}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health', timeout=8).status == 200 else 1)"]
+      interval: 20s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    depends_on:
+      redis: {condition: service_healthy}
+    # Egress: only the API and the worker are attached to the egress network. The host allowlist is
+    # enforced in the application (DESTELLO_EGRESS_ALLOWLIST) and mirrored by host firewall rules
+    # on the server.
+    networks: [backend, egress]
+
+  worker:
+    <<: *backend
+    command: ["arq", "destello.worker.main.WorkerSettings"]
+    deploy:
+      replicas: 2
+      resources:
+        limits: {cpus: "2.0", memory: 5g, pids: 512}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; socket.create_connection(('redis', 6379), 3).close()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      redis: {condition: service_healthy}
+    networks: [backend, egress]
+
+  # Redis is a cache and queue only: no persistence, never published outside the Compose network.
+  redis:
+    image: redis:7-alpine@sha256:7b1753b4c5ad8458906c272a8132b8c15f5557b000379eb115fb239706a384b7
+    user: "999:999"
+    command: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "1gb", "--maxmemory-policy", "allkeys-lru"]
+    read_only: true
+    tmpfs: ["/data:size=16m,uid=999,gid=999"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    deploy:
+      resources:
+        limits: {cpus: "0.5", memory: 1280m, pids: 128}
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks: [backend]
+    logging: *logging
+    restart: unless-stopped
+
+networks:
+  edge: {}
+  # Internal: no route to the outside. Redis is attached to this network only.
+  backend:
+    internal: true
+  egress: {}
+
+volumes:
+  caddy_data: {}

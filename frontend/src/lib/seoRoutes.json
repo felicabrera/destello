@@ -1,0 +1,111 @@
+{
+  "targetIds": ["barnard", "wise0855", "epsindib", "rwaur", "rdra"],
+  "routes": [
+    {
+      "id": "home",
+      "path": "/",
+      "title": "seo.home.title",
+      "suffix": false,
+      "description": "seo.home.description",
+      "index": true,
+      "priority": "1.0"
+    },
+    {
+      "id": "science",
+      "path": "/science",
+      "title": "sci.title",
+      "description": "seo.science.description",
+      "index": true,
+      "markdown": true,
+      "priority": "0.7"
+    },
+    {
+      "id": "validation",
+      "path": "/validation",
+      "title": "val.title",
+      "description": "seo.validation.description",
+      "index": true,
+      "markdown": true,
+      "priority": "0.7"
+    },
+    {
+      "id": "about",
+      "path": "/about",
+      "title": "seo.about.title",
+      "description": "seo.about.description",
+      "index": true,
+      "markdown": true,
+      "priority": "0.6"
+    },
+    {
+      "id": "hunt",
+      "path": "/hunt",
+      "title": "hunt:title",
+      "description": "seo.hunt.description",
+      "index": true,
+      "priority": "0.6"
+    },
+    {
+      "id": "story",
+      "path": "/story",
+      "title": "story:title",
+      "description": "seo.story.description",
+      "index": true,
+      "priority": "0.7"
+    },
+    {
+      "id": "comet",
+      "path": "/comet",
+      "title": "comet:title",
+      "description": "seo.comet.description",
+      "index": true,
+      "priority": "0.7"
+    },
+    {
+      "id": "learn",
+      "path": "/learn",
+      "title": "learn:title",
+      "description": "seo.learn.description",
+      "index": true,
+      "priority": "0.6"
+    },
+    {
+      "id": "guide",
+      "path": "/learn/guide",
+      "title": "learn:guide.title",
+      "description": "seo.guide.description",
+      "index": true,
+      "priority": "0.5"
+    },
+    {
+      "id": "developers",
+      "path": "/developers",
+      "title": "developers:title",
+      "description": "seo.developers.description",
+      "index": true,
+      "priority": "0.5"
+    },
+    {
+      "id": "target",
+      "path": "/t/:target",
+      "title": "presetCopy.{target}.name",
+      "description": "seo.target.description",
+      "index": true,
+      "priority": "0.8"
+    },
+    {
+      "id": "embed",
+      "path": "/embed",
+      "title": "seo.embed.title",
+      "description": "seo.embed.description",
+      "index": false
+    },
+    {
+      "id": "report",
+      "path": "/r/:reportId",
+      "title": "report.page.kicker",
+      "description": "seo.report.description",
+      "index": false
+    }
+  ]
+}

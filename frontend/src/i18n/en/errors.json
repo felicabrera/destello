@@ -1,0 +1,25 @@
+{
+  "home": "Go to the home page",
+  "retry": "Try again",
+  "reload": "Reload the page",
+  "reference": "Reference: {{ref}}",
+  "notFound": {
+    "status": "404",
+    "title": "Page not found",
+    "body": "There is nothing at this address. It may have been moved, or the link may be incomplete.",
+    "requested": "Requested address",
+    "presets": "Or open one of the example targets",
+    "docTitle": "Page not found"
+  },
+  "unexpected": {
+    "status": "500",
+    "title": "Something went wrong",
+    "body": "Something went wrong on our side. Your data is not affected. Try again, or return to the home page.",
+    "docTitle": "Unexpected error"
+  },
+  "chunk": {
+    "title": "This page could not be loaded",
+    "body": "The page files could not be downloaded. This usually happens after an update or when the connection drops. Reload to get the latest version.",
+    "docTitle": "Page could not be loaded"
+  }
+}

@@ -1,0 +1,219 @@
+{
+  "source": "docs/17-data-resources.md",
+  "register": [
+    {
+      "name": "SPHEREx images (NASA/IPAC IRSA)",
+      "provider": "Jet Propulsion Laboratory and Caltech, operated by NASA/IPAC Infrared Science Archive (IRSA) at Caltech/IPAC for NASA",
+      "official": "Yes",
+      "host": "`irsa.ipac.caltech.edu`; `nasa-irsa-spherex.s3.us-east-1.amazonaws.com` (AWS Open Data copy, anonymous read)",
+      "access": "IVOA SIA2 (`/SIA`); IRSA TAP (`spherex.artifact`, `spherex.plane`); on-premises cutouts (`?center=...&size=...`); S3 range reads",
+      "usage": "`backend/src/destello/sources/irsa.py`, `cutouts.py`, `s3.py`; `pipeline/calibrate.py` (spectral WCS, SIP off); `core/config.py` (`SCIENCE_COLLECTIONS`, `RELEASE_DOIS`, `SAPM_PATHS`, `DEFAULT_EGRESS_ALLOWLIST`); every frame, cutout and manifest",
+      "version": "`spherex_dr1`, `spherex_dr1_deep`, `spherex_qr3`, `spherex_qr3_deep`. DOIs: DR1 spectral images `10.26131/IRSA678`; QR3 `10.26131/IRSA662`; QR2 `10.26131/IRSA652` (retired, kept for older manifests). IRSA also cites `10.26131/IRSA679` for the Spectral All-Sky Cube (not used).",
+      "licence": "Not verified as a licence. The IRSA DR1 overview ([overview_dr1.html](https://irsa.ipac.caltech.edu/data/SPHEREx/docs/overview_dr1.html)) and the DOI pages ([IRSA678](https://cosmos.ipac.caltech.edu/dois/doi.php?id=10.26131/IRSA678), [IRSA662](https://cosmos.ipac.caltech.edu/dois/doi.php?id=10.26131/IRSA662)) contain no licence or terms-of-use text. The S3 copy terms: not verified.",
+      "acknowledgement": "Acknowledgement (IRSA overview, quoted with the three segments joined): \"This publication makes use of data products from the Spectro-Photometer for the History of the Universe, Epoch of Reionization and Ices Explorer (SPHEREx), which is a joint project of the Jet Propulsion Laboratory and the California Institute of Technology, and is funded by the National Aeronautics and Space Administration.\" Citation: \"please cite the appropriate Digital Object Identifier\" (the DOI of the release used). DOI pages: \"This dataset or service is made available by the Infrared Science Archive (IRSA) at IPAC.\" IRSA statement ([ack.html](https://irsa.ipac.caltech.edu/ack.html)): \"This research has made use of the NASA/IPAC Infrared Science Archive, which is funded by the National Aeronautics and Space Administration and operated by the California Institute of Technology.\"",
+      "status": "in use"
+    },
+    {
+      "name": "SPHEREx Tutorial Notebooks (IRSA)",
+      "provider": "Caltech/IPAC, IRSA",
+      "official": "Yes",
+      "host": "`caltech-ipac.github.io/irsa-tutorials/spherex/` (GitHub Pages)",
+      "access": "Web pages and notebooks, read only",
+      "usage": "Method reference only (`docs/03` sections 2.2 and 2.3; spectral WCS and SIP handling in `pipeline/calibrate.py`). No notebook is run or vendored; grep finds no code reference to the tutorial repository.",
+      "version": "Not applicable (tutorial content)",
+      "licence": "BSD-3-Clause for the content, as shown in the page header tooltip: \"Content License: BSD 3-Clause \"New\" or \"Revised\" License (BSD-3-Clause)\" ([tutorial site](https://caltech-ipac.github.io/irsa-tutorials/spherex/))",
+      "acknowledgement": "None on the page. Cite the data DOIs in the SPHEREx row, not the notebooks.",
+      "status": "in use (method reference)"
+    },
+    {
+      "name": "Gaia DR3 (via NASA MAST)",
+      "provider": "European Space Agency (ESA); data owner ESA/Gaia/DPAC; the MAST copy is hosted by STScI for NASA",
+      "official": "Yes (Gaia via MAST)",
+      "host": "Primary: `mast.stsci.edu`. Fallbacks: `gea.esac.esa.int` (ESA archive), `irsa.ipac.caltech.edu` (IRSA copy)",
+      "access": "TAP sync. MAST VO TAP at `https://mast.stsci.edu/vo-tap/api/v0.1/gaiadr3/sync` (table `dbo.gaia_source`); ESA TAP at `https://gea.esac.esa.int/tap-server/tap/sync` (`gaiadr3.gaia_source`); IRSA TAP (`gaia_dr3_source`). ADQL built on the server from validated numbers.",
+      "usage": "`backend/src/destello/sources/gaia.py` (order: MAST, ESA, IRSA, with hedging; `copy` recorded as provenance); `api/science.py` (reference stars for recalibration); `api/derived.py`, `routes/derived.py` (propagated positions); `candidates.py`, `motion_search.py`, `report_checks.py`; overlays in the frontend; validation V-05, V-08, V-12 field stars; `core/config.py` (egress allowlist)",
+      "version": "DR3 (reference epoch J2016.0). MAST primary since 2026-11-14 (`docs/14`).",
+      "licence": "Not fully verified. Quoted from [ESA credit and citation instructions](https://gea.esac.esa.int/archive/documentation/GDR3/Miscellaneous/sec_credit_and_citation_instructions/): \"The Gaia data are open and free to use, provided credit is given to 'ESA/Gaia/DPAC'.\" MAST data use policy: not verified. `archive.stsci.edu/acknowledgments.html`, `archive.stsci.edu/data_use.html` and `stdatu.stsci.edu` returned certificate errors; `outerspace.stsci.edu` returned 404; `mast.stsci.edu` returned only its title.",
+      "acknowledgement": "Acknowledgement (ESA page, quoted): \"This work has made use of data from the European Space Agency (ESA) mission Gaia, processed by the Gaia Data Processing and Analysis Consortium (DPAC). Funding for the DPAC has been provided by national institutions, in particular the institutions participating in the Gaia Multilateral Agreement.\" The ESA sentence contains two hyperlinks that the reader did not return; copy them from the page before use. Citations (ESA page): Gaia Collaboration et al. (2016b), \"The Gaia mission\"; Gaia Collaboration et al. (2023j), \"Gaia Data Release 3. Summary of the content and survey properties\". Dataset DOI `10.5270/esa-qa4lep3` as listed on ESA DOI pages in a search result (not fetched).",
+      "status": "in use"
+    },
+    {
+      "name": "CatWISE2020",
+      "provider": "Caltech/IPAC CatWISE team, distributed by NASA/IPAC IRSA",
+      "official": "No",
+      "host": "`irsa.ipac.caltech.edu`",
+      "access": "IRSA TAP sync, table `catwise_2020`",
+      "usage": "`backend/src/destello/sources/catwise.py`; `api/candidates.py`, `motion_search.py`, `report_checks.py`, `science.py` (fallback when Gaia fails), `routes/derived.py`; frontend overlays",
+      "version": "CatWISE2020 (`catwise_2020`)",
+      "licence": "Not verified. [IRSA mission page](https://irsa.ipac.caltech.edu/Missions/catwise.html) and [catwise.github.io/catwise2020](https://catwise.github.io/catwise2020/) returned 404.",
+      "acknowledgement": "Not verified. The catalogue paper reference is to be taken from the IRSA catalogue description.",
+      "status": "in use"
+    },
+    {
+      "name": "AllWISE",
+      "provider": "UCLA and JPL/Caltech for NASA (Wide-field Infrared Survey Explorer); distributed by NASA/IPAC IRSA",
+      "official": "No",
+      "host": "Context imagery via IRSA HiPS (`irsa.ipac.caltech.edu/data/hips/CDS/...`) through the site mirror `/hips/AllWISE/RGB-W4-W2-W1`",
+      "access": "HiPS tiles, read only, in the context panel. No catalogue and no single-exposure access in code.",
+      "usage": "`frontend/src/features/panels/ContextPanel.tsx`; `deploy/Caddyfile` and `deploy/Caddyfile.prod` (`/hips` route). Not used for frames or measurements.",
+      "version": "AllWISE, as served in the HiPS RGB-W4-W2-W1",
+      "licence": "Data licence not verified. The WISE acknowledgement is from IRSA documentation (below).",
+      "acknowledgement": "Acknowledgement (WISE documentation, section I.6.b.i, quoted with segments joined): \"This publication makes use of data products from the Wide-field Infrared Survey Explorer, which is a joint project of the University of California, Los Angeles, and the Jet Propulsion Laboratory/California Institute of Technology, funded by the National Aeronautics and Space Administration.\" Source: [sec1_6b.html](https://irsa.ipac.caltech.edu/data/WISE/docs/release/All-Sky/expsup/sec1_6b.html). Canonical papers (IRSA mission page): Wright et al. (2010), Mainzer et al. (2011), Mainzer et al. (2014).",
+      "status": "in use (context HiPS); single-exposure images in the row below"
+    },
+    {
+      "name": "WISE and NEOWISE-R single-exposure images",
+      "provider": "JPL/Caltech for NASA Planetary Science Division (NEOWISE-R); UCLA and JPL/Caltech for NASA (WISE); distributed by NASA/IPAC IRSA",
+      "official": "No",
+      "host": "`irsa.ipac.caltech.edu` (TAP frame tables, IBE cutouts); `nasa-irsa-wise.s3.us-west-2.amazonaws.com` (AWS open data copy, anonymous, read only, Parquet frame lists)",
+      "access": "IRSA TAP for the frame lists, with the S3 Parquet tables as fallback; IBE cutouts of the L1b images",
+      "usage": "`backend/src/destello/sources/wise.py`; `pipeline/wise.py`; `api/longbaseline.py` (F-40 long-baseline motion and the 16 years view)",
+      "version": "WISE (2010 to 2011) and NEOWISE-R (2013 to 2024) L1b frames, band W2",
+      "licence": "Not verified.",
+      "acknowledgement": "Acknowledgement (WISE documentation, section I.6.b.ii, quoted with segments joined): \"This publication also makes use of data products from NEOWISE, which is a project of the Jet Propulsion Laboratory/California Institute of Technology, funded by the Planetary Science Division of the National Aeronautics and Space Administration.\" Source: [sec1_6b.html](https://irsa.ipac.caltech.edu/data/WISE/docs/release/All-Sky/expsup/sec1_6b.html).",
+      "status": "in use (F-40)"
+    },
+    {
+      "name": "2MASS (Two Micron All Sky Survey)",
+      "provider": "University of Massachusetts and IPAC/Caltech, funded by NASA and the National Science Foundation; distributed by NASA/IPAC IRSA",
+      "official": "No",
+      "host": "`irsa.ipac.caltech.edu` (TAP and HiPS); HiPS through the site mirror `/hips/2MASS/Color`",
+      "access": "IRSA TAP sync (`fp_psc`); HiPS tiles in the context panel",
+      "usage": "`backend/src/destello/sources/twomass.py`; V-08 flux cross-check in `scripts/run_validation.py`; `frontend/src/features/panels/ContextPanel.tsx` (HiPS)",
+      "version": "2MASS All-Sky Point Source Catalog (`fp_psc`)",
+      "licence": "Not verified as a licence. [IRSA mission page](https://irsa.ipac.caltech.edu/Missions/2mass.html) gives no licence or data policy text.",
+      "acknowledgement": "Acknowledgement (IRSA mission page, quoted with segments joined): \"This publication makes use of data products from the Two Micron All Sky Survey, which is a joint project of the University of Massachusetts and the Infrared Processing and Analysis Center/California Institute of Technology, funded by the National Aeronautics and Space Administration and the National Science Foundation.\" Canonical paper on the same page: Skrutskie et al. (2006); full reference to be taken from the page.",
+      "status": "in use"
+    },
+    {
+      "name": "unWISE",
+      "provider": "unWISE project (coadds of WISE and NEOWISE images)",
+      "official": "No",
+      "host": "`unwise.info` redirects to `unwise.com`",
+      "access": "Not decided",
+      "usage": "Not used.",
+      "version": "Not decided",
+      "licence": "Not verified. `unwise.com` footer only; its \"Terms & conditions\" page (`/terms/`) was not reached.",
+      "acknowledgement": "Not verified.",
+      "status": "not decided"
+    },
+    {
+      "name": "CDS services: SIMBAD, Sesame, HiPS, Aladin Lite",
+      "provider": "Centre de Donnees astronomiques de Strasbourg (CDS), Universite de Strasbourg, France",
+      "official": "No",
+      "host": "`simbad.cds.unistra.fr`; `vizier.idia.ac.za` (CDS Sesame mirror); `cds.unistra.fr`; `alasky.cds.unistra.fr` (HiPS)",
+      "access": "SIMBAD and Sesame queries over HTTP (`sources/simbad.py`, `sources/sesame.py`); HiPS tiles and Aladin Lite (client side)",
+      "usage": "`backend/src/destello/sources/simbad.py`, `sesame.py` (name resolution, object identification); Aladin Lite sky views and the SPHEREx HiPS option (`VITE_SPHEREX_HIPS`) in the frontend",
+      "version": "Current SIMBAD and Sesame services; HiPS as served",
+      "licence": "CDS legal notice ([cds.unistra.fr/legals](https://cds.unistra.fr/legals/)): datasets with only public information are \"distributed under an Open Licence or ODbL\"; datasets with a contributor licence follow that licence. Restrictive term, quoted: \"Any other use, in particular for commercial purposes, without the prior written consent of the CDS is prohibited\". Aladin Lite software: GNU Lesser General Public License v3 ([LICENSE](https://github.com/cds-astro/aladin-lite/blob/master/LICENSE), read 2026-11-14).",
+      "acknowledgement": "CDS legal notice, quoted: \"The Data Sets must be cited in any work or product that uses them\" by \"including - if available - the DOI (Digital Object Identifier)\", and the source must be credited by \"mentioning the _CDS service_ that supplied them\". Minimum credits: \"CDS/SIMBAD\", \"CDS/VizieR\", \"CDS/Aladin\". The citations page [cds.unistra.fr/help/acknowledgement](https://cds.unistra.fr/help/acknowledgement) returned 404, so the full reference papers are not verified.",
+      "status": "in use"
+    },
+    {
+      "name": "JPL Small-Body Identification (SBIdent)",
+      "provider": "NASA Jet Propulsion Laboratory, Solar System Dynamics group",
+      "official": "No",
+      "host": "`ssd-api.jpl.nasa.gov`",
+      "access": "REST API `sb_ident.api`",
+      "usage": "`backend/src/destello/sources/sbident.py`; `api/report_checks.py` (F-22 checks of marked positions)",
+      "version": "Live API (no release)",
+      "licence": "Not verified as a licence. No terms text on the [API documentation](https://ssd-api.jpl.nasa.gov/doc/sb_ident.html) or the [SSD homepage](https://ssd.jpl.nasa.gov/). Policy links found: JPL privacy and [image use policy](https://www.jpl.nasa.gov/jpl-image-use-policy).",
+      "acknowledgement": "No citation wording required on the pages read. Credit line on the SSD homepage: \"The JPL Solar System Dynamics group's ephemeris development, maintenance, and improvement tasks are primarily supported by NASA's Advanced Multi-Mission Operations System, which is funded by NASA's Science Mission Directorate.\"",
+      "status": "in use"
+    },
+    {
+      "name": "JPL Horizons",
+      "provider": "NASA Jet Propulsion Laboratory, Solar System Dynamics group",
+      "official": "No",
+      "host": "`ssd.jpl.nasa.gov` (in the egress allowlist since 2026-11-14)",
+      "access": "Horizons API, `https://ssd.jpl.nasa.gov/api/horizons.api`",
+      "usage": "`backend/src/destello/sources/horizons.py`; ephemerides of moving targets and the spacecraft position for F-33 (docs/03 section 4.9).",
+      "version": "Live service (no release)",
+      "licence": "Not verified. The Horizons pages were not read; the SSD homepage has no terms text.",
+      "acknowledgement": "Not verified for Horizons. The SSD credit line above applies to the site.",
+      "status": "in use (F-33)"
+    },
+    {
+      "name": "CSA NEOSSat through CADC",
+      "provider": "Canadian Space Agency (CSA) and Defence Research and Development Canada (DRDC), with Microsat Systems Canada Inc. (MSCI), University of Calgary, Bishop's University and National Research Council of Canada (NRC); archive operated by the Canadian Astronomy Data Centre (CADC)",
+      "official": "Yes (CADC)",
+      "host": "`ws.cadc-ccda.hia-iha.nrc-cnrc.gc.ca`; `www.cadc-ccda.hia-iha.nrc-cnrc.gc.ca`; `ws-cadc.canfar.net`",
+      "access": "CADC archive services: TAP at `ws.cadc-ccda.hia-iha.nrc-cnrc.gc.ca` and files at `ws-cadc.canfar.net`",
+      "usage": "`backend/src/destello/sources/cadc.py`; `worker/neossat.py`; `pipeline/neossat.py`; NEOSSat panel of the comet page (F-33). Each frame carries the credit line \"NEOSSat, Canadian Space Agency; Canadian Astronomy Data Centre\" and is labeled as a different telescope, band and time than SPHEREx. NEOSSat is not SPHEREx: it is another telescope, observing in an optical band at other times.",
+      "version": "NEOSSat archive products as held by CADC (raw and processed levels, for example CORD)",
+      "licence": "CADC home page, quoted: \"The CADC data collections are an open data source for the international astronomy community\" and \"are a digital research facility for professional astronomers and are not intended for general public use.\" ([CADC](https://www.cadc-ccda.hia-iha.nrc-cnrc.gc.ca/en/)). The CADC terms and conditions page was not reached (no URL given on the page).",
+      "acknowledgement": "Acknowledgement, quoted from [CADC NEOSSat page](https://www.cadc-ccda.hia-iha.nrc-cnrc.gc.ca/en/neossat), \"Product descriptions\", Acknowledgements: \"Based on data from the NEOSSat satellite, a joint mission of the Canadian Space Agency (CSA) and Defence Research and Development Canada (DRDC), with contributions from Microsat Systems Canada Inc. (MSCI), the University of Calgary, Bishop's University, and the National Research Council of Canada (NRC).\" The page asks that papers carry it \"preferably as a footnote to the title of the paper\". Credit line shown in the product: \"NEOSSat, Canadian Space Agency; Canadian Astronomy Data Centre\".",
+      "status": "in use (F-33)"
+    },
+    {
+      "name": "NEOSSat Dataset (CSA open data)",
+      "provider": "Canadian Space Agency",
+      "official": "Yes (NEOSSat Dataset)",
+      "host": "`data.asc-csa.gc.ca/dataset/neossat`; mirror `open.canada.ca`",
+      "access": "Portal download (planned)",
+      "usage": "Not used yet.",
+      "version": "NEOSSat Astronomy Data (CSA portal record)",
+      "licence": "Not verified. The record page at `data.asc-csa.gc.ca` returned a certificate error and `open.canada.ca/data/en/dataset/neossat` returned 404. A search snippet of the CSA record names the Open Government Licence - Canada; this was not read from the page.",
+      "acknowledgement": "Dataset-level credit not verified. The CADC acknowledgement above applies to NEOSSat products.",
+      "status": "planned for F-33"
+    },
+    {
+      "name": "NEOSSat Data Tutorial (CSA)",
+      "provider": "Canadian Space Agency (asc-csa GitHub organisation)",
+      "official": "Yes (NEOSSat Data Tutorial)",
+      "host": "`github.com/asc-csa/NEOSSAT_Tutorial`",
+      "access": "Repository, read only (planned)",
+      "usage": "Not used yet. Code is not to be copied before the licence is confirmed.",
+      "version": "Repository at the time of reading",
+      "licence": "The repository page states \"modified MIT license\" (French section: \"une licence MIT modifiée\"). The LICENSE file at [blob/main/LICENSE](https://github.com/asc-csa/NEOSSAT_Tutorial/blob/main/LICENSE) returned 404, so the exact licence text is not verified.",
+      "acknowledgement": "None found on the page.",
+      "status": "planned for F-33"
+    },
+    {
+      "name": "WiseView (Backyard Worlds)",
+      "provider": "Backyard Worlds project, [byw.tools](https://byw.tools/wiseview)",
+      "official": "Yes",
+      "host": "`byw.tools`",
+      "access": "None. Not scraped.",
+      "usage": "Inspiration only. No data is taken from the tool.",
+      "version": "Not applicable",
+      "licence": "Not verified. The site was not fetched, because no data from it is used.",
+      "acknowledgement": "Not verified.",
+      "status": "inspiration only"
+    }
+  ],
+  "terms": [
+    {
+      "title": "CDS legal notice, commercial use and citation (restrictive).",
+      "text": "The CDS notice states: \"Any other use, in particular for commercial purposes, without the prior written consent of the CDS is prohibited.\" It also requires that datasets \"must be cited in any work or product that uses them\", with the minimum credits \"CDS/SIMBAD\", \"CDS/VizieR\" and \"CDS/Aladin\". Destello's About page does not contain these credit strings. A demo bundle or repository that redistributes CDS-sourced results (SIMBAD identifiers, Sesame resolutions, HiPS tiles) needs those credits placed where they can be read. Any commercial use needs written consent. The citations page could not be read, so the full reference papers remain unverified."
+    },
+    {
+      "title": "CADC terms for NEOSSat (restrictive for a public tool).",
+      "text": "The CADC home page says its collections \"are not intended for general public use\". This needs a decision before F-33 uses NEOSSat data in a public product. The terms and conditions page was not reached."
+    },
+    {
+      "title": "Redistribution of derived SPHEREx frames (not verified).",
+      "text": "No IRSA or DOI page read states whether derived frames may be redistributed, in the demo bundle, in a public repository or elsewhere. The only text found is the acknowledgement and the citation instruction. The rule is not confirmed by any provider page. Action: ask the IRSA helpdesk for the redistribution policy before the demo bundle is published, or keep the bundle free of derived SPHEREx frames until the answer arrives."
+    },
+    {
+      "title": "Gaia attribution in every redistribution.",
+      "text": "ESA allows free use \"provided credit is given to 'ESA/Gaia/DPAC'\". Any demo bundle, repository or export that carries Gaia-derived values (overlays, reference stars, validation rows) must keep that credit. The MAST policy itself is not verified."
+    },
+    {
+      "title": "Aladin Lite (LGPL-3.0).",
+      "text": "A used but unmodified library needs its licence notice kept with the distributed code. Modifications to the library itself would fall under the LGPL. Confirm that the frontend build does not modify the library."
+    },
+    {
+      "title": "NEOSSat tutorial licence (not confirmed).",
+      "text": "The repository page says \"modified MIT license\". No code may be copied from it until the LICENSE text is read; the earlier brief described it as plain MIT, which the page does not confirm."
+    },
+    {
+      "title": "NEOSSat dataset licence (not verified).",
+      "text": "A search snippet names the Open Government Licence - Canada, which requires attribution. This is not confirmed from the record page."
+    },
+    {
+      "title": "No licence found for CatWISE2020, 2MASS, AllWISE, NEOWISE-R, unWISE, JPL SBIdent and JPL Horizons.",
+      "text": "The provider pages read gave no licence text for these. Each needs a licence check before F-33 or F-40 uses it in a public product."
+    }
+  ]
+}

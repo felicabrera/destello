@@ -1,0 +1,74 @@
+{
+  "entry": "Ver 16 años de este campo",
+  "title": "16 años de cielo: WISE, NEOWISE y SPHEREx",
+  "intro": "Coadiciones reales del mismo campo, de tres fases de dos misiones, situadas en un único eje temporal. Seleccione un marcador, o enfoque la vista y use las teclas de flecha.",
+  "region": "Línea de tiempo de larga base",
+  "axis": "Eje temporal de {{start}} a {{end}}",
+  "legend": {
+    "WISE": "WISE (2010 a 2011)",
+    "NEOWISE": "NEOWISE (2013 a 2024)",
+    "SPHEREx": "SPHEREx (desde 2025)"
+  },
+  "marker": "{{mission}}, {{date}}",
+  "keys": "Las flechas recorren las épocas, Inicio y Fin saltan a la primera y a la última, y la barra espaciadora reproduce y pausa.",
+  "controls": {
+    "label": "Reproducción",
+    "play": "Reproducir",
+    "pause": "Pausar",
+    "prev": "Época anterior",
+    "next": "Época siguiente",
+    "position": "Época {{n}} de {{total}}",
+    "reducedMotion": "La reproducción está desactivada porque su sistema pide reducir el movimiento. Avance con los botones o con las flechas."
+  },
+  "frame": {
+    "alt": "Coadición de {{mission}} del {{date}}",
+    "mission": "Misión",
+    "date": "Tiempo medio (UTC)",
+    "images": "Imágenes en la coadición",
+    "band": "Rango de longitud de onda",
+    "detector": "Detector",
+    "stretch": "Estiramiento ({{key}})",
+    "stretchValue": "{{method}}, {{vmin}} a {{vmax}} {{unit}}",
+    "none": "No hay imagen disponible para esta época."
+  },
+  "notice": {
+    "different": "Las dos misiones tienen píxeles, bandas y estiramientos distintos. Las imágenes de WISE comparten un estiramiento entre sí; las de SPHEREx comparten el de su detector. El brillo no es comparable entre las dos misiones.",
+    "spherex": "La imagen de SPHEREx mostrada es la coadición por detector que más se solapa con la ventana {{band}} de WISE ({{lo}} a {{hi}} µm). No se reconstruye a partir de las exposiciones que coinciden con esa ventana, por lo que su rango puede salirse de ella."
+  },
+  "warning": {
+    "title": "Notas sobre los datos",
+    "codes": {
+      "WISE_FRAME_LIST_PARQUET": "La lista de imágenes de WISE procede de la tabla de exposiciones individuales de NEOWISE-R, que cubre solo de diciembre de 2013 a 2024. Faltan las épocas de WISE de 2010 a 2011 y no hay valor de calidad de imagen."
+    }
+  },
+  "astrometry": {
+    "title": "Movimiento propio en toda la base temporal",
+    "loading": "Leyendo la astrometría almacenada",
+    "unavailable": "No hay astrometría de larga base almacenada para esta secuencia.",
+    "failed": "No se pudo leer la astrometría almacenada.",
+    "notMeasurable": "El movimiento propio no se puede medir con las épocas almacenadas.",
+    "measured": "Medido",
+    "reference": "Referencia",
+    "referenceSource": "Fuente de referencia: {{source}}",
+    "unit": "mas/año",
+    "pmra": "Movimiento propio en ascensión recta (multiplicado por cos de la declinación)",
+    "pmdec": "Movimiento propio en declinación",
+    "value": "{{value}} ± {{err}} mas/año",
+    "epochs": "Épocas usadas: {{wise}} de WISE y NEOWISE, {{spherex}} de SPHEREx",
+    "agreement": "Acuerdo con la referencia: {{sigma}} sigma combinadas (estado: {{status}})",
+    "spherexOnly": "Las épocas de SPHEREx por sí solas dan errores de {{ra}} y {{dec}} mas/año, de modo que la larga base los reduce en un factor de {{rar}} y {{decr}}.",
+    "referenceNote": "La referencia puede usar a su vez datos de WISE y NEOWISE, por lo que los dos valores no son del todo independientes.",
+    "status": {
+      "pass": "dentro de 3 sigma",
+      "fail": "fuera de 3 sigma"
+    }
+  },
+  "credit": {
+    "title": "Créditos y cita",
+    "wise": "Esta publicación utiliza productos de datos del Wide-field Infrared Survey Explorer, un proyecto conjunto de la Universidad de California, Los Ángeles, y del Jet Propulsion Laboratory/California Institute of Technology, financiado por la National Aeronautics and Space Administration.",
+    "neowise": "Esta publicación también utiliza productos de datos de NEOWISE, un proyecto del Jet Propulsion Laboratory/California Institute of Technology, financiado por la División de Ciencia Planetaria de la National Aeronautics and Space Administration.",
+    "cite": "Artículos que citar: Wright et al. (2010); Mainzer et al. (2011); Mainzer et al. (2014).",
+    "doi": "DOI de los datos: {{doi}}",
+    "distributor": "Las imágenes de exposición individual las distribuye el NASA/IPAC Infrared Science Archive."
+  }
+}

@@ -1,0 +1,230 @@
+# Deploy: build and push the backend and frontend images to GHCR (provenance and SBOM attestations), then ask the
+# apps host to run them. Host setup is kept in the operator's private runbook, outside this repository.
+#
+# The apps host accepts only four commands from this workflow, through a key with a forced command and an
+# account without a shell: `ping`, `deploy <tag>` (tag = 12 lowercase hex characters), `rollback` and `status`.
+# The compose file and .env on the host are installed by an administrator; CI can only choose an image tag
+# and set the Turnstile secret (production environment secret DESTELLO_TURNSTILE_SECRET).
+# The reverse proxy in front of the apps host is installed by an administrator too.
+#
+# The repository is public, so this workflow must never run attacker controlled code with secrets:
+#   - it is not triggered by pull_request or pull_request_target;
+#   - workflow_run is accepted only for a successful push run of CI on main in this repository (no fork);
+#   - the exact commit that CI tested (head_sha) is the one that is built and deployed;
+#   - the `production` environment restricts deployment branches to main and may require reviewers.
+# All jobs run on GitHub-hosted runners and reach the private apps host through one SSH jump host.
+name: deploy
+on:
+  workflow_run:
+    workflows: [ci]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions: {}
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  # Shared by both jobs. The commit CI tested, or the dispatched commit.
+  TARGET_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+jobs:
+  build:
+    if: >-
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+      || (github.event_name == 'workflow_run'
+      && github.event.workflow_run.conclusion == 'success'
+      && github.event.workflow_run.event == 'push'
+      && github.event.workflow_run.head_branch == 'main'
+      && github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      tag: ${{ steps.meta.outputs.tag }}
+      owner: ${{ steps.meta.outputs.owner }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {ref: "${{ env.TARGET_SHA }}", persist-credentials: false}
+      - name: Image tag and owner
+        id: meta
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+        run: |
+          set -euo pipefail
+          tag="${TARGET_SHA::12}"
+          [[ "$tag" =~ ^[0-9a-f]{12}$ ]] || { echo "invalid tag" >&2; exit 1; }
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          echo "owner=${REPO_OWNER,,}" >> "$GITHUB_OUTPUT"
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push the backend image
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: backend
+          target: runtime
+          push: true
+          provenance: mode=max
+          sbom: true
+          tags: |
+            ghcr.io/${{ steps.meta.outputs.owner }}/destello-backend:${{ steps.meta.outputs.tag }}
+            ghcr.io/${{ steps.meta.outputs.owner }}/destello-backend:latest
+          cache-from: type=gha,scope=backend
+          cache-to: type=gha,mode=max,scope=backend
+      - name: SBOM of the backend image
+        uses: anchore/sbom-action@66cbf4bc1f1c0d2edc94016e65bc221b6bb0ad6c # v0.24.3
+        with:
+          image: ghcr.io/${{ steps.meta.outputs.owner }}/destello-backend:${{ steps.meta.outputs.tag }}
+          format: spdx-json
+          artifact-name: sbom-backend-image.spdx.json
+          upload-release-assets: false
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with: {version: 11.22.0}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: {node-version: 22, cache: pnpm, cache-dependency-path: frontend/pnpm-lock.yaml}
+      - name: Build the frontend
+        working-directory: frontend
+        run: pnpm install --frozen-lockfile && pnpm build
+        env:
+          VITE_API_BASE: /api/v1
+          VITE_PUBLIC_URL: https://${{ vars.DESTELLO_DOMAIN }}
+          VITE_DEMO_BASE: ${{ vars.VITE_DEMO_BASE }}
+          VITE_TURNSTILE_SITEKEY: ${{ vars.DESTELLO_VITE_TURNSTILE_SITEKEY }}
+          VITE_CONTACT_EMAIL: ${{ vars.DESTELLO_VITE_CONTACT_EMAIL }}
+          VITE_RELEASE: ${{ env.TARGET_SHA }}
+      - name: Placeholder check on source and built bundle
+        run: python3 scripts/check_placeholders.py
+      - name: Stage the frontend image context
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/frontend-image"
+          cp -r frontend/dist "$RUNNER_TEMP/frontend-image/dist"
+          cp deploy/Caddyfile.prod "$RUNNER_TEMP/frontend-image/Caddyfile"
+      - name: Build and push the frontend image
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: ${{ runner.temp }}/frontend-image
+          file: deploy/frontend.Dockerfile
+          push: true
+          provenance: mode=max
+          sbom: true
+          tags: |
+            ghcr.io/${{ steps.meta.outputs.owner }}/destello-frontend:${{ steps.meta.outputs.tag }}
+            ghcr.io/${{ steps.meta.outputs.owner }}/destello-frontend:latest
+      - name: SBOM of the frontend image
+        uses: anchore/sbom-action@66cbf4bc1f1c0d2edc94016e65bc221b6bb0ad6c # v0.24.3
+        with:
+          image: ghcr.io/${{ steps.meta.outputs.owner }}/destello-frontend:${{ steps.meta.outputs.tag }}
+          format: spdx-json
+          artifact-name: sbom-frontend-image.spdx.json
+          upload-release-assets: false
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment: production
+    permissions: {contents: read, packages: read}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {ref: "${{ env.TARGET_SHA }}", persist-credentials: false}
+      - name: Prepare SSH (one key, one jump host, pinned host keys)
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          JUMP_HOST: ${{ secrets.DEPLOY_JUMP_HOST }}
+          JUMP_PORT: ${{ secrets.DEPLOY_JUMP_PORT }}
+          JUMP_USER: ${{ secrets.DEPLOY_JUMP_USER }}
+          APPS_HOST: ${{ secrets.DEPLOY_APPS_HOST }}
+          SSH_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          set -euo pipefail
+          umask 077
+          for name in JUMP_HOST JUMP_PORT JUMP_USER APPS_HOST SSH_USER; do
+            [[ "${!name}" =~ ^[A-Za-z0-9._:-]+$ ]] || { echo "secret for ${name} is missing or has invalid characters" >&2; exit 1; }
+          done
+          [[ -n "$SSH_KEY" && -n "$KNOWN_HOSTS" ]] || { echo "DEPLOY_SSH_KEY or DEPLOY_KNOWN_HOSTS is empty" >&2; exit 1; }
+          dir="$RUNNER_TEMP/destello-ssh"
+          install -d -m 700 "$dir"
+          printf '%s\n' "$SSH_KEY" > "$dir/key"
+          printf '%s\n' "$KNOWN_HOSTS" > "$dir/known_hosts"
+          {
+            printf 'Host jump\n  HostName %s\n  Port %s\n  User %s\n' "$JUMP_HOST" "$JUMP_PORT" "$JUMP_USER"
+            printf 'Host apps\n  HostName %s\n  User %s\n  ProxyJump jump\n' "$APPS_HOST" "$SSH_USER"
+            printf 'Host *\n  IdentityFile %s/key\n  IdentitiesOnly yes\n  UserKnownHostsFile %s/known_hosts\n' "$dir" "$dir"
+            printf '  StrictHostKeyChecking yes\n  BatchMode yes\n  ServerAliveInterval 30\n  ConnectTimeout 20\n'
+          } > "$dir/config"
+          echo "SSH_DIR=${dir}" >> "$GITHUB_ENV"
+      - name: Check the connection (ping)
+        run: ssh -F "$SSH_DIR/config" apps ping
+      - name: Deploy the image tag
+        id: deploy
+        continue-on-error: true
+        env:
+          TAG: ${{ needs.build.outputs.tag }}
+          REGISTRY_TOKEN: ${{ github.token }}
+          TURNSTILE_SECRET: ${{ secrets.DESTELLO_TURNSTILE_SECRET }}
+        run: |
+          set -euo pipefail
+          [[ "$TAG" =~ ^[0-9a-f]{12}$ ]] || { echo "invalid tag" >&2; exit 1; }
+          # The job token (packages: read, valid for this job only) goes to the host on standard
+          # input, so the pull works while the images are private. The host does not store it.
+          # The Turnstile secret of the production environment travels the same way; the host writes
+          # it to the one key DESTELLO_TURNSTILE_SECRET of its .env and accepts no other change.
+          {
+            printf 'registry %s\n' "$REGISTRY_TOKEN"
+            if [ -n "$TURNSTILE_SECRET" ]; then printf 'turnstile %s\n' "$TURNSTILE_SECRET"; fi
+          } | ssh -F "$SSH_DIR/config" apps deploy "$TAG"
+      - name: Smoke test through the public URL and the WAF
+        id: smoke
+        if: steps.deploy.outcome == 'success'
+        continue-on-error: true
+        env:
+          DESTELLO_DOMAIN: ${{ vars.DESTELLO_DOMAIN }}
+        run: |
+          set +e
+          scripts/smoke.sh
+          rc=$?
+          echo "rc=${rc}" >> "$GITHUB_OUTPUT"
+          if [ "$rc" -eq 75 ]; then
+            echo "::warning::Cloudflare refused the runner, so the public smoke test did not run. The origin is checked on the host instead."
+            exit 0
+          fi
+          exit "$rc"
+      - name: Check the origin on the host when the edge refused the runner
+        id: origin
+        if: steps.smoke.outputs.rc == '75'
+        continue-on-error: true
+        env:
+          TAG: ${{ needs.build.outputs.tag }}
+        run: |
+          set -euo pipefail
+          out="$(ssh -F "$SSH_DIR/config" apps status)"
+          printf '%s\n' "$out"
+          grep -qx "tag ${TAG}" <<< "$out" || { echo "the host does not run tag ${TAG}" >&2; exit 1; }
+          for svc in api caddy redis worker; do
+            grep -q "^${svc} running healthy$" <<< "$out" || { echo "${svc} is not healthy" >&2; exit 1; }
+          done
+          if grep -v "^tag " <<< "$out" | grep -qv " running healthy$"; then echo "a service is not healthy" >&2; exit 1; fi
+      - name: Roll back to the previous tag
+        id: rollback
+        if: steps.deploy.outcome == 'failure' || steps.smoke.outcome == 'failure' || steps.origin.outcome == 'failure'
+        run: ssh -F "$SSH_DIR/config" apps rollback
+      - name: Status
+        if: always() && env.SSH_DIR != ''
+        run: ssh -F "$SSH_DIR/config" apps status
+      - name: Fail the job when the deploy or the smoke test failed
+        if: steps.deploy.outcome == 'failure' || steps.smoke.outcome == 'failure' || steps.origin.outcome == 'failure'
+        run: |
+          echo "Deploy or smoke test failed; a rollback was requested (see the previous step)." >&2
+          exit 1
+      - name: Remove key material
+        if: always()
+        run: rm -rf "${SSH_DIR:-}"

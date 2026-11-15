@@ -1,0 +1,91 @@
+{
+  "nav": "Historia",
+  "kicker": "Historia",
+  "title": "De Plutón al Planeta X",
+  "lead": "Un recorrido breve por la forma en que los astrónomos encuentran objetos que se mueven, desde dos placas fotográficas hasta el cielo infrarrojo de SPHEREx.",
+  "keys": "Teclas: N capítulo siguiente, P capítulo anterior, 1 a 7 para ir a un capítulo. Los botones de abajo hacen lo mismo.",
+  "reduced": "El movimiento reducido está activo: nada se reproduce solo y la página se desplaza sin animación.",
+  "navLabel": "Capítulos de la historia",
+  "prev": "Anterior",
+  "next": "Siguiente",
+  "counter": "Capítulo {{n}} de {{total}}",
+  "chapterLabel": "Capítulo {{n}}",
+  "embedWaiting": "La vista interactiva se carga cuando se acerca a este capítulo.",
+  "openInDestello": "Abrir esta vista en Destello",
+  "huntCta": "Comenzar la búsqueda",
+  "learnCta": "Mida usted mismo",
+  "ch1": {
+    "title": "1930: Plutón, hallado al alternar imágenes",
+    "body": [
+      "En 1930 Clyde Tombaugh, en el Observatorio Lowell, fotografió la misma zona del cielo en noches distintas. Después comparó las placas en un comparador de parpadeo, un instrumento que alterna con rapidez entre dos imágenes.",
+      "Las estrellas permanecen en su lugar. Un planeta del sistema solar exterior se desplaza un poco entre las noches, por lo que parece saltar de un lado a otro. Ese salto delató a Plutón.",
+      "Este capítulo no incluye imágenes de las placas: sus condiciones de reutilización no están verificadas para este proyecto."
+    ]
+  },
+  "ch2": {
+    "title": "WISE y los voluntarios que compararon imágenes",
+    "body": [
+      "El telescopio WISE de la NASA observó todo el cielo en el infrarrojo y volvió a muchas zonas más de una vez. Las enanas marrones frías y cercanas son tenues en longitudes de onda visibles, pero aparecen en el infrarrojo y, al estar cerca, se mueven por el cielo.",
+      "El proyecto de ciencia ciudadana Backyard Worlds pidió a voluntarios que alternaran imágenes de WISE y señalaran todo lo que se moviera. Con una herramienta web llamada WiseView, los voluntarios descubrieron enanas marrones que las búsquedas automáticas habían pasado por alto.",
+      "Destello aplica la misma idea con otro telescopio. No incluye ninguna imagen ni dato de WiseView."
+    ]
+  },
+  "ch3": {
+    "title": "SPHEREx y sus 102 colores",
+    "body": [
+      "SPHEREx es una misión de la NASA que cartografía todo el cielo en 102 canales espectrales, según la propia misión. Cada imagen es una pequeña porción de color, de modo que el conjunto de imágenes de una posición forma un espectro.",
+      "La vista siguiente muestra el panel de espectro de R Draconis, construido por Destello con imágenes reales de SPHEREx en esa posición. Sirve para ver cómo cambia el brillo con la longitud de onda."
+    ],
+    "embedTitle": "Panel de espectro de R Draconis"
+  },
+  "ch4": {
+    "title": "La estrella de Barnard en movimiento",
+    "body": [
+      "La estrella de Barnard es una enana roja cercana con el mayor movimiento propio de las estrellas conocidas. Su movimiento es lento para una vida humana, pero se aprecia al alternar imágenes tomadas con meses de diferencia.",
+      "El reproductor siguiente muestra épocas reales de SPHEREx de esta estrella. Pulse reproducir, o avance época por época, y observe cómo se desplaza respecto de las estrellas de fondo."
+    ],
+    "embedTitle": "Parpadeo de la estrella de Barnard en épocas de SPHEREx",
+    "fact": "El movimiento propio de catálogo que sirve Destello para esta estrella es {{value}} {{unit}}.",
+    "wiseIntro": "A continuación se muestra el campo de otro objeto de movimiento rápido, WISE 0855, en un único eje temporal con las imágenes de WISE, NEOWISE y SPHEREx. Cada marca es una imagen real del campo. Seleccione una marca, o avance con los botones, para ver cómo cambia el campo de un sondeo al siguiente.",
+    "wiseTitle": "Eje temporal del campo de WISE 0855 con imágenes de WISE, NEOWISE y SPHEREx"
+  },
+  "ch5": {
+    "title": "WISE 0855, la enana marrón más fría, medida",
+    "body": [
+      "WISE 0855 es una de las enanas marrones más frías que se conocen y uno de los vecinos más cercanos del Sol. Es muy tenue y se encontró porque se mueve.",
+      "Destello mide su posición en cada época de SPHEREx y ajusta el movimiento. Las cifras siguientes se leen del servidor, de la entrada publicada del catálogo y de la última validación."
+    ],
+    "embedTitle": "Parpadeo de WISE 0855 en épocas de SPHEREx",
+    "fact": "El movimiento propio de catálogo que sirve Destello para este objeto es {{value}} {{unit}}.",
+    "measured": "Movimiento propio medido en ascensión recta (validación V-03): {{value}}.",
+    "reference": "Valor publicado: {{value}}. Fuente: {{source}}.",
+    "sourceUnknown": "no indicada"
+  },
+  "ch6": {
+    "variable": {
+      "title": "Estrellas que cambian, no solo se mueven",
+      "body": [
+        "No todo lo que difiere entre dos épocas se ha movido. Algunas estrellas cambian de brillo, y el cambio no es el mismo en todas las longitudes de onda.",
+        "El panel de espectro siguiente muestra a R Draconis, una estrella variable, con una curva por época. Donde las curvas se separan, la propia estrella ha cambiado."
+      ],
+      "embedTitle": "Panel de espectro de R Draconis por época"
+    },
+    "comet": {
+      "title": "Un visitante de otra estrella",
+      "body": [
+        "Los astrónomos observaron hace poco un cometa que llegó desde fuera del sistema solar. Un objeto así se mueve con rapidez y no figura en los catálogos de estrellas habituales.",
+        "La vista de abajo sigue al cometa a través de las exposiciones de SPHEREx, así que las estrellas se mueven mientras el cometa permanece en el centro, y muestra el espectro que Destello midió. Donde una medición no se puede hacer, la página lo dice y no afirma nada."
+      ],
+      "embedTitle": "Exposiciones del cometa 3I/ATLAS y su espectro medido"
+    }
+  },
+  "ch7": {
+    "title": "Su turno",
+    "body": [
+      "Hay campos reales de SPHEREx esperando. Observe cada uno, decida qué cambia entre épocas y compare su respuesta con la de otros voluntarios."
+    ]
+  },
+  "hero": "Lea la historia: de Plutón al Planeta X",
+  "prevLabel": "Capítulo anterior",
+  "nextLabel": "Capítulo siguiente"
+}

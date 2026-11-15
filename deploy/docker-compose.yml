@@ -1,0 +1,67 @@
+# Local stack: docker compose -f deploy/docker-compose.yml up --build
+# Serves the SPA from ../frontend/dist (run `pnpm build` in frontend/ first) on http://localhost:8080.
+# The data volume is bind mounted from ../data (override with DESTELLO_DATA_HOST_DIR) so that
+# presets built by scripts/warm_targets.py are visible to Caddy, the API and the worker.
+name: destello
+
+x-backend: &backend
+  build:
+    context: ../backend
+    target: runtime
+  image: destello-backend:local
+  env_file:
+    - path: ./.env
+      required: false
+  environment:
+    DESTELLO_DATA_DIR: /data
+    DESTELLO_REDIS_URL: redis://redis:6379/0
+    DESTELLO_DB_URL: sqlite:////data/db/destello.sqlite
+    DESTELLO_DATA_MODE: ${DESTELLO_DATA_MODE:-hybrid}
+    DESTELLO_TURNSTILE_DISABLED: ${DESTELLO_TURNSTILE_DISABLED:-true}
+    DESTELLO_PREWARM_MEASUREMENTS: ${DESTELLO_PREWARM_MEASUREMENTS:-true}
+  volumes:
+    - ${DESTELLO_DATA_HOST_DIR:-../data}:/data
+  read_only: true
+  tmpfs:
+    - /tmp
+  user: "10001:10001"
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  restart: unless-stopped
+
+services:
+  caddy:
+    image: caddy:2@sha256:ce773ec7a742ce15ee6bf2bb5f65882b9e2a4487b10733e6f1484f86e6b5d8bc
+    ports:
+      - "8080:80"
+    environment:
+      DESTELLO_SITE_ADDRESS: ${DESTELLO_SITE_ADDRESS:-:80}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ../frontend/dist:/srv/www:ro
+      - ../demo:/srv/demo:ro
+      - ${DESTELLO_DATA_HOST_DIR:-../data}:/data:ro
+      - caddy_data:/data-caddy
+    depends_on: [api]
+    restart: unless-stopped
+
+  api:
+    <<: *backend
+    command: ["uvicorn", "destello.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers"]
+    ports:
+      - "127.0.0.1:8000:8000"  # direct access for development; Caddy proxies /api in normal use
+    depends_on: [redis]
+
+  worker:
+    <<: *backend
+    command: ["arq", "destello.worker.main.WorkerSettings"]
+    depends_on: [redis]
+
+  # Redis is a cache and queue only: no persistence. Not published outside the Compose network.
+  redis:
+    image: redis:7-alpine@sha256:7b1753b4c5ad8458906c272a8132b8c15f5557b000379eb115fb239706a384b7
+    command: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "1gb", "--maxmemory-policy", "allkeys-lru"]
+    restart: unless-stopped
+
+volumes:
+  caddy_data: {}

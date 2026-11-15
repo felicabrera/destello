@@ -1,0 +1,249 @@
+# Destello Hunt field bank (F-35). Versioned: bump `version` when fields change.
+# Gold fields: Gaia DR3 values read through GaiaClient (MAST copy) on 2026-11-14; answers are server side only.
+# Version 2 (2026-11-15 science review): gold-03, gold-06, gold-08, gold-09 and gold-10 removed. Rule,
+# applied to all ten on the default broadband frames: drop when the shift between the first and last
+# epoch is under 0.75 SPHEREx pixel (gold-08 0.72, gold-09 0.62, gold-10 0.48; 6.2 arcsec pixels), or
+# when the display-saturated core fills over 75 percent of a 6 grid pixel radius around the star
+# (gold-03, gold-06: 90 to 105 of 113 pixels; kept stars 10 to 43). Kept stars shift 0.80 to 1.39 pixels.
+# Ecliptic and random fields come from scripts/build_hunt_bank.py (ecliptic_fields, random_fields), seed below.
+version: 2
+seed: 35
+fov_arcmin: 6.0
+detectors:
+- 1
+- 2
+- 3
+- 4
+- 5
+- 6
+fields:
+- id: gold-01
+  kind: gold
+  reason: Gaia DR3 high proper motion star (8.64 arcsec/yr, G = 8.1); it moves about 4.3 arcsec between
+    two survey passes six months apart, so it must shift between epochs.
+  answer: mover
+  astrometry:
+    source: Gaia DR3 4810594479418041856
+    ref_epoch: J2016.0
+    ra_deg: 77.9599373502188
+    dec_deg: -45.0438126993602
+    pmra_masyr: 6491.223
+    pmdec_masyr: -5708.614
+    parallax_mas: 254.199
+    g_mag: 8.06
+    ruwe: 1.17
+    verified: true
+- id: gold-02
+  kind: gold
+  reason: Gaia DR3 high proper motion star (7.06 arcsec/yr, G = 6.2); it moves about 3.5 arcsec between
+    two survey passes six months apart, so it must shift between epochs.
+  answer: mover
+  astrometry:
+    source: Gaia DR3 4034171629042489088
+    ref_epoch: J2016.0
+    ra_deg: 178.26735320817272
+    dec_deg: 37.69282694689086
+    pmra_masyr: 4002.655
+    pmdec_masyr: -5817.8
+    parallax_mas: 109.03
+    g_mag: 6.2
+    ruwe: 0.88
+    verified: true
+- id: gold-04
+  kind: gold
+  reason: Gaia DR3 high proper motion star (6.10 arcsec/yr, G = 7.7); it moves about 3.0 arcsec between
+    two survey passes six months apart, so it must shift between epochs.
+  answer: mover
+  astrometry:
+    source: Gaia DR3 2306965202564744064
+    ref_epoch: J2016.0
+    ra_deg: 1.3832841523481234
+    dec_deg: -37.36774402806293
+    pmra_masyr: 5633.438
+    pmdec_masyr: -2334.721
+    parallax_mas: 230.097
+    g_mag: 7.68
+    ruwe: 1.4
+    verified: true
+- id: gold-05
+  kind: gold
+  reason: Gaia DR3 high proper motion star (5.12 arcsec/yr, G = 12.3); it moves about 2.6 arcsec between
+    two survey passes six months apart, so it must shift between epochs.
+  answer: mover
+  astrometry:
+    source: Gaia DR3 35227046884571776
+    ref_epoch: J2016.0
+    ra_deg: 43.26964247679057
+    dec_deg: 16.86437381897744
+    pmra_masyr: 3429.083
+    pmdec_masyr: -3805.541
+    parallax_mas: 260.988
+    g_mag: 12.26
+    ruwe: 1.3
+    verified: true
+- id: gold-07
+  kind: gold
+  reason: Gaia DR3 high proper motion star (4.72 arcsec/yr, G = 11.0); it moves about 2.4 arcsec between
+    two survey passes six months apart, so it must shift between epochs.
+  answer: mover
+  astrometry:
+    source: Gaia DR3 3864972938605115520
+    ref_epoch: J2016.0
+    ra_deg: 164.10319030755974
+    dec_deg: 7.002726940984864
+    pmra_masyr: -3866.338
+    pmdec_masyr: -2699.215
+    parallax_mas: 415.179
+    g_mag: 11.04
+    ruwe: 0.84
+    verified: true
+- id: ecl-01
+  ecl_lon_deg: 0.0
+  ecl_lat_deg: -4.0
+  ra_deg: 1.5933
+  dec_deg: -3.6695
+  gal_lat_deg: -64.2
+  kind: ecliptic
+  reason: Near the ecliptic (ecliptic latitude -4.0 deg, longitude 0 deg), where main belt asteroids are
+    common, away from the galactic plane (b = -64.2 deg).
+- id: ecl-02
+  ecl_lon_deg: 24.0
+  ecl_lat_deg: 3.0
+  ra_deg: 21.0901
+  dec_deg: 12.0981
+  gal_lat_deg: -50.0
+  kind: ecliptic
+  reason: Near the ecliptic (ecliptic latitude +3.0 deg, longitude 24 deg), where main belt asteroids
+    are common, away from the galactic plane (b = -50.0 deg).
+- id: ecl-03
+  ecl_lon_deg: 48.0
+  ecl_lat_deg: -2.0
+  ra_deg: 46.1158
+  dec_deg: 15.2723
+  gal_lat_deg: -36.7
+  kind: ecliptic
+  reason: Near the ecliptic (ecliptic latitude -2.0 deg, longitude 48 deg), where main belt asteroids
+    are common, away from the galactic plane (b = -36.7 deg).
+- id: ecl-04
+  ecl_lon_deg: 131.0
+  ecl_lat_deg: 4.0
+  ra_deg: 134.6287
+  dec_deg: 21.3138
+  gal_lat_deg: 37.0
+  kind: ecliptic
+  reason: Near the ecliptic (ecliptic latitude +4.0 deg, longitude 131 deg), where main belt asteroids
+    are common, away from the galactic plane (b = +37.0 deg).
+- id: ecl-05
+  ecl_lon_deg: 155.0
+  ecl_lat_deg: -3.0
+  ra_deg: 155.7327
+  dec_deg: 6.884
+  gal_lat_deg: 49.4
+  kind: ecliptic
+  reason: Near the ecliptic (ecliptic latitude -3.0 deg, longitude 155 deg), where main belt asteroids
+    are common, away from the galactic plane (b = +49.4 deg).
+- id: ecl-06
+  ecl_lon_deg: 179.0
+  ecl_lat_deg: 2.0
+  ra_deg: 179.8784
+  dec_deg: 2.2327
+  gal_lat_deg: 62.2
+  kind: ecliptic
+  reason: Near the ecliptic (ecliptic latitude +2.0 deg, longitude 179 deg), where main belt asteroids
+    are common, away from the galactic plane (b = +62.2 deg).
+- id: ecl-07
+  ecl_lon_deg: 203.0
+  ecl_lat_deg: -1.0
+  ra_deg: 200.9021
+  dec_deg: -9.87
+  gal_lat_deg: 52.2
+  kind: ecliptic
+  reason: Near the ecliptic (ecliptic latitude -1.0 deg, longitude 203 deg), where main belt asteroids
+    are common, away from the galactic plane (b = +52.2 deg).
+- id: ecl-08
+  ecl_lon_deg: 227.0
+  ecl_lat_deg: 1.0
+  ra_deg: 224.8293
+  dec_deg: -15.9536
+  gal_lat_deg: 36.9
+  kind: ecliptic
+  reason: Near the ecliptic (ecliptic latitude +1.0 deg, longitude 227 deg), where main belt asteroids
+    are common, away from the galactic plane (b = +36.9 deg).
+- id: ecl-09
+  ecl_lon_deg: 310.0
+  ecl_lat_deg: 0.0
+  ra_deg: 312.445
+  dec_deg: -17.741
+  gal_lat_deg: -33.9
+  kind: ecliptic
+  reason: Near the ecliptic (ecliptic latitude +0.0 deg, longitude 310 deg), where main belt asteroids
+    are common, away from the galactic plane (b = -33.9 deg).
+- id: ecl-10
+  ecl_lon_deg: 334.0
+  ecl_lat_deg: -0.5
+  ra_deg: 336.0768
+  dec_deg: -10.5081
+  gal_lat_deg: -51.6
+  kind: ecliptic
+  reason: Near the ecliptic (ecliptic latitude -0.5 deg, longitude 334 deg), where main belt asteroids
+    are common, away from the galactic plane (b = -51.6 deg).
+- id: rnd-01
+  ra_deg: 34.8427
+  dec_deg: -86.577
+  gal_lat_deg: -30.3
+  kind: random
+  reason: Random field at mid galactic latitude (b = -30.3 deg), drawn with numpy default_rng(seed 35).
+- id: rnd-02
+  ra_deg: 163.1837
+  dec_deg: 54.751
+  gal_lat_deg: 54.9
+  kind: random
+  reason: Random field at mid galactic latitude (b = +54.9 deg), drawn with numpy default_rng(seed 35).
+- id: rnd-03
+  ra_deg: 0.3693
+  dec_deg: -65.8868
+  gal_lat_deg: -50.5
+  kind: random
+  reason: Random field at mid galactic latitude (b = -50.5 deg), drawn with numpy default_rng(seed 35).
+- id: rnd-04
+  ra_deg: 10.3937
+  dec_deg: 9.3606
+  gal_lat_deg: -53.4
+  kind: random
+  reason: Random field at mid galactic latitude (b = -53.4 deg), drawn with numpy default_rng(seed 35).
+- id: rnd-05
+  ra_deg: 307.6296
+  dec_deg: -28.6686
+  gal_lat_deg: -33.1
+  kind: random
+  reason: Random field at mid galactic latitude (b = -33.1 deg), drawn with numpy default_rng(seed 35).
+- id: rnd-06
+  ra_deg: 77.5853
+  dec_deg: -57.5911
+  gal_lat_deg: -36.1
+  kind: random
+  reason: Random field at mid galactic latitude (b = -36.1 deg), drawn with numpy default_rng(seed 35).
+- id: rnd-07
+  ra_deg: 40.3362
+  dec_deg: 20.5625
+  gal_lat_deg: -35.4
+  kind: random
+  reason: Random field at mid galactic latitude (b = -35.4 deg), drawn with numpy default_rng(seed 35).
+- id: rnd-08
+  ra_deg: 40.9804
+  dec_deg: -59.8693
+  gal_lat_deg: -52.0
+  kind: random
+  reason: Random field at mid galactic latitude (b = -52.0 deg), drawn with numpy default_rng(seed 35).
+- id: rnd-09
+  ra_deg: 228.2023
+  dec_deg: 4.0374
+  gal_lat_deg: 49.1
+  kind: random
+  reason: Random field at mid galactic latitude (b = +49.1 deg), drawn with numpy default_rng(seed 35).
+- id: rnd-10
+  ra_deg: 306.2863
+  dec_deg: -37.6503
+  gal_lat_deg: -34.0
+  kind: random
+  reason: Random field at mid galactic latitude (b = -34.0 deg), drawn with numpy default_rng(seed 35).

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Produced with MAST VOTable encoder version 1.0 -->
+<VOTABLE version="1.4" xmlns="http://www.ivoa.net/xml/VOTable/v1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ivoa.net/xml/VOTable/v1.3 http://www.ivoa.net/xml/VOTable/v1.3">
+<RESOURCE type="results">
+<INFO name="QUERY_STATUS" value="OK"/>
+<INFO name="QUERY" value="SELECT source_id, ra, dec, pmra, pmdec, parallax, parallax_error, pmra_error, pmdec_error, phot_g_mean_mag, ref_epoch, radial_velocity, ruwe FROM dbo.gaia_source WHERE source_id = 4472832130942575872"/>
+<TABLE>
+<FIELD name="source_id" datatype="long" ucd="meta.id">
+<DESCRIPTION>source id</DESCRIPTION></FIELD>
+<FIELD name="ra" datatype="double" unit="deg" ucd="pos.eq.ra;meta.main">
+<DESCRIPTION>barycentric right ascension of the source in icrs at the reference epoch</DESCRIPTION></FIELD>
+<FIELD name="dec" datatype="double" unit="deg" ucd="pos.eq.dec;meta.main">
+<DESCRIPTION>barycentric declination of the source in icrs at the reference epoch</DESCRIPTION></FIELD>
+<FIELD name="pmra" datatype="double" unit="mas/yr" ucd="pos.pm;pos.eq.ra">
+<DESCRIPTION>proper motion in right ascension direction pmra* = pmra x cosde at the reference epoch</DESCRIPTION></FIELD>
+<FIELD name="pmdec" datatype="double" unit="mas/yr" ucd="pos.pm;pos.eq.dec">
+<DESCRIPTION>proper motion in declination direction at the reference epoch</DESCRIPTION></FIELD>
+<FIELD name="parallax" datatype="double" unit="mas" ucd="pos.parallax.trig">
+<DESCRIPTION>parallax</DESCRIPTION></FIELD>
+<FIELD name="parallax_error" datatype="float" unit="mas" ucd="stat.error;pos.parallax.trig">
+<DESCRIPTION>parallax error</DESCRIPTION></FIELD>
+<FIELD name="pmra_error" datatype="float" unit="mas/yr" ucd="stat.error;pos.pm;pos.eq.ra">
+<DESCRIPTION>standard error on proper motion in right ascension direction</DESCRIPTION></FIELD>
+<FIELD name="pmdec_error" datatype="float" unit="mas/yr" ucd="stat.error;pos.pm;pos.eq.dec">
+<DESCRIPTION>standard error on proper motion in declination direction</DESCRIPTION></FIELD>
+<FIELD name="phot_g_mean_mag" datatype="float" unit="mag" ucd="phot.mag;stat.mean;em.opt">
+<DESCRIPTION>g band mean mag</DESCRIPTION></FIELD>
+<FIELD name="ref_epoch" datatype="double" unit="yr" ucd="time.epoch">
+<DESCRIPTION>reference epoch julian years</DESCRIPTION></FIELD>
+<FIELD name="radial_velocity" datatype="float" unit="km/s" ucd="spect.dopplerveloc.opt">
+<DESCRIPTION>radial velocity</DESCRIPTION></FIELD>
+<FIELD name="ruwe" datatype="float" ucd="stat.error">
+<DESCRIPTION>renormalized unit weight error</DESCRIPTION></FIELD>
+<DATA>
+<TABLEDATA>
+<TR><TD>4472832130942575872</TD><TD>269.44850252543836</TD><TD>4.739420051112412</TD><TD>-801.5509783684709</TD><TD>10362.394206546573</TD><TD>546.975939730948</TD><TD>0.04011635482311249</TD><TD>0.0318208672106266</TD><TD>0.036070454865694046</TD><TD>8.193974494934082</TD><TD>2016.0</TD><TD>-110.46822357177734</TD><TD>1.084850549697876</TD></TR>
+</TABLEDATA>
+</DATA>
+</TABLE>
+<INFO name="QUERY_STATUS" value="OVERFLOW"/>
+</RESOURCE>
+</VOTABLE>

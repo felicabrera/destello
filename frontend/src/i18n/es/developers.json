@@ -1,0 +1,103 @@
+{
+  "nav": "Desarrolladores",
+  "kicker": "Desarrolladores",
+  "title": "Usar Destello desde código",
+  "lead": "La API pública, el reproductor incrustable, el contrato de URL, los límites de uso y los recursos de datos detrás de cada fotograma.",
+  "toc": "En esta página",
+  "sections": {
+    "python": "Abrir en Python",
+    "api": "Endpoints de la API",
+    "embed": "Incrustar",
+    "url": "Contrato de URL",
+    "limits": "Límites de uso",
+    "resources": "Recursos de datos",
+    "credits": "Créditos"
+  },
+  "python": {
+    "body": "Cada secuencia puede descargarse como un cuaderno de Jupyter generado a partir de su manifiesto. Enumera los identificadores de observación, las colecciones, los DOI y las direcciones de los recortes exactos, y sigue los cuadernos tutoriales de SPHEREx de IRSA: descarga, resta de la luz zodiacal, máscara de indicadores leída del encabezado del archivo, una coadición por época, un parpadeo con un único estiramiento por detector, posiciones de Gaia DR3 propagadas a cada época y las citas. Es una reproducción simplificada del procesamiento de Destello.",
+    "how": "Abra una secuencia en el explorador, elija Exportar y luego Abrir en Python. El mismo archivo está disponible desde la API:",
+    "endpoint": "GET /api/v1/sequences/{sequence_id}/notebook"
+  },
+  "api": {
+    "body": "La lista siguiente se lee del documento OpenAPI que la API sirve en {{url}}. Las descripciones están en inglés. Documentación interactiva: {{docs}}.",
+    "loading": "Cargando la descripción de la API",
+    "error": "No se pudo cargar la descripción de la API: el servicio no es accesible desde esta página. El documento OpenAPI se sirve en {{url}} cuando el servicio está en funcionamiento.",
+    "none": "La descripción de la API no enumera endpoints.",
+    "region": "Endpoints de la API, {{tag}}",
+    "method": "Método",
+    "path": "Ruta",
+    "summary": "Descripción",
+    "untagged": "otros",
+    "version": "API {{title}}, versión {{version}}"
+  },
+  "embed": {
+    "body": "Cualquier vista puede colocarse en otra página con un iframe. La ruta es /embed, con los mismos parámetros del contrato de URL más controls (full, minimal o none) y theme (dark o light). Solo /embed puede ser incrustada por otros sitios. Mensajes opcionales a la página que la contiene: destello:ready y destello:frame.",
+    "snippet": "Código para incrustar",
+    "snippetLabel": "Código para incrustar, solo lectura"
+  },
+  "url": {
+    "body": "Rutas: /t/{target} abre un objeto predefinido (barnard, wise0855, epsindib, rwaur, rdra); / con ra y dec, o name, abre cualquier posición. Todos los parámetros son opcionales. Los números de época empiezan en 1.",
+    "example": "Ejemplo",
+    "param": "Parámetro",
+    "values": "Valores",
+    "meaning": "Significado",
+    "rows": {
+      "ra": "Posición, grados decimales o sexagesimal codificado en la URL (se ignora en /t/{target})",
+      "name": "Resolver por nombre: primero los nombres y alias predefinidos, luego SIMBAD",
+      "fov": "Campo de visión en minutos de arco",
+      "det": "Vista de detector",
+      "mode": "Modo de visualización",
+      "ref": "Época de referencia del modo de diferencia, desde 1",
+      "frame": "Época mostrada, desde 1",
+      "rgb": "Tres detectores distintos en el orden rojo, verde, azul",
+      "track": "Modo de seguimiento: fotogramas recentrados en la posición prevista de un objeto móvil conocido",
+      "fps": "Velocidad de reproducción",
+      "play": "Reproducción automática (desactivada por defecto si se pide movimiento reducido)",
+      "ov": "Capas superpuestas",
+      "tab": "Pestaña del panel abierta",
+      "release": "Publicación de datos (identificador de colección)",
+      "partial": "Incluir revisitas cortas como épocas de baja cobertura",
+      "lang": "Idioma de la interfaz",
+      "seq": "Cargar directamente una secuencia existente"
+    }
+  },
+  "limits": {
+    "body": "Los límites se aplican por cliente, identificado con un hash con sal de la dirección IP. Las respuestas incluyen RateLimit-Limit, RateLimit-Remaining y RateLimit-Reset. Superar un límite devuelve 429 con Retry-After.",
+    "scope": "Ámbito",
+    "limit": "Límite",
+    "rows": {
+      "all": "Todas las solicitudes a la API",
+      "build": "Solicitudes que inician una construcción nueva (POST /sequences)",
+      "reports": "POST /reports (se exige una verificación Turnstile)",
+      "checks": "POST /reports/check",
+      "compute": "Astrometría, espectro y otros resultados calculados, incluido el cuaderno",
+      "errors": "POST /client-errors (los informes que superan el límite se descartan)"
+    },
+    "perMinute": "{{n}} por minuto",
+    "per10Minutes": "{{n}} cada 10 minutos",
+    "perHour": "{{n}} por hora"
+  },
+  "resources": {
+    "body": "Cada fuente, servicio y herramienta externos que Destello usa o en los que se inspira, con su licencia y el reconocimiento que solicita. La tabla se genera a partir de docs/17 del repositorio y el texto se copia tal como allí figura, en inglés. Donde el registro dice not verified, la página del proveedor no pudo leerse o no lo indicaba; no se ha completado nada.",
+    "register": "Registro",
+    "terms": "Condiciones que requieren atención",
+    "caption": "Registro de recursos de datos",
+    "name": "Nombre",
+    "provider": "Proveedor y agencia",
+    "official": "Recurso oficial del desafío",
+    "host": "Servidor",
+    "access": "Método de acceso",
+    "usage": "Dónde se usa en Destello",
+    "version": "Publicación o versión de los datos",
+    "licence": "Licencia o condiciones de uso",
+    "acknowledgement": "Reconocimiento y cita exigidos",
+    "status": "Estado",
+    "unverified": "Contiene celdas marcadas como not verified"
+  },
+  "credits": {
+    "body": "Destello se apoya en el trabajo de otras personas.",
+    "spherex": "Los cuadernos tutoriales de SPHEREx de Caltech/IPAC IRSA: los patrones de acceso a recortes, el WCS espectral y las consultas TAP que siguen el cuaderno exportado y el procesamiento.",
+    "wiseview": "Inspirado en WiseView (Backyard Worlds): la idea de alternar imágenes ordenadas en el tiempo para encontrar objetos en movimiento. No se toman datos ni código de esa herramienta.",
+    "neossat": "El tutorial de datos de NEOSSat de la Agencia Espacial Canadiense, como referencia para trabajar con datos de NEOSSat."
+  }
+}

@@ -1,0 +1,11 @@
+import { chromium } from '@playwright/test';
+const [file, out, w = '1440', h = '1600'] = process.argv.slice(2);
+const browser = await chromium.launch({ channel: 'chrome' });
+const page = await (await browser.newContext({ viewport: { width: +w, height: +h } })).newPage();
+const errs = [];
+page.on('requestfailed', (r) => errs.push(r.url().slice(0, 80)));
+await page.goto('http://localhost:8099/' + encodeURIComponent(file));
+await page.waitForTimeout(4000);
+await page.screenshot({ path: out, fullPage: true });
+console.log(JSON.stringify(errs.slice(0, 5)), await page.evaluate(() => document.body.scrollHeight));
+await browser.close();

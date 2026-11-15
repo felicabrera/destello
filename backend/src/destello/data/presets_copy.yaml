@@ -1,0 +1,38 @@
+# Preset copy keyed by target id. Text only; no numbers are taken from the design placeholders.
+# `label` holds the HUD label offsets in frame pixels (dx, dy), copied from the design handoff.
+# The "look" and "limit" sentences describe what is expected; measured results come from the pipeline.
+barnard:
+  kind: {en: "Red dwarf star", es: "Estrella enana roja"}
+  headline: {en: "The fastest-moving star in our sky, seen moving by SPHEREx", es: "La estrella de movimiento más rápido de nuestro cielo, vista en movimiento por SPHEREx"}
+  look: {en: "A bright dot stepping north between epochs while every other star stays put.", es: "Un punto brillante que avanza hacia el norte entre épocas mientras las demás estrellas permanecen quietas."}
+  caption: {en: "The dot that moves between epochs is Barnard's Star.", es: "El punto que se desplaza entre épocas es la estrella de Barnard."}
+  limit: {en: "It is bright in the near infrared and may saturate in some detectors. Flagged pixels are excluded from centroids.", es: "Es brillante en el infrarrojo cercano y puede saturar en algunos detectores. Los píxeles marcados se excluyen de los centroides."}
+  label: {dx: 7, dy: -1}
+wise0855:
+  kind: {en: "Brown dwarf", es: "Enana marrón"}
+  headline: {en: "The coldest known brown dwarf crossing the infrared sky", es: "La enana marrón más fría conocida cruzando el cielo infrarrojo"}
+  look: {en: "A faint dot stepping west in D5 and D6. At shorter wavelengths it is not detected.", es: "Un punto tenue que avanza hacia el oeste en D5 y D6. En longitudes de onda más cortas no se detecta."}
+  caption: {en: "The faint dot that moves between epochs is WISE 0855-0714. It shows up only at the longest wavelengths.", es: "El punto tenue que se desplaza entre épocas es WISE 0855-0714. Solo aparece en las longitudes de onda más largas."}
+  limit: {en: "Too faint at short wavelengths. With few epochs, parallax is fixed to the published value.", es: "Demasiado tenue en longitudes de onda cortas. Con pocas épocas, el paralaje se fija al valor publicado."}
+  label: {dx: -9, dy: 7}
+epsindib:
+  kind: {en: "Two brown dwarfs", es: "Dos enanas marrones"}
+  headline: {en: "Two brown dwarfs travelling together, seen as one point", es: "Dos enanas marrones que viajan juntas, vistas como un solo punto"}
+  look: {en: "One dot moving south-east. It is really two objects less than 1 arcsec apart.", es: "Un punto que se mueve hacia el sureste. En realidad son dos objetos separados por menos de 1 segundo de arco."}
+  caption: {en: "The moving dot is Epsilon Indi B: two brown dwarfs too close together for SPHEREx to separate.", es: "El punto en movimiento es Épsilon Indi B: dos enanas marrones demasiado cercanas para que SPHEREx las separe."}
+  limit: {en: "SPHEREx pixels are about 6.2 arcsec, so the pair cannot be split. Bright Epsilon Indi A, about 400 arcsec away, adds scattered light.", es: "Los píxeles de SPHEREx miden unos 6,2 segundos de arco, por lo que el par no puede separarse. La brillante Épsilon Indi A, a unos 400 segundos de arco, añade luz dispersa."}
+  label: {dx: 6, dy: -6}
+rwaur:
+  kind: {en: "Young star", es: "Estrella joven"}
+  headline: {en: "A young star that flickers as dust passes in front of it", es: "Una estrella joven que parpadea cuando el polvo pasa frente a ella"}
+  look: {en: "The central dot stays in place but its brightness can change between epochs, while neighbouring stars stay steady.", es: "El punto central permanece en su lugar pero su brillo puede cambiar entre épocas, mientras las estrellas vecinas se mantienen estables."}
+  caption: {en: "RW Aurigae stays in place and may fade or brighten between epochs.", es: "RW Aurigae permanece en su lugar y puede atenuarse o aumentar su brillo entre épocas."}
+  limit: {en: "Its companion, about 1.5 arcsec away, is blended in. Quick Release fluxes are preliminary.", es: "Su compañera, a unos 1,5 segundos de arco, está mezclada. Los flujos de las Quick Release son preliminares."}
+  label: {dx: 7, dy: -1}
+rdra:
+  kind: {en: "Pulsating giant, Mira variable", es: "Gigante pulsante, variable tipo Mira"}
+  headline: {en: "A pulsating giant star that changes brightness over months", es: "Una estrella gigante pulsante que cambia de brillo a lo largo de los meses"}
+  look: {en: "The bright star at the center swells and fades between epochs. The spectrum changes with pulsation phase.", es: "La estrella brillante del centro se intensifica y se atenúa entre épocas. El espectro cambia con la fase de pulsación."}
+  caption: {en: "R Draconis is a giant star that pulses. Compare its brightness between epochs.", es: "R Draconis es una estrella gigante que pulsa. Compare su brillo entre épocas."}
+  limit: {en: "It is bright and may saturate some detectors in some exposures. Spectral shape changes with pulsation phase.", es: "Es brillante y puede saturar algunos detectores en ciertas exposiciones. La forma espectral cambia con la fase de pulsación."}
+  label: {dx: 7, dy: -1}

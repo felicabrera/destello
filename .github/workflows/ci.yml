@@ -1,0 +1,133 @@
+# Continuous integration: backend and frontend gates, repository checks, container and workflow linting.
+# Runs for pushes to main and for pull requests (including forks): no secrets and a read-only token are
+# needed anywhere in this file. The deploy workflow starts only after this workflow succeeds on main.
+name: ci
+on:
+  push: {branches: [main]}
+  pull_request:
+permissions: {}
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: backend (ruff, mypy, pytest)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    permissions: {contents: read}
+    defaults: {run: {working-directory: backend}}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {persist-credentials: false}
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with: {enable-cache: true, cache-dependency-glob: backend/uv.lock}
+      - run: uv sync --frozen
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run mypy src
+      - name: Unit and integration tests (science validation runs in its own job)
+        run: uv run pytest -q -m "not science and not network" --ignore=tests/science
+
+  backend-science:
+    # Validation on recorded real cutouts committed under tests/fixtures: no network access is needed.
+    name: backend (science validation)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    permissions: {contents: read}
+    defaults: {run: {working-directory: backend}}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {persist-credentials: false}
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with: {enable-cache: true, cache-dependency-glob: backend/uv.lock}
+      - run: uv sync --frozen
+      - run: uv run pytest -q tests/science -m science
+
+  frontend:
+    name: frontend (lint, types, tests, build)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    permissions: {contents: read}
+    defaults: {run: {working-directory: frontend}}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {persist-credentials: false}
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with: {version: 11.22.0}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: {node-version: 22, cache: pnpm, cache-dependency-path: frontend/pnpm-lock.yaml}
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - name: Unit tests (includes i18n EN/ES parity)
+        run: pnpm test
+      - run: pnpm build
+      - name: Design placeholder and secret check (source and built bundle)
+        working-directory: .
+        run: python3 scripts/check_placeholders.py
+
+  repository:
+    name: repository checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {persist-credentials: false}
+      - name: No em dash in tracked text files
+        run: scripts/check-no-em-dash.sh
+      - name: Shell scripts (shellcheck)
+        run: shellcheck scripts/smoke.sh scripts/check-no-em-dash.sh
+
+  workflows:
+    name: workflow lint (actionlint)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {persist-credentials: false}
+      - name: Install actionlint (release archive, checksum verified)
+        run: |
+          set -euo pipefail
+          url="https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_1.7.12_linux_amd64.tar.gz"
+          curl -fsSL -o "$RUNNER_TEMP/actionlint.tar.gz" "$url"
+          echo "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8  $RUNNER_TEMP/actionlint.tar.gz" | sha256sum -c -
+          tar -xzf "$RUNNER_TEMP/actionlint.tar.gz" -C "$RUNNER_TEMP" actionlint
+      - name: Lint workflows
+        run: |
+          "$RUNNER_TEMP/actionlint" -color
+
+  docker:
+    name: containers (hadolint, compose, build)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {persist-credentials: false}
+      - name: Dockerfile lint (hadolint)
+        uses: hadolint/hadolint-action@06be81baf89a55ffd0e24b8f04a4185738dd3387 # v3.5.0
+        with: {dockerfile: backend/Dockerfile, failure-threshold: warning}
+      - name: Dockerfile lint, frontend image
+        uses: hadolint/hadolint-action@06be81baf89a55ffd0e24b8f04a4185738dd3387 # v3.5.0
+        with: {dockerfile: deploy/frontend.Dockerfile, failure-threshold: warning}
+      - name: Compose files validate (dummy environment)
+        env:
+          TAG: ci
+          DESTELLO_GHCR_OWNER: example
+        run: |
+          set -euo pipefail
+          cp deploy/env.example deploy/.env
+          docker compose --env-file deploy/.env -f deploy/docker-compose.prod.yml config --quiet
+          docker compose --env-file deploy/.env -f deploy/docker-compose.yml config --quiet
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - name: Build backend runtime image (no push)
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: backend
+          target: runtime
+          push: false
+          cache-from: type=gha,scope=backend
+          cache-to: type=gha,mode=max,scope=backend

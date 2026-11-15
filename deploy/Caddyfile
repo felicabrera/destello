@@ -1,0 +1,224 @@
+# Destello Caddyfile for the local stack (production uses Caddyfile.prod; keep the site block in sync).
+#
+# Contract relied upon by the frontend:
+#   /api/*          reverse proxy to the API (SSE streaming enabled)
+#   /frames/*       content addressed files from the data volume, immutable cache only when the file exists
+#   /manifests/*    per sequence files from the data volume, 60 s cache plus ETag revalidation when the file exists
+#   /assets/*       hashed frontend assets, immutable cache only when the file exists
+#   everything else SPA: /<path>/index.html when prerendered, else index.html (no-cache), so /t/barnard, /embed, /science work
+#   /robots.txt /sitemap.xml /llms.txt /llms-full.txt and the .md twins: files from the build, 1 h cache
+#   /embed*         Content-Security-Policy frame-ancestors * ; all other routes 'self'
+#
+# DESTELLO_SITE_ADDRESS defaults to ":80" (plain HTTP for local use).
+(base_headers) {
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+		-X-Powered-By
+		-Via
+	}
+}
+
+{$DESTELLO_SITE_ADDRESS::80} {
+	encode zstd gzip
+
+	import base_headers
+
+	# frame-ancestors * only on /embed; every other route 'self'. Aladin Lite needs HiPS tiles over https
+	# (img-src, connect-src https:) and WebAssembly. Deferred so that the value replaces the header sent by
+	# the API instead of being added next to it (one CSP header per response).
+	@embed path /embed*
+	header @embed {
+		Content-Security-Policy "default-src 'self'; img-src 'self' data: blob: https:; script-src 'self' 'wasm-unsafe-eval' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https: data:; worker-src 'self' blob:; frame-src 'self' https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; object-src 'none'; frame-ancestors *"
+		defer
+	}
+	@notembed not path /embed*
+	header @notembed {
+		Content-Security-Policy "default-src 'self'; img-src 'self' data: blob: https:; script-src 'self' 'wasm-unsafe-eval' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https: data:; worker-src 'self' blob:; frame-src 'self' https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; object-src 'none'; frame-ancestors 'self'"
+		defer
+	}
+
+	# Search engines: API, embed, demo and manifest responses are not for the index. The deferred header
+	# replaces any value the API sends. The pages and the text files for crawlers (llms.txt, sitemap) stay indexable.
+	@noindex path /api/* /embed /embed/* /demo/* /manifests/*
+	header @noindex {
+		X-Robots-Tag "noindex"
+		defer
+	}
+
+	handle /api/* {
+		reverse_proxy api:8000 {
+			flush_interval -1
+		}
+	}
+
+	# Content addressed files only: <16 hex>.(webp|fits|png) and <16 hex>[.photometry].json. Else 404 without
+	# a cache header, so a frame requested before it exists is never cached as missing.
+	handle_path /frames/* {
+		root * /data/frames
+		@frame {
+			path_regexp ^/[0-9a-f]{16}\.(webp|fits|png)$
+			file
+		}
+		handle @frame {
+			header Cache-Control "public, max-age=31536000, immutable"
+			file_server
+		}
+		handle {
+			header Cache-Control "no-store"
+			respond 404
+		}
+	}
+
+	handle_path /manifests/* {
+		root * /data/manifests
+		@manifest {
+			path_regexp ^/[0-9a-f]{16}(\.photometry)?\.json$
+			file
+		}
+		handle @manifest {
+			# A manifest keeps its name when its sequence is rebuilt (new release data, eviction and
+			# rebuild), so it is cached briefly and revalidated with the ETag that file_server sets.
+			header Cache-Control "public, max-age=60"
+			file_server
+		}
+		handle {
+			header Cache-Control "no-store"
+			respond 404
+		}
+	}
+
+	# Sky map fallback. When the CDS image servers are unreachable the context panel reads the 2MASS and
+	# AllWISE HiPS from NASA/IPAC IRSA through this route (IRSA sends no CORS headers, so the browser
+	# cannot read it directly). Fixed upstream and fixed paths only: the properties file, the all-sky
+	# previews and the JPEG tiles of these two surveys.
+	@hips {
+		method GET HEAD
+		path_regexp hips ^/hips/(2MASS/Color|AllWISE/RGB-W4-W2-W1)/(properties|Moc\.fits|Norder\d{1,2}/Allsky\.jpg|Norder\d{1,2}/Dir\d{1,9}/Npix\d{1,9}\.jpg)$
+	}
+	handle @hips {
+		rewrite * /data/hips/CDS/{re.hips.1}/{re.hips.2}
+		reverse_proxy https://irsa.ipac.caltech.edu {
+			header_up Host irsa.ipac.caltech.edu
+			header_up -Cookie
+			header_up -Authorization
+			header_up -X-Forwarded-For
+			header_down -Set-Cookie
+			header_down Cache-Control "public, max-age=604800"
+		}
+	}
+	handle /hips/* {
+		header Cache-Control "no-store"
+		respond 404
+	}
+
+	# Static demo bundle (F-18, scripts/export_demo.py): same origin fallback used by the client when
+	# the API does not answer. Only existing files are served; anything else is a 404.
+	handle_path /demo/* {
+		root * /srv/demo
+		@demofile file
+		handle @demofile {
+			header Cache-Control "public, max-age=300"
+			file_server
+		}
+		handle {
+			header Cache-Control "no-store"
+			respond 404
+		}
+	}
+
+	handle /assets/* {
+		root * /srv/www
+		@asset file
+		handle @asset {
+			header Cache-Control "public, max-age=31536000, immutable"
+			# Brotli and gzip siblings written at build time (frontend/scripts/precompress.mjs).
+			file_server {
+				precompressed br gzip
+			}
+		}
+		handle {
+			header Cache-Control "no-store"
+			respond 404
+		}
+	}
+
+	# Files for crawlers and language-model readers, written by frontend/scripts/seo-build.mjs. They are
+	# served as they are (a missing file is a 404, never the SPA shell) with a short cache lifetime.
+	@seofiles path /robots.txt /sitemap.xml /llms.txt /llms-full.txt /about.md /science.md /validation.md
+	handle @seofiles {
+		root * /srv/www
+		header Cache-Control "public, max-age=3600"
+		header /robots.txt Content-Type "text/plain; charset=utf-8"
+		header /llms.txt Content-Type "text/plain; charset=utf-8"
+		header /llms-full.txt Content-Type "text/plain; charset=utf-8"
+		header /sitemap.xml Content-Type "application/xml; charset=utf-8"
+		header /*.md Content-Type "text/markdown; charset=utf-8"
+		file_server {
+			precompressed br gzip
+		}
+	}
+
+	# Well-known discovery paths: the site publishes none, so each is a plain 404 and never the SPA shell
+	# (a client that asks for a manifest here must not receive index.html).
+	handle /.well-known/* {
+		header Cache-Control "no-store"
+		respond 404
+	}
+
+	# Stable, unhashed static files (brand images, favicons, touch icons) keep their names across releases but
+	# change rarely: 30 days. Hashed files under /assets are immutable (above); HTML stays no-cache (below).
+	@stablestatic path /brand/* /favicon.ico /apple-touch-icon.png /apple-touch-icon-precomposed.png
+	handle @stablestatic {
+		root * /srv/www
+		@stablefile file
+		handle @stablefile {
+			header Cache-Control "public, max-age=2592000"
+			file_server {
+				precompressed br gzip
+			}
+		}
+		handle {
+			header Cache-Control "no-store"
+			respond 404
+		}
+	}
+
+	# Prerendered pages: /story is served from /story/index.html when it exists (head tags for link previews and
+	# crawlers that do not run JavaScript), every other address falls back to the SPA shell.
+	handle {
+		root * /srv/www
+		header Cache-Control "no-cache"
+		try_files {path} {path}/index.html /index.html
+		file_server {
+			precompressed br gzip
+		}
+	}
+
+	# Errors raised by a handler (API unreachable, unreadable file) skip the deferred headers above, so
+	# they are set again here. The body never carries internals.
+	handle_errors {
+		import base_headers
+		header Cache-Control "no-store"
+
+		# Backend down (502, 503, 504): a small self-contained bilingual page from the frontend build
+		# (frontend/public/unavailable.html, inline styles only, no external requests).
+		@unavailable expression `{err.status_code} in [502, 503, 504]`
+		handle @unavailable {
+			header Content-Security-Policy "default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'"
+			root * /srv/www
+			rewrite * /unavailable.html
+			file_server {
+				status {err.status_code}
+			}
+		}
+
+		handle {
+			header Content-Security-Policy "default-src 'none'; frame-ancestors 'none'"
+			respond "{err.status_code} {err.status_text}" {err.status_code}
+		}
+	}
+}
